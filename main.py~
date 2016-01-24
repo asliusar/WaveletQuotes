@@ -75,7 +75,7 @@ def loadStock(stock):
     stockFile =[]
     try:
         print('Currently Pulling',stock)
-        urlToVisit = 'http://chartapi.finance.yahoo.com/instrument/1.0/'+stock+'/chartdata;type=quote;range=10y/csv'
+        urlToVisit = 'http://chartapi.finance.yahoo.com/instrument/1.0/'+stock+'/chartdata;type=quote;range=4m/csv'
         print('URL', urlToVisit)
         try:
             sourceCode = urllib.request.urlopen(urlToVisit).read().decode()
