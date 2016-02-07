@@ -93,7 +93,7 @@ def loadStock(stock):
 
 def graphData(stock,MA1,MA2):
     stockFile = loadStock(stock)
-    #stockFile = stockFile[1:100]
+    stockFile = stockFile[1:100]
     try:
         date, closep, highp, lowp, openp, volume = np.loadtxt(stockFile,delimiter=',', unpack=True,
                                                               converters={ 0: bytespdate2num('%Y%m%d')})
@@ -107,9 +107,9 @@ def graphData(stock,MA1,MA2):
 
         Av1 = movingaverage(closep, MA1)
         Av2 = movingaverage(closep, MA2)
-
+        print(closep)
         SP = len(date[MA2-1:])
-        cA,cD = pywt.dwt(Av1,'sym2')
+        cA,cD = pywt.dwt(closep,'haar')
 #SMA
 #--------------------------------------
         fig = plt.figure(facecolor='#07000d')
