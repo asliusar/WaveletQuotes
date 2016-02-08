@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_page(name = None):
-    return render_template('landing.html', name=name)
+    return render_template('plot_page.html', name=name)
 
 
 @app.route('/wavelets', methods=['POST'])
