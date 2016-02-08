@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: wavelets
+Version: 0.1
+Summary: Continuous wavelet analysis in Python
+Home-page: http://github.com/aaren/wavelets
+Author: Aaron O'Leary
+Author-email: eeaol@leeds.ac.uk
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires: numpy
+Requires: scipy
