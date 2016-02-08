@@ -58,7 +58,7 @@ def mainLoop(stock, wrange):
             # t = wa.time
             # reconstruction of the original data
             # rx = wa.reconstruction()
-            showResult(date, scales, power, '', 'text.png')
+            showResult(date, scales, power, '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
     except Exception as e:
         print('mainLoop', str(e))
 
