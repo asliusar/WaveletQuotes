@@ -9,6 +9,7 @@ from scipy.misc import factorial
 
 __all__ = ['Morlet', 'Paul', 'DOG', 'Ricker', 'Marr', 'Mexican_hat']
 
+
 class Morlet(object):
     def __init__(self, w0=6):
         """w0 is the nondimensional frequency constant. If this is
@@ -333,6 +334,3 @@ class Ricker(DOG):
 # aliases for DOG2
 Marr = Ricker
 Mexican_hat = Ricker
-
-
-all_wavelets = [Morlet, Paul, DOG, Ricker, Marr, Mexican_hat]
