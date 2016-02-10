@@ -6,7 +6,11 @@ import urllib.request, urllib.error, urllib.parse
 import matplotlib.dates as mdates
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter, drange
 from datetime import datetime
+import math
 from numpy import arange
+
+
+common_folder = 'static/results/'
 
 def bytespdate2num(fmt, encoding='utf-8'):
     strconverter = mdates.strpdate2num(fmt)
@@ -43,7 +47,6 @@ def mainLoop(stock, wrange):
         date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
         x = closep
 
-        common_folder = 'results/'
         folder_name = stock + '_' + wrange
 
         if not os.path.exists(common_folder + folder_name):
@@ -58,7 +61,29 @@ def mainLoop(stock, wrange):
             # t = wa.time
             # reconstruction of the original data
             # rx = wa.reconstruction()
-            showResult(date, scales, power, '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
+
+            showResult(date, scales, power, 5, '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
+    except Exception as e:
+        print('mainLoop', str(e))
+
+
+def calculateWavelet(stock, wrange, wavelet_name):
+    try:
+        date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
+        x = closep
+
+        time_scale = int(wrange[:-1])
+        wavelet = next((x for x in all_wavelets if x.__name__ == wavelet_name), None)
+        folder_name = stock + '_' + wrange
+
+        if not os.path.exists(common_folder + folder_name):
+            os.makedirs(common_folder + folder_name)
+        wa = WaveletAnalysis(data=x, wavelet=wavelet())
+        # wavelet power spectrum
+        power = wa.wavelet_power
+        # scales
+        scales = wa.scales
+        showResult(date, scales, power, math.ceil(time_scale/4.), '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
     except Exception as e:
         print('mainLoop', str(e))
 
@@ -72,11 +97,11 @@ def prepareData(stock, wrange):
         print('prepareData', str(e))
 
 
-def showResult(date, scales, power, window, fileName):
+def showResult(date, scales, power, time_scale, window, fileName):
     import matplotlib.pyplot as plt
     # y_ticks = np.arange(0, 15, 2)
     fig, ax = plt.subplots()
-    ax.xaxis.set_major_locator(YearLocator(5))
+    ax.xaxis.set_major_locator(YearLocator(time_scale))
     # ax.set_yticks(y_ticks)
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
     ax.fmt_xdata = DateFormatter('%Y-%m-%d %H:%M:%S')
@@ -84,7 +109,7 @@ def showResult(date, scales, power, window, fileName):
     ax.contourf(date, scales, power, 100)
     # ax.set_yscale('log')
     fig.savefig(fileName)
-    fig.show()
-    fig.waitforbuttonpress()
+    # fig.show()
+    # fig.waitforbuttonpress()
 
-mainLoop('usdeur=x', '20y')
+# mainLoop('usdeur=x', '20y')

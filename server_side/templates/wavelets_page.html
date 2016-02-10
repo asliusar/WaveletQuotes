@@ -67,32 +67,7 @@
 
     <!-- Begin page content -->
     <div class="container">
-        {% if wavelet_image_name is defined %}
-        <img src="{{wavelet_image_name}}">
-        {% endif %}
 
-      <form action="/wavelets" method="post">
-          <div class="form-group">
-              <label for="wavelet_name">Wavelet:</label>
-              <select id="wavelet_name" name="wavelet_name">
-                {% for n in wavelet_list %}
-                <option>{{n}}</option>
-                {% endfor %}
-            </select>
-          </div>
-
-          <div class="form-group">
-              <label for="period">Wavelet:</label>
-              <select id="period" name="period">
-                  <option>1y</option>
-                  <option>2y</option>
-                  <option>5y</option>
-                  <option>10y</option>
-                  <option>20y</option>
-            </select>
-          </div>
-            <input type="submit" value="Submit">
-      </form>
     </div>
 
     <footer class="footer">
