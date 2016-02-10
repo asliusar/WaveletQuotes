@@ -20,7 +20,7 @@ def hello_page(name = None):
 def show_wavelets():
     print(request.form)
     wavelet_name = request.form["wavelet_name"]
-    stock = "usdeur=x"
+    stock = request.form["ticker"] + "=x"
     wrange = request.form["period"]
     calculateWavelet(stock, wrange,wavelet_name)
 

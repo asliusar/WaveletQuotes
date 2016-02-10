@@ -73,7 +73,7 @@
 
       <form action="/wavelets" method="post">
           <div class="form-group">
-              <label for="wavelet_name">Wavelet:</label>
+              <label for="wavelet_name" class="control-label col-sm-2">Wavelet:</label>
               <select id="wavelet_name" name="wavelet_name">
                 {% for n in wavelet_list %}
                 <option>{{n}}</option>
@@ -82,16 +82,24 @@
           </div>
 
           <div class="form-group">
-              <label for="period">Wavelet:</label>
+              <label for="period" class="control-label col-sm-2">Period:</label>
               <select id="period" name="period">
                   <option>1y</option>
                   <option>2y</option>
                   <option>5y</option>
                   <option>10y</option>
-                  <option>20y</option>
+                  <option selected>20y</option>
             </select>
           </div>
-            <input type="submit" value="Submit">
+
+          <div class="form-group">
+              <label for="ticker" class="control-label col-sm-2">Ticker string:</label>
+              <div class="col-sm-10">
+                  <input class="form-control" id="ticker" name="ticker" value="eurusd">
+              </div>
+          </div>
+
+          <input type="submit" value="Submit">
       </form>
     </div>
 

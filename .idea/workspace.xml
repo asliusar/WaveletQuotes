@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3426d4bf-8213-4284-8a66-a7c0e2142c4f" name="Default" comment="add request/response samples">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server_side/templates/wavelets_page.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/sample.py" afterPath="$PROJECT_DIR$/waveletMaker.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/server_side/test.py" afterPath="$PROJECT_DIR$/server_side/routes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/results/usdeur=x_20y/Morlet.png" afterPath="$PROJECT_DIR$/results/usdeur=x_20y/Morlet.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Wavelets.iml" afterPath="$PROJECT_DIR$/.idea/Wavelets.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server_side/routes.py" afterPath="$PROJECT_DIR$/server_side/routes.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server_side/templates/plot_page.html" afterPath="$PROJECT_DIR$/server_side/templates/plot_page.html" />
     </list>
     <ignored path="Wavelets.iws" />
@@ -30,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="plot_page.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="plot_page.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server_side/templates/plot_page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-31.153847">
-              <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.5771144">
+              <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -44,7 +38,7 @@
         <entry file="file://$PROJECT_DIR$/server_side/routes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
+              <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -52,10 +46,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="waveletMaker.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="waveletMaker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/waveletMaker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48364487">
+            <state vertical-scroll-proportion="0.0">
               <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -114,9 +108,9 @@
         <option value="$PROJECT_DIR$/server_side/test.py" />
         <option value="$PROJECT_DIR$/sample.py" />
         <option value="$PROJECT_DIR$/server_side/templates/wavelets_page.html" />
-        <option value="$PROJECT_DIR$/server_side/templates/plot_page.html" />
-        <option value="$PROJECT_DIR$/server_side/routes.py" />
         <option value="$PROJECT_DIR$/waveletMaker.py" />
+        <option value="$PROJECT_DIR$/server_side/routes.py" />
+        <option value="$PROJECT_DIR$/server_side/templates/plot_page.html" />
       </list>
     </option>
   </component>
@@ -479,7 +473,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17349927" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -866,14 +860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server_side/templates/plot_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-31.153847">
-          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wavelets/wavelets.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -882,23 +868,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/waveletMaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server_side/routes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
+          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/waveletMaker.py">
+    <entry file="file://$PROJECT_DIR$/server_side/templates/plot_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48364487">
-          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.5771144">
+          <caret line="83" column="34" selection-start-line="83" selection-start-column="34" selection-end-line="83" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
