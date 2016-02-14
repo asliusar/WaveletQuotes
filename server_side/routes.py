@@ -4,8 +4,8 @@ import json
 import numpy as np
 import os
 from flask import request
-from wavelets.wavelets import __all__
 from waveletMaker import mainLoop,common_folder,calculateWavelet
+from wavelets.wavelets import __all__
 app = Flask(__name__)
 
 @app.route('/')

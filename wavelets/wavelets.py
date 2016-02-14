@@ -334,5 +334,4 @@ class Ricker(DOG):
 Marr = Ricker
 Mexican_hat = Ricker
 
-
 all_wavelets = [Morlet, Paul, DOG, Ricker, Marr, Mexican_hat]

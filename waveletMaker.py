@@ -7,7 +7,6 @@ import matplotlib.dates as mdates
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter, drange
 from datetime import datetime
 import math
-from numpy import arange
 
 
 common_folder = 'static/results/'
@@ -109,7 +108,7 @@ def showResult(date, scales, power, time_scale, window, fileName):
     ax.contourf(date, scales, power, 100)
     # ax.set_yscale('log')
     fig.savefig(fileName)
-    # fig.show()
-    # fig.waitforbuttonpress()
+    #fig.show()
+    #fig.waitforbuttonpress()
 
-# mainLoop('usdeur=x', '20y')
+#mainLoop('usdeur=x', '20y')
