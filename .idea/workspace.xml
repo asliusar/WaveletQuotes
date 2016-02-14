@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="3426d4bf-8213-4284-8a66-a7c0e2142c4f" name="Default" comment="add request/response samples">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Wavelets.iml" afterPath="$PROJECT_DIR$/.idea/Wavelets.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+=======
+>>>>>>> f691e8443a1f8361c4bf42d0b902fd82a98bc507
     </list>
     <ignored path="Wavelets.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +32,13 @@
       <file leaf-file-name="plot_page.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server_side/templates/plot_page.html">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="-14.185185">
               <caret line="54" column="10" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+=======
+            <state vertical-scroll-proportion="-2.5185184">
+              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+>>>>>>> f691e8443a1f8361c4bf42d0b902fd82a98bc507
               <folding />
             </state>
           </provider>
@@ -52,7 +60,11 @@
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
               <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+=======
+              <caret line="0" column="5" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+>>>>>>> f691e8443a1f8361c4bf42d0b902fd82a98bc507
               <folding />
             </state>
           </provider>
@@ -880,8 +892,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server_side/templates/plot_page.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-14.185185">
           <caret line="54" column="10" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+=======
+        <state vertical-scroll-proportion="-2.5185184">
+          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="5" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+>>>>>>> f691e8443a1f8361c4bf42d0b902fd82a98bc507
           <folding />
         </state>
       </provider>
