@@ -4,3 +4,5 @@
 server_side/static/results/*
 .idea/*
 *.pyc
+__pycache__
+__pycache__/*
