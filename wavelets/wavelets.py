@@ -7,7 +7,7 @@ import scipy.optimize
 import scipy.special
 from scipy.misc import factorial
 
-__all__ = ['Morlet', 'Paul', 'DOG', 'Ricker', 'Marr', 'Mexican_hat']
+__all__ = ['Morlet', 'Paul', 'DOG', 'Ricker']
 
 class Morlet(object):
     def __init__(self, w0=6):
@@ -334,4 +334,4 @@ class Ricker(DOG):
 Marr = Ricker
 Mexican_hat = Ricker
 
-all_wavelets = [Morlet, Paul, DOG, Ricker, Marr, Mexican_hat]
+all_wavelets = [Morlet, Paul, DOG, Ricker]

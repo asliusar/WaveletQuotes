@@ -57,9 +57,13 @@
 
     <!-- Begin page content -->
     <div class="container">
-        {% if wavelet_image_name is defined %}
-        <img src="{{wavelet_image_name}}">
-        {% endif %}
+        <dir class="row">
+            {% if wavelet_image_names is defined %}
+                {%- for name in wavelet_image_names %}
+                    <img class="col-md-6" src="{{name}}">
+                {%- endfor %}
+            {% endif %}
+        </dir>
 
       <form action="/wavelets" method="post">
           <div class="form-group">
