@@ -1,5 +1,6 @@
 .idea/workspace.xml
 .idea
+/server_side/static/results
 .idea/*
 *.pyc
 server_side/static/results/*
