@@ -59,8 +59,11 @@
     <div class="container">
         <dir class="row">
             {% if wavelet_image_names is defined %}
-                {%- for name in wavelet_image_names %}
-                    <img class="col-md-6" src="{{name}}">
+                {%- for spectrum in wavelet_image_names %}
+                    <div class="col-md-6" style="text-align:center">
+                        <img class="col-md-12" src="{{spectrum.img}}">
+                        <span>{{spectrum.name}}</span>
+                    </div>
                 {%- endfor %}
             {% endif %}
         </dir>

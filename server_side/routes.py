@@ -10,6 +10,12 @@ from os import listdir
 from os.path import isfile, join
 app = Flask(__name__)
 
+
+class Wavelet:
+   def __init__(self, name, img):
+      self.name = name
+      self.img = img
+
 @app.route('/')
 def hello_page(name = None):
     wavelet_list_retrieved = ["All"] + __all__
@@ -31,11 +37,12 @@ def show_wavelets():
     if wavelet_name != 'All':
         print("1 - " + wavelet_name)
         calculateWavelet(stock, wrange, wavelet_name)
-        wavelet_image_name.append(common_folder + folder_name + '/' + wavelet_name + '.png')
+        wavelet_image_name.append(
+                Wavelet(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
     else :
         mainLoop(stock, wrange)
         for name in __all__:
-            wavelet_image_name.append(common_folder + folder_name + '/' + name + '.png')
+            wavelet_image_name.append(Wavelet(name, common_folder + folder_name + '/' + name + '.png'))
 
     wavelet_list_retrieved = ["All"] + __all__
     print(wavelet_image_name)
@@ -52,6 +59,7 @@ def requestResponse():
 def getPersonById():
     personId = int(request.form['personId'])
     return str(personId)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
