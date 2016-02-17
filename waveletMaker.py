@@ -66,10 +66,14 @@ def mainLoop(stock, wrange):
         print('mainLoop', str(e))
 
 
-def calculateWavelet(stock, wrange, wavelet_name):
+def calculateWavelet(stock, wrange, wavelet_name,moving_avg_width):
     try:
         date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
         x = closep
+        for i in range(moving_avg_width-1,len(x)):
+            for j in range(i-moving_avg_width+1, i):
+                x[i] += x[j]
+            x[i] /= moving_avg_width
 
         time_scale = int(wrange[:-1])
         wavelet = next((x for x in all_wavelets if x.__name__ == wavelet_name), None)
