@@ -30,13 +30,13 @@ def show_wavelets():
     wavelet_name = request.form["wavelet_name"]
     stock = request.form["ticker"] + "=x"
     wrange = request.form["period"]
-    moving_avg_width = request.form["ma_param"]
+
     folder_name = stock + '_' + wrange
     wavelet_image_name = []
     print("1 - " + wavelet_name)
     if wavelet_name != 'All':
         print("1 - " + wavelet_name)
-        calculateWavelet(stock, wrange, wavelet_name,moving_avg_width)
+        calculateWavelet(stock, wrange, wavelet_name)
         wavelet_image_name.append(
                 Wavelet(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
     else :
