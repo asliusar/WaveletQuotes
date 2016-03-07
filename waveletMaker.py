@@ -4,11 +4,12 @@ import os
 from wavelets.wavelets import all_wavelets
 import urllib.request, urllib.error, urllib.parse
 import matplotlib.dates as mdates
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter, drange
 from datetime import datetime
 import math
-
+from numpy import cumsum, log, polyfit, sqrt, std, subtract
+from numpy.random import randn
 
 common_folder = 'static/results/'
 input_plot_name = 'input_plot'
@@ -47,13 +48,12 @@ def mainLoop(stock, wrange):
     try:
         date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
         x = closep
-
+        x = hurst(x)
         folder_name = stock + '_' + wrange
         plot_name = common_folder + folder_name + '/'+input_plot_name+'.png'
-        showPlot(date,x,plot_name)
-        print('why?')
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
+        showPlot(date,x,plot_name)
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=x, wavelet=wavelet())
             # wavelet power spectrum
@@ -64,7 +64,6 @@ def mainLoop(stock, wrange):
             # t = wa.time
             # reconstruction of the original data
             # rx = wa.reconstruction()
-
             showResult(date, scales, power, 5, '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
     except Exception as e:
         print('mainLoop', str(e))
@@ -74,7 +73,6 @@ def calculateWavelet(stock, wrange, wavelet_name,moving_avg_width):
     # try:
         date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
         x = closep
-        print()
         for i in range(moving_avg_width-1,len(x)):
             for j in range(i-moving_avg_width+1, i):
                 x[i] += x[j]
@@ -84,13 +82,13 @@ def calculateWavelet(stock, wrange, wavelet_name,moving_avg_width):
         folder_name = stock + '_' + wrange
 
         plot_name = common_folder + folder_name + '/'+input_plot_name+'.png'
-        print("shit")
-        showPlot(date,x,plot_name)
+
         wavelet = next((x for x in all_wavelets if x.__name__ == wavelet_name), None)
 
 
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
+        showPlot(date,x,plot_name)
         wa = WaveletAnalysis(data=x, wavelet=wavelet())
         # wavelet power spectrum
         power = wa.wavelet_power
@@ -128,4 +126,20 @@ def showPlot(date, data, file_name):
     plt.plot(date, data)
     plt.savefig(file_name)
 
+def hurst(ts):
+    # Create the range of lag values
+    hurst_ts = []
+    for tail in (1,len(ts)):
+
+        lags = range(1, min(100,len(ts)/2))
+        # Calculate the array of the variances of the lagged differences
+        cur_ts = ts[tail:]
+        tau = [sqrt(std(subtract(cur_ts[lag:], cur_ts[:-lag]))) for lag in lags]
+
+        # Use a linear fit to estimate the Hurst Exponent
+        poly = polyfit(log(lags), log(tau), 1)
+
+        # Return the Hurst exponent from the polyfit output
+        hurst_ts.append(poly[0]*2.0)
+    return hurst_ts
 #mainLoop('usdeur=x', '20y')
