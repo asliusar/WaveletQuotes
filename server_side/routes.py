@@ -4,7 +4,7 @@ import json
 import numpy as np
 import os
 from flask import request
-from waveletMaker import mainLoop,common_folder,calculateWavelet
+from waveletMaker import mainLoop,common_folder,calculateWavelet,input_plot_name
 from wavelets.wavelets import __all__
 from os import listdir
 from os.path import isfile, join
@@ -31,15 +31,17 @@ def show_wavelets():
     stock = request.form["ticker"] + "=x"
     wrange = request.form["period"]
     moving_avg_width = request.form["ma_param"]
+    moving_avg_width = int(moving_avg_width)
     folder_name = stock + '_' + wrange
     wavelet_image_name = []
-    print("1 - " + wavelet_name)
+    wavelet_image_name.append(Wavelet('input_plot',common_folder + folder_name + '/'+input_plot_name+'.png'))
+    print("1 - " + wavelet_name + "51252512")
     if wavelet_name != 'All':
-        print("1 - " + wavelet_name)
+        print("1 - " + wavelet_name + "1312312")
         calculateWavelet(stock, wrange, wavelet_name,moving_avg_width)
         wavelet_image_name.append(
                 Wavelet(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
-    else :
+    else:
         mainLoop(stock, wrange)
         for name in __all__:
             wavelet_image_name.append(Wavelet(name, common_folder + folder_name + '/' + name + '.png'))
