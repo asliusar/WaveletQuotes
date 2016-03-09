@@ -4,7 +4,7 @@ import json
 import numpy as np
 import os
 from flask import request
-from waveletMaker import mainLoop,common_folder,calculateWavelet,input_plot_name
+from waveletMaker import mainLoop,common_folder,calculateWavelet,input_plot_name,hurst_plot_name
 from wavelets.wavelets import __all__
 from os import listdir
 from os.path import isfile, join
@@ -35,6 +35,7 @@ def show_wavelets():
     folder_name = stock + '_' + wrange
     wavelet_image_name = []
     wavelet_image_name.append(Wavelet('input_plot',common_folder + folder_name + '/'+input_plot_name+'.png'))
+    # wavelet_image_name.append(Wavelet('hurst_plot',common_folder + folder_name + '/'+hurst_plot_name+'.png'))
     print("1 - " + wavelet_name)
     if wavelet_name != 'All':
         print("1 - " + wavelet_name)

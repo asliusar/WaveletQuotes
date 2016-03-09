@@ -13,6 +13,7 @@ from numpy.random import randn
 
 common_folder = 'static/results/'
 input_plot_name = 'input_plot'
+hurst_plot_name = 'hurst_plot'
 
 def bytespdate2num(fmt, encoding='utf-8'):
     strconverter = mdates.strpdate2num(fmt)
@@ -48,12 +49,14 @@ def mainLoop(stock, wrange):
     try:
         date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
         x = closep
-        x = hurst(x)
         folder_name = stock + '_' + wrange
         plot_name = common_folder + folder_name + '/'+input_plot_name+'.png'
+        hurst_name = common_folder + folder_name + '/'+hurst_plot_name+'.png'
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
+        # print(len(hurst(x)),len(x))
         showPlot(date,x,plot_name)
+        # showPlot(date,hurst(x),hurst_name)
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=x, wavelet=wavelet())
             # wavelet power spectrum
@@ -82,13 +85,14 @@ def calculateWavelet(stock, wrange, wavelet_name,moving_avg_width):
         folder_name = stock + '_' + wrange
 
         plot_name = common_folder + folder_name + '/'+input_plot_name+'.png'
-
+        hurst_name = common_folder + folder_name + '/'+hurst_plot_name+'.png'
         wavelet = next((x for x in all_wavelets if x.__name__ == wavelet_name), None)
 
 
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
         showPlot(date,x,plot_name)
+        showPlot(date,hurst(x),hurst_plot_name)
         wa = WaveletAnalysis(data=x, wavelet=wavelet())
         # wavelet power spectrum
         power = wa.wavelet_power
@@ -129,17 +133,21 @@ def showPlot(date, data, file_name):
 def hurst(ts):
     # Create the range of lag values
     hurst_ts = []
-    for tail in (1,len(ts)):
+    hurst_ts.append(ts[0])
+    for tail in (2,len(ts)):
 
-        lags = range(1, min(100,len(ts)/2))
+        lags = range(1, min(100,tail//2))
+        print(lags)
         # Calculate the array of the variances of the lagged differences
-        cur_ts = ts[tail:]
+        cur_ts = ts
         tau = [sqrt(std(subtract(cur_ts[lag:], cur_ts[:-lag]))) for lag in lags]
 
         # Use a linear fit to estimate the Hurst Exponent
         poly = polyfit(log(lags), log(tau), 1)
 
         # Return the Hurst exponent from the polyfit output
+        print(poly[0]*2.0)
         hurst_ts.append(poly[0]*2.0)
     return hurst_ts
-#mainLoop('usdeur=x', '20y')
+
+mainLoop('usdeur=x', '20y')
