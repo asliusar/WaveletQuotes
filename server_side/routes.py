@@ -21,8 +21,13 @@ def hello_page(name = None):
     wavelet_list_retrieved = ["All"] + __all__
     #print(os.path.dirname(os.path.realpath(__file__)))
     #print(wavelet_list_retrieved)
-    return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
+    return render_template('landing.html')
+    # return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
 
+@app.route('/analyser')
+def analyser_page(name = None):
+    wavelet_list_retrieved = ["All"] + __all__
+    return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
 
 @app.route('/wavelets', methods=['POST'])
 def show_wavelets():
