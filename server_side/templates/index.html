@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Online wavelet analyser">
+    <meta name="author" content="AIR">
+    <title>Online wavelet analyser</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css" >
+
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/component.css" />
+    <!--<link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,900,800' rel='stylesheet' type='text/css'/>-->
+    <!--<link href='//fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'/>-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/custom.css"/>
+    <link rel="stylesheet" href="../static/css/demo.css">
+    <link rel="stylesheet" href="../static/css/full-slider.css">
+	<link rel="stylesheet" href="../static/css/footer-distributed.css">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    <!-- Web Font -->
+   <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+
+    <!-- Scripts before page loading -->
+
+    <script type="text/javascript" src="../static/js/jquery-2.2.0.min.js"></script>
+    <script src="../static/js/modernizr.custom.js"></script>
+
+  </head>
+
+  <body>
+
+
+    <!-- Fixed navbar -->
+    <div class="pos-f-t">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="/analyser">Wavelet analyser</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="#demo">Video</a></li>
+              <li class="active"><a href="#methodology">Methodology</a></li>
+              <li class="active"><a href="#wavelets">Wavelets</a></li>
+              <li><a href="#contacts">Contact</a></li>
+            </ul>
+
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <!-- Begin page content -->
+    <div class="container">
+      <!-- Main component for a primary marketing message or call to action -->
+      <div id="main_jumbotron" class="jumbotron">
+        <h1>Wavelet analyser</h1>
+        <p>Research, dedicated to wavelet transform in the field of economical data analysis.</p>
+      </div>
+
+      <section id="demo">
+        <h2>Easy Introduction to Wavelets</h2>
+        <figure>
+          <iframe src="https://www.youtube.com/embed/ZnmvUCtUAEE"></iframe>
+        </figure>
+      </section>
+
+
+
+      <section id="components">
+        <div class="jumbotron" id="methodology">
+          <h2>Our approach</h2>
+          <p>Our research consists of applying different indicators in order to filter information and select more predictable trends.</p>
+        </div>
+
+        <div id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="col-md-12">
+                  <article id="hurst">
+                    <h4>Hurst exponent</h4>
+                    <p>The Hurst exponent is used as a measure of long-term memory of time series. </p>
+                    <p>It relates to the autocorrelations of the time series, and the rate at which these decrease as the lag between pairs of values increases</p>
+                    <p>The Hurst exponent, H, is defined in terms of the asymptotic behaviour of the rescaled range as a function of the time span of a time series as follows:</p>
+                    <img src="../static/images/hurst_formula.png" alt="Hurst Formula">
+                    <p>where:</p>
+                    <ul>
+                      <li><p>R(n) is the range of the first n values, and S(n) is their standard deviation</p></li>
+                      <li><p>E[x] is the expected value</p></li>
+                      <li><p>n is the time span of the observation (number of data points in a time series)</p></li>
+                      <li><p>C is a constant.</p></li>
+                    </ul>
+                  </article>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the second background image using inline CSS below. -->
+                <div class="col-md-12">
+                    <article id="lyapunov">
+                      <h4>Lyapunov exponent</h4>
+                      <p>In mathematics the Lyapunov exponent or Lyapunov characteristic exponent of a dynamical system is a quantity that characterizes the rate of separation of infinitesimally close trajectories.</p>
+                      <p>Quantitatively, two trajectories in phase space with initial separation <img src="../static/images/lyapunov_separation.png" alt=""> diverge (provided that the divergence can be treated within the linearized approximation) at a rate given by</p>
+                      <p>If the system is conservative (i.e. there is no dissipation), a volume element of the phase space will stay the same along a trajectory.</p>
+                      <p>Thus the sum of all Lyapunov exponents must be zero. If the system is dissipative, the sum of Lyapunov exponents is negative.</p>
+                      <p>If the system is a flow and the trajectory does not converge to a single point, one exponent is always zero—the Lyapunov exponent corresponding to the eigenvalue of L with an eigenvector in the direction of the flow.</p>
+
+                      <img src="../static/images/lyapunov_exponent.png" alt="Lyapunov formula">
+                    </article>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+
+        </div>
+      </section>
+
+
+    <!--animation-grids-->
+
+    <div class="jumbotron" id="wavelets">
+        <h2>Wavelets</h2>
+        <p>Here's the short glossary of the most popular available wavelets.</p>
+    </div>
+      <div class="animate-grid">
+        <div class="container">
+          <ul class="grid cs-style-6">
+                      <li>
+                          <figure class="wavelet-image">
+                            <img src="../static/images/Morlet.png" alt="img01">
+                            <figcaption>
+                                <h3>Morlet wavelet</h3>
+                                <a href="https://en.wikipedia.org/wiki/Morlet_wavelet" class="more">More</a>
+                            </figcaption>
+                          </figure>
+                      </li>
+                      <li>
+                          <figure class="wavelet-image">
+                              <img src="../static/images/Daubechie.png" alt="img05">
+                              <figcaption>
+                                  <h3>Daubechies wavelet</h3>
+                                  <a href="https://en.wikipedia.org/wiki/Daubechies_wavelet" class="more">More</a>
+                              </figcaption>
+                          </figure>
+                      </li>
+                      <li>
+                          <figure class="wavelet-image">
+                              <img src="../static/images/Coiflet.png" alt="img03">
+                              <figcaption>
+                                  <h3>Coiflet</h3>
+                                  <a href="https://en.wikipedia.org/wiki/Coiflet" class="more">More</a>
+                              </figcaption>
+                          </figure>
+                      </li>
+                      <li>
+                          <figure class="wavelet-image">
+                              <img src="../static/images/Biorthogonal.png">
+                              <figcaption>
+                                  <h3>Biorthogonal wavelet</h3>
+                                  <a href="https://en.wikipedia.org/wiki/Biorthogonal_wavelet" class="more">More</a>
+                              </figcaption>
+                          </figure>
+                      </li>
+                      <li>
+                          <figure class="wavelet-image">
+                              <img src="../static/images/Mexican.png" alt="img04">
+                              <figcaption>
+                                  <h3>Mexican Hat</h3>
+                                  <a href="https://en.wikipedia.org/wiki/Mexican_hat_wavelet" class="more">More</a>
+                              </figcaption>
+                          </figure>
+                      </li>
+                      <li>
+                          <figure class="wavelet-image">
+                              <img src="../static/images/Symlet.png" alt="img06">
+                              <figcaption>
+                                  <h3>Symlet</h3>
+                                  <a href="https://en.wikipedia.org/wiki/Symlet" class="more">More</a>
+                              </figcaption>
+                          </figure>
+                      </li>
+          </ul>
+          <script src="../static/js/toucheffects.js"></script>
+        </div>
+      </div>
+    </div>
+    <!--/animation-grids-->
+
+    <div class="pos-f-t" id="contacts">
+      <footer class="footer-distributed" >
+
+              <div class="footer-right">
+
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                  <a href="https://ua.linkedin.com/in/oleksandr-husiev-09261373"><i class="fa fa-linkedin"></i></a>
+                  <a href="https://github.com/JobyKK/WaveletQuotes"><i class="fa fa-github"></i></a>
+
+              </div>
+
+              <div class="footer-left">
+                  <p>Oleksandr Husiev &copy; 2016</p>
+              </div>
+
+      </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+  <script type="text/javascript" src="../static/js/bootstrap.js"></script>
+    <script src="../static/js/wow.min.js"></script>
+  <script src="../static/js/creative.js"></script>
+  <script src="../static/js/jquery-2.2.0.min.js"></script>
+  </body>
+</html>
