@@ -1,6 +1,7 @@
 from wavelets import WaveletAnalysis
 import numpy as np
 import os
+import wavelets
 from wavelets.wavelets import all_wavelets
 import urllib.request, urllib.error, urllib.parse
 import matplotlib.dates as mdates
@@ -54,9 +55,11 @@ def mainLoop(stock, wrange):
         hurst_name = common_folder + folder_name + '/'+hurst_plot_name+'.png'
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
-        # print(len(hurst(x)),len(x))
         showPlot(date,x,plot_name)
-        # showPlot(date,hurst(x),hurst_name)
+        hurst_res = hurst(x)
+
+        # print("Hurst size/input size: ",len(hurst(x)),len(x))
+        showPlot(date[-len(hurst_res):],hurst_res,hurst_name)
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=x, wavelet=wavelet())
             # wavelet power spectrum
@@ -134,19 +137,20 @@ def hurst(ts):
     # Create the range of lag values
     hurst_ts = []
     hurst_ts.append(ts[0])
-    for tail in (2,len(ts)):
+    for tail in range(10,len(ts)):
 
-        lags = range(1, min(100,tail//2))
-        print(lags)
+        lags = range(1, min(10,tail//2))
+        # print(lags)
         # Calculate the array of the variances of the lagged differences
-        cur_ts = ts
+        cur_ts = ts[:tail]
+        # print("Time series slice len: ",len(cur_ts),tail)
         tau = [sqrt(std(subtract(cur_ts[lag:], cur_ts[:-lag]))) for lag in lags]
 
         # Use a linear fit to estimate the Hurst Exponent
         poly = polyfit(log(lags), log(tau), 1)
 
         # Return the Hurst exponent from the polyfit output
-        print(poly[0]*2.0)
+        # print(poly[0]*2.0)
         hurst_ts.append(poly[0]*2.0)
     return hurst_ts
 
