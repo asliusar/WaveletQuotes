@@ -55,10 +55,10 @@ def mainLoop(stock, wrange):
         hurst_name = common_folder + folder_name + '/'+hurst_plot_name+'.png'
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
+        print("Main thread test")
         showPlot(date,x,plot_name)
         hurst_res = hurst(x)
-
-        # print("Hurst size/input size: ",len(hurst(x)),len(x))
+        print("Hurst size/input size: ",len(hurst_res),len(date[-len(hurst_res):]))
         showPlot(date[-len(hurst_res):],hurst_res,hurst_name)
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=x, wavelet=wavelet())
@@ -71,9 +71,20 @@ def mainLoop(stock, wrange):
             # reconstruction of the original data
             # rx = wa.reconstruction()
             showResult(date, scales, power, 5, '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
+        for wavelet in all_wavelets:
+            wa = WaveletAnalysis(data=hurst_res, wavelet=wavelet())
+            # wavelet power spectrum
+            power = wa.wavelet_power
+            # scales
+            scales = wa.scales
+            # associated time vector
+            # t = wa.time
+            # reconstruction of the original data
+            # rx = wa.reconstruction()
+            showResult(date[-len(hurst_res):], scales, power, 5, '', common_folder + folder_name + '/' + wavelet.__name__ + '_hurst.png')
     except Exception as e:
-        print('mainLoop', str(e))
-
+        import traceback
+        traceback.print_exc()
 
 def calculateWavelet(stock, wrange, wavelet_name,moving_avg_width):
     # try:
@@ -126,8 +137,8 @@ def showResult(date, scales, power, time_scale, window, file_name):
     ax.contourf(date, scales, power, 100)
     # ax.set_yscale('log')
     fig.savefig(file_name)
-    #fig.show()
-    #fig.waitforbuttonpress()
+    # fig.show()
+    # fig.waitforbuttonpress()
 
 def showPlot(date, data, file_name):
     plt.plot(date, data)
@@ -135,8 +146,7 @@ def showPlot(date, data, file_name):
 
 def hurst(ts):
     # Create the range of lag values
-    hurst_ts = []
-    hurst_ts.append(ts[0])
+    hurst_ts = np.zeros((0,), dtype=np.int)
     for tail in range(10,len(ts)):
 
         lags = range(1, min(10,tail//2))
@@ -151,7 +161,7 @@ def hurst(ts):
 
         # Return the Hurst exponent from the polyfit output
         # print(poly[0]*2.0)
-        hurst_ts.append(poly[0]*2.0)
+        hurst_ts = np.append(hurst_ts,poly[0]*2.0)
     return hurst_ts
 
 mainLoop('usdeur=x', '20y')
