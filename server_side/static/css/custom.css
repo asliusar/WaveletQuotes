@@ -1,0 +1,26 @@
+.brand-image {
+    width: 30px;
+    height: 30px;
+  }
+
+ul {
+    list-style-position: inside;
+}
+
+.wavelet-image {
+    width: 300px;
+    height: 250px;
+  }
+
+h1,h2,h3,h4{
+    font-family: 'Slabo 27px', serif;
+}
+p,div{
+font-family: 'Slabo 27px', serif;
+}
+
+.icon-list ol { color: #f00; }
+.icon-list li { color: #f00; }
+.icon-list li:before {
+    color: #f00;
+}
