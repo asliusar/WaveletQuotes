@@ -27,9 +27,9 @@ def print_wave(data, trend, file_name):
 def build_elliot_waves(path):
     x = [1, 3, 2, 4]
     z = [1, 3, 2, 4, 3, 5]
-
-    if not os.path.exists(path):
-        os.makedirs(path)
+    print('lol1', os.path.abspath(path))
+    if not os.path.exists(os.path.abspath(path)):
+        os.makedirs(os.path.abspath(path))
     minus_x = np.subtract(np.max(x), x)
     minus_z = np.subtract(np.max(z), z)
 
@@ -37,10 +37,11 @@ def build_elliot_waves(path):
     elliot_waves.append('x')
     print_wave(z, trend, path + 'z.jpg')
     elliot_waves.append('z')
+
     print_wave(minus_x, trend, path + 'minus_x.jpg')
     elliot_waves.append('minus_x')
     print_wave(minus_z, trend, path + 'minus_z.jpg')
     elliot_waves.append('minus_z')
 
 
-build_elliot_waves('/home/joby/PycharmProjects/Wavelets/server_side/static/results/elliot/')
+build_elliot_waves('static/results/elliot/')
