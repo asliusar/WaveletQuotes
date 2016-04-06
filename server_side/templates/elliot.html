@@ -29,8 +29,8 @@
         <dir class="row">
             {%- for wave in elliot_list %}
                 <div class="col-md-6" style="text-align:center">
-                    <img class="col-md-12" src="{{wave}}">
-                    <!--<span>{{wave}}</span>-->
+                    <img class="col-md-12" src="{{wave.img}}">
+                    <span>{{wave.name}}</span>
                 </div>
             {%- endfor %}
         </dir>

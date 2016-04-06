@@ -34,13 +34,13 @@ def build_elliot_waves(path):
     minus_z = np.subtract(np.max(z), z)
 
     print_wave(x, trend, path + 'x.jpg')
-    elliot_waves.append(common_folder + folder_name + 'x.jpg')
+    elliot_waves.append('x')
     print_wave(z, trend, path + 'z.jpg')
-    elliot_waves.append(common_folder + folder_name + 'z.jpg')
-    print_wave(minus_x, trend, path + 'mx.jpg')
-    elliot_waves.append(common_folder + folder_name + 'mx.jpg')
-    print_wave(minus_z, trend, path + 'mz.jpg')
-    elliot_waves.append(common_folder + folder_name + 'mz.jpg')
+    elliot_waves.append('z')
+    print_wave(minus_x, trend, path + 'minus_x.jpg')
+    elliot_waves.append('minus_x')
+    print_wave(minus_z, trend, path + 'minus_z.jpg')
+    elliot_waves.append('minus_z')
 
 
 build_elliot_waves('/home/joby/PycharmProjects/Wavelets/server_side/static/results/elliot/')
