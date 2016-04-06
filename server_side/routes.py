@@ -6,6 +6,7 @@ from flask import request
 
 from waveletMaker import mainLoop,common_folder,calculateWavelet,input_plot_name,hurst_plot_name
 from wavelets.wavelets import __all__
+import elliot
 
 app = Flask(__name__)
 
@@ -24,9 +25,15 @@ def hello_page(name = None):
     # return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
 
 @app.route('/analyser')
-def analyser_page(name = None):
+def analyser_page(name=None):
     wavelet_list_retrieved = ["All"] + __all__
     return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
+
+@app.route('/elliot')
+def analyser_page(name=None):
+    elliot_list = ["All"] + __all__
+    return render_template('elliot.html', elliot_list=elliot_list)
+
 
 @app.route('/wavelets', methods=['POST'])
 def show_wavelets():

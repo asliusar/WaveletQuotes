@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Elliot</title>
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.2.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-theme.css') }}"/>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/plot-page.css') }}"/>
+
+
+  </head>
+
+  <body>
+
+
+    <!-- Begin page content -->
+    <div class="container">
+        <dir class="row">
+            {%- for wave in elliot_waves %}
+                <div class="col-md-6" style="text-align:center">
+                    <img class="col-md-12" src="{{wave.img}}">
+                    <span>{{wave.name}}</span>
+                </div>
+            {%- endfor %}
+        </dir>
+    </div>
+
+  </body>
+</html>
