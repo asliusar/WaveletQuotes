@@ -30,9 +30,10 @@ def analyser_page(name=None):
     return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
 
 @app.route('/elliot')
-def analyser_page(name=None):
-    elliot_list = ["All"] + __all__
-    return render_template('elliot.html', elliot_list=elliot_list)
+def elliot_page(name=None):
+    print('lol')
+    print(elliot.elliot_waves)
+    return render_template('elliot.html', elliot_list=elliot.elliot_waves)
 
 
 @app.route('/wavelets', methods=['POST'])

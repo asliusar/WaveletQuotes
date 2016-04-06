@@ -66,7 +66,7 @@ def mainLoop(stock, wrange):
         showPlot(date, x, plot_name)
         hurst_res = hurst(x)
         # lyapunov_res = lyapunov(x)
-        print("Hurst size/input size: ", len(hurst_res), len(date[-len(hurst_res):]))
+        # print("Hurst size/input size: ", len(hurst_res), len(date[-len(hurst_res):]))
         showPlot(date[-len(hurst_res):], hurst_res, hurst_name)
         print("lyapunov")
         showPlot(date, lyapunov(x), lyapunov_name)
@@ -170,18 +170,18 @@ def hurst(ts):
     hurst_ts = np.zeros((0,), dtype=np.int)
     for tail in range(window_len, len(ts)):
         lags = range(1, window_len//2)
-        print(lags)
+        # print(lags)
         # Calculate the array of the variances of the lagged differences
         cur_ts = ts[max(1,tail-window_len):tail]
         # cur_ts = ts[:tail]
         tau = [sqrt(std(subtract(cur_ts[lag:], cur_ts[:-lag]))) for lag in lags]
 
-        print("Time series slice len: ",len(cur_ts),len(tau),lags)
+        # print("Time series slice len: ",len(cur_ts),len(tau),lags)
         # Use a linear fit to estimate the Hurst Exponent
         poly = polyfit(log(lags), log(tau), 1)
 
         # Return the Hurst exponent from the polyfit output
-        print(poly[0]*2.0)
+        # print(poly[0]*2.0)
         hurst_ts = np.append(hurst_ts, poly[0] * 2.0)
     return hurst_ts
 

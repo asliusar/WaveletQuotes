@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+elliot_waves = []
+
 def showPlot(date, data, file_name):
     fig, ax = plt.subplots()
     ax.plot(date, data)
@@ -10,7 +12,8 @@ def showPlot(date, data, file_name):
 
 # def generate_elliot_waves(folder):
 
-
+common_folder = 'static/results/'
+folder_name = 'elliot/'
 
 def trend(data):
     return 1 / 3 * np.arange(len(data))
@@ -31,9 +34,13 @@ def build_elliot_waves(path):
     minus_z = np.subtract(np.max(z), z)
 
     print_wave(x, trend, path + 'x.jpg')
+    elliot_waves.append(common_folder + folder_name + 'x.jpg')
     print_wave(z, trend, path + 'z.jpg')
+    elliot_waves.append(common_folder + folder_name + 'z.jpg')
     print_wave(minus_x, trend, path + 'mx.jpg')
+    elliot_waves.append(common_folder + folder_name + 'mx.jpg')
     print_wave(minus_z, trend, path + 'mz.jpg')
+    elliot_waves.append(common_folder + folder_name + 'mz.jpg')
 
 
 build_elliot_waves('/home/joby/PycharmProjects/Wavelets/server_side/static/results/elliot/')
