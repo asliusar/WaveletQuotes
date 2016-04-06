@@ -56,6 +56,12 @@ def mainLoop(stock, wrange):
     try:
         date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
         x = closep
+        # print(len(x))
+        from scipy import signal
+        # print(x-signal.detrend(x))
+        # x = signal.detrend(x)
+        degree = 10
+        x = detrend(x,degree)
         folder_name = stock + '_' + wrange
         plot_name = common_folder + folder_name + '/' + input_plot_name + '.png'
         hurst_name = common_folder + folder_name + '/' + hurst_plot_name + '.png'
@@ -221,5 +227,13 @@ def lyapunov(series):
     #     if len(dlist[i]):
     #         print >> f, i, sum(dlist[i]) / len(dlist[i])
 
+
+def detrend(data,degree=10):
+        detrended=data
+        for i in range(1,len(data)):
+                chunk=data[max(1,i-degree):min(i+degree,len(data))]
+                chunk=sum(chunk)/len(chunk)
+                detrended[i] = data[i]-chunk
+        return detrended
 
 mainLoop('usdeur=x', '20y')
