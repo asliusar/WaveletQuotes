@@ -54,6 +54,7 @@ def loadStock(stock, wrange):
 
 def mainLoop(stock, wrange):
     try:
+        import matplotlib
         date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
         x = closep
         # print(len(x))
@@ -74,7 +75,7 @@ def mainLoop(stock, wrange):
         # lyapunov_res = lyapunov(x)
         # print("Hurst size/input size: ", len(hurst_res), len(date[-len(hurst_res):]))
         showPlot(date[-len(hurst_res):], hurst_res, hurst_name)
-        print("lyapunov")
+        # print("lyapunov")
         showPlot(date, lyapunov(x), lyapunov_name)
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=x, wavelet=wavelet())
@@ -147,6 +148,10 @@ def prepareData(stock, wrange):
     except Exception as e:
         print('prepareData', str(e))
 
+def loadCsv(csvAddress):
+    import pandas as pd
+    df = pd.read_csv(csvAddress, error_bad_lines=False)
+    print(df)
 
 def showResult(date, scales, power, time_scale, window, file_name):
     # y_ticks = np.arange(0, 15, 2)
@@ -236,4 +241,5 @@ def detrend(data,degree=10):
                 detrended[i] = data[i]-chunk
         return detrended
 
-mainLoop('usdeur=x', '20y')
+# mainLoop('usdeur=x', '20y')
+# loadCsv('static/data/GDP.csv')
