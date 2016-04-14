@@ -10,6 +10,7 @@ from matplotlib.dates import YearLocator, MonthLocator, DateFormatter, drange
 from datetime import datetime
 import math
 from numpy import cumsum, log, polyfit, sqrt, std, subtract
+import copy
 from numpy.random import randn
 
 common_folder = 'static/results/'
@@ -62,7 +63,10 @@ def mainLoop(stock, wrange):
         # print(x-signal.detrend(x))
         # x = signal.detrend(x)
         degree = 10
-        x = detrend(x,degree)
+        # x = detrend(x,degree)
+        # x = macd(x,10,50)
+        # x = macd(x)
+        # print(x)
         folder_name = stock + '_' + wrange
         plot_name = common_folder + folder_name + '/' + input_plot_name + '.png'
         hurst_name = common_folder + folder_name + '/' + hurst_plot_name + '.png'
@@ -151,6 +155,7 @@ def prepareData(stock, wrange):
 def loadCsv(csvAddress):
     import pandas as pd
     df = pd.read_csv(csvAddress, error_bad_lines=False)
+
     print(df)
 
 def showResult(date, scales, power, time_scale, window, file_name):
@@ -241,5 +246,34 @@ def detrend(data,degree=10):
                 detrended[i] = data[i]-chunk
         return detrended
 
-# mainLoop('usdeur=x', '20y')
+# simple moving average: ts - time series vector, moving_average_width - width
+def moving_average(ts,moving_average_width):
+    for i in range(moving_average_width - 1, len(ts)):
+        for j in range(i - moving_average_width + 1, i):
+            ts[i] += ts[j]
+        ts[i] /= moving_average_width
+    return ts
+
+# exponential moving average: ts - time series vector, moving_average_width - width
+def exp_moving_average(ts,moving_average_width):
+    if len(ts) < 2 * moving_average_width:
+        raise ValueError("data is too short")
+    c = 2.0 / (moving_average_width + 1)
+    ts_ans = copy.copy(ts)
+    for i in range(1, len(ts)):
+            ts_ans[i] = c * ts[i] + (1 - c) * ts_ans[i-1]
+    return ts_ans
+
+# Moving Average Convergence Divergence - MACD: ts - time series vector, width1 - short EMA, width2 - long EMA
+# default values are recommended for day-charts
+def macd(ts,width1=12,width2=26):
+
+    ts_ema_short = copy.copy(exp_moving_average(ts, width1))
+    # print(ts_ema_short)
+    ts_ema_long = copy.copy(exp_moving_average(ts, width2))
+    # print(ts_ema_long)
+    macd_ans = [a - b for a, b in zip(ts_ema_short, ts_ema_long)]
+    return macd_ans
+
+# mainLoop('usdeur=x', '3m')
 # loadCsv('static/data/GDP.csv')
