@@ -4,9 +4,9 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+from core.parts import elliot
 from waveletMaker import mainLoop, common_folder, calculateWavelet, input_plot_name, hurst_plot_name
 from wavelets.wavelets import __all__
-import elliot
 
 app = Flask(__name__)
 elliot_folder_name = 'elliot/'
@@ -55,7 +55,7 @@ def show_wavelets():
     print("1 - " + wavelet_name)
     if wavelet_name != 'All':
         print("1 - " + wavelet_name)
-        calculateWavelet(stock, wrange, wavelet_name, moving_avg_width)
+        calculateWavelet(stock, wrange, None, None, wavelet_name, moving_avg_width)
         wavelet_image_name.append(
                 Image(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
     else:

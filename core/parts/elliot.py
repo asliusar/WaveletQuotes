@@ -24,30 +24,27 @@ def trend(data):
     return 0 * np.arange(len(data))
 
 
-def print_wave(data, trend, file_name):
+def print_wave(data, file_name):
     date = np.arange(len(data))
-    if trend:
-        print(data)
-        template = data + trend(data)
-        return showPlot(date, template, file_name)
+    return showPlot(date, data, file_name)
 
 
-def print_fft(data, trend, file_name):
+def print_fft(data, file_name):
     A = np.fft.fft(data)
     frrAbs = np.abs(A)
-    return print_wave(frrAbs, trend, file_name)
+    return print_wave(frrAbs, file_name)
 
 
 def get_filter(arr):
     return list([x for x in arr])
 
 
-def print_wavelet(data, trend, wavelet_name, filter, file_name):
+def print_wavelet(data, wavelet_name, filter, file_name):
     result = pywt.dwt(data, wavelet_name)
     if filter == 'high':
-        return print_wave(result[0], trend, file_name)
+        return print_wave(result[0], file_name)
     elif filter == 'low':
-        return print_wave(result[1], trend, file_name)
+        return print_wave(result[1], file_name)
 
 
 def build_elliot_waves(path):
@@ -73,4 +70,10 @@ def build_elliot_waves(path):
     # print_wavelet(z, trend, 'coif1', 'high', 'db.png')
 
 
-build_elliot_waves('static/results/elliot/')
+# build_elliot_waves('static/results/elliot/')
+
+z = [0, 4, 2, 6, 4, 8]
+mx = [6, 7, 5]
+print_wave(z + mx, 'zx.png')
+
+# def generate_elliot_wave
