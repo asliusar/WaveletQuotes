@@ -5,8 +5,11 @@ from flask import render_template
 from flask import request
 
 from core.parts import elliot
-from waveletMaker import mainLoop, common_folder, calculateWavelet, input_plot_name, hurst_plot_name
+from waveletMaker import *
 from wavelets.wavelets import __all__
+
+from core.parts.preprocessing import prepareData
+from core.parts.indexes import *
 
 app = Flask(__name__)
 elliot_folder_name = 'elliot/'
@@ -50,18 +53,44 @@ def show_wavelets():
     moving_avg_width = int(moving_avg_width)
     folder_name = stock + '_' + wrange
     wavelet_image_name = []
-    wavelet_image_name.append(Image('input_plot', common_folder + folder_name + '/' + input_plot_name + '.png'))
-    wavelet_image_name.append(Image('hurst_plot', common_folder + folder_name + '/' + hurst_plot_name + '.png'))
+
     print("1 - " + wavelet_name)
+    date, x, _, _, _, _ = prepareData(stock, wrange)
+
+    for i in range(moving_avg_width - 1, len(x)):
+        for j in range(i - moving_avg_width + 1, i):
+            x[i] += x[j]
+        x[i] /= moving_avg_width
+
+    plot_name = common_folder + folder_name + '/' + input_plot_name + '.png'
+    wavelet_image_name.append(Image('input_plot', plot_name))
+    showPlot(date, x, plot_name)
+
+    macd_plot = common_folder + folder_name + '/' + macd_name + '.png'
+    ma1 = 10
+    ma2 = 50
+    wavelet_image_name.append(Image('macd_plot: %d-%d' % (ma1, ma2), macd_plot))
+    calculateMACD(date, x, ma1, ma2, macd_plot)
+
     if wavelet_name != 'All':
         print("1 - " + wavelet_name)
-        calculateWavelet(stock, wrange, None, None, wavelet_name, moving_avg_width)
+        folder_name = stock + '_' + wrange
+        calculateWavelet(wrange, date, x, folder_name, wavelet_name)
         wavelet_image_name.append(
                 Image(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
     else:
-        mainLoop(stock, wrange)
+        mainLoop(stock, wrange, date, x)
         for name in __all__:
             wavelet_image_name.append(Image(name, common_folder + folder_name + '/' + name + '.png'))
+
+    hurst_plot = common_folder + folder_name + '/' + hurst_plot_name + '.png'
+    wavelet_image_name.append(Image('hurst_plot', hurst_plot))
+    calculateHurst(date, x, hurst_plot)
+
+    lyapunov_plot = common_folder + folder_name + '/' + lyapunov_plot_name + '.png'
+    wavelet_image_name.append(Image('lyapunov_plot', lyapunov_plot))
+    calculateLyapunov(date, x, lyapunov_plot)
+
 
     wavelet_list_retrieved = ["All"] + __all__
     return render_template('plot_page.html', wavelet_list=wavelet_list_retrieved,

@@ -11,15 +11,8 @@ hurst_plot_name = 'hurst_plot'
 lyapunov_plot_name = 'lyapunov_plot'
 macd_name = 'macd_plot'
 
-def calculateWavelet(stock, wrange, date, x, wavelet_name, moving_avg_width):
-    # try:
-    for i in range(moving_avg_width - 1, len(x)):
-        for j in range(i - moving_avg_width + 1, i):
-            x[i] += x[j]
-        x[i] /= moving_avg_width
-
+def calculateWavelet(wrange, date, x, folder_name, wavelet_name):
     time_scale = int(wrange[:-1])
-    folder_name = stock + '_' + wrange
 
     plot_name = common_folder + folder_name + '/' + input_plot_name + '.png'
     hurst_name = common_folder + folder_name + '/' + hurst_plot_name + '.png'
@@ -29,7 +22,9 @@ def calculateWavelet(stock, wrange, date, x, wavelet_name, moving_avg_width):
     if not os.path.exists(common_folder + folder_name):
         os.makedirs(common_folder + folder_name)
     showPlot(date, x, plot_name)
+    showPlot(date, hurst(x), hurst_name)
     print("lyapunov")
+    showPlot(date, lyapunov(x), lyapunov_name)
     wa = WaveletAnalysis(data=x, wavelet=wavelet())
     # wavelet power spectrum
     power = wa.wavelet_power

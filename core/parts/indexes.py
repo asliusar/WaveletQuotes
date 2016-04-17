@@ -1,13 +1,10 @@
 import copy
+from core.tools import *
 
 import numpy as np
 from numpy import log, polyfit, sqrt, std, subtract
 
-common_folder = 'static/results/'
-input_plot_name = 'input_plot'
-hurst_plot_name = 'hurst_plot'
-lyapunov_plot_name = 'lyapunov_plot'
-macd_name = 'macd_plot'
+
 
 
 def hurst(ts):
@@ -31,6 +28,11 @@ def hurst(ts):
         hurst_ts = np.append(hurst_ts, poly[0] * 2.0)
     return hurst_ts
 
+
+def calculateHurst(date, x, folder_name):
+
+    hurst_res = hurst(x)
+    showPlot(date[-len(hurst_res):], hurst_res, folder_name)
 
 def lyapunov(series):
     from math import log
@@ -68,6 +70,9 @@ def lyapunov(series):
     #         print >> f, i, sum(dlist[i]) / len(dlist[i])
 
 
+def calculateLyapunov(date, x, folder_name):
+    showPlot(date, lyapunov(x), folder_name)
+
 # simple moving average: ts - time series vector, moving_average_width - width
 def moving_average(ts, moving_average_width):
     for i in range(moving_average_width - 1, len(ts)):
@@ -99,6 +104,11 @@ def macd(ts, width1=12, width2=26):
     macd_ans = [a - b for a, b in zip(ts_ema_short, ts_ema_long)]
     return macd_ans
 
+
+def calculateMACD(date, x, width1, width2, folder_name):
+    print(123)
+    print(folder_name)
+    showPlot(date, macd(x, width1=width1, width2=width2), folder_name)
 
 def rsiFunc(prices, n=14):
     deltas = np.diff(prices)

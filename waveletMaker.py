@@ -9,36 +9,34 @@ from core.parts.preprocessing import *
 from core.parts.wavelet import *
 from core.parts.indexes import *
 
+common_folder = 'static/results/'
+input_plot_name = 'input_plot'
+hurst_plot_name = 'hurst_plot'
+lyapunov_plot_name = 'lyapunov_plot'
+macd_name = 'macd_plot'
 
-def mainLoop(stock, wrange):
+
+def mainLoop(stock, wrange, date, x):
     try:
         import matplotlib
-        date, closep, highp, lowp, openp, volume = prepareData(stock, wrange)
-        x = closep
-        # print(len(x))
         from scipy import signal
+        # print(len(x))
         # print(x-signal.detrend(x))
         # x = signal.detrend(x)
-        degree = 10
-        x = detrend(x,degree)
-        mcd = macd(x,10,20)
+        # degree = 10
+        # x = detrend(x, degree)
+        mcd = macd(x, 10, 20)
         # x = macd(x)
         showPlot(date, mcd, macd_name)
         # print(x)
         folder_name = stock + '_' + wrange
-        plot_name = common_folder + folder_name + '/' + input_plot_name + '.png'
-        hurst_name = common_folder + folder_name + '/' + hurst_plot_name + '.png'
-        lyapunov_name = common_folder + folder_name + '/' + lyapunov_plot_name + '.png'
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
         print("Main thread test")
-        showPlot(date, x, plot_name)
         hurst_res = hurst(x)
-        # lyapunov_res = lyapunov(x)
-        # print("Hurst size/input size: ", len(hurst_res), len(date[-len(hurst_res):]))
-        showPlot(date[-len(hurst_res):], hurst_res, hurst_name)
-        # print("lyapunov")
-        showPlot(date, lyapunov(x), lyapunov_name)
+        # wtf?
+        # showPlot(date[-len(hurst_res):], hurst_res, hurst_name)
+
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=x, wavelet=wavelet())
             # wavelet power spectrum
@@ -49,7 +47,8 @@ def mainLoop(stock, wrange):
             # t = wa.time
             # reconstruction of the original data
             # rx = wa.reconstruction()
-            showResult(date, scales, power, 5, '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
+            time_scale = int(wrange[:-1])
+            showResult(date, scales, power, math.ceil(time_scale / 4.), '', common_folder + folder_name + '/' + wavelet.__name__ + '.png')
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=hurst_res, wavelet=wavelet())
             # wavelet power spectrum
@@ -69,5 +68,5 @@ def mainLoop(stock, wrange):
 
 
 
-# mainLoop('usdeur=x', '3m')
-# loadCsv('static/data/GDP.csv')
+        # mainLoop('usdeur=x', '3m')
+        # loadCsv('static/data/GDP.csv')
