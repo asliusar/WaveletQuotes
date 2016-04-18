@@ -82,7 +82,7 @@ def generate_elliot_waves(scale=4):
     w1[2] = int(random.randint(1, w1[1]-1))
     valid = True
     while valid:
-        temp = int(random.randint(1, scale)) * int(random.randint(1, scale))
+        temp = int(random.randint(1, 3)) * int(random.randint(1, scale))
         print(w1[1], w1[2], temp)
         if w1[1] >= w1[2] + temp:
             continue
@@ -110,7 +110,7 @@ def generate_elliot_waves(scale=4):
 
 z = [ 0.,  3.,  2.,  6.,  5.,  8.]
 mx = [10, 11, 9]
-print_wave(generate_elliot_waves(20), 'zx.png')
+print_wave(generate_elliot_waves(50), 'zx.png')
 # print_wave(z, 'zx.png')
 
 
