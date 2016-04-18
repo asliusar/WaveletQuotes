@@ -41,5 +41,6 @@ def showResult(date, scales, power, time_scale, window, file_name):
 def showPlot(date, data, file_name):
     fig, ax = plt.subplots()
     ax.plot(date, data)
+    # fig.plot([1, 2, 3], [1, 1, 1])
     fig.savefig(file_name)
     plt.close(fig)

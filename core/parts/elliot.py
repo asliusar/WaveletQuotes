@@ -72,8 +72,46 @@ def build_elliot_waves(path):
 
 # build_elliot_waves('static/results/elliot/')
 
-z = [0, 4, 2, 6, 4, 8]
-mx = [6, 7, 5]
-print_wave(z + mx, 'zx.png')
+def generate_elliot_waves(scale=4):
+    import random
+    w1 = np.zeros(6)
+    w2 = np.zeros(4)
+
+    w1[1] = int(random.randint(3, scale))
+    print(w1[1])
+    w1[2] = int(random.randint(1, w1[1]-1))
+    valid = True
+    while valid:
+        temp = int(random.randint(1, scale)) * int(random.randint(1, scale))
+        print(w1[1], w1[2], temp)
+        if w1[1] >= w1[2] + temp:
+            continue
+        w1[3] = int(random.randint(w1[1], w1[2] + temp))
+        if(w1[3] - w1[2]) > w1[1]:
+            valid = False
+    w1[4] = int(random.randint(w1[1], w1[3]))
+    w1[5] = w1[4] + w1[1]
+
+    print(w1)
+    w2[0] = w1[5]
+    valid = True
+    while valid:
+        try:
+            w2[3] = int(random.randint(w1[4] + 1, w1[5] - 2))
+            w2[2] = int(random.randint(w2[3] + 1, w1[5] - 1))
+            w2[1] = int(random.randint(w2[3] + 1, w2[2] - 1))
+            valid = False
+        except Exception:
+            _ = 1
+    print(w1, w2)
+    result = list(w1) + list(w2)[1:]
+    print(result)
+    return result
+
+z = [ 0.,  3.,  2.,  6.,  5.,  8.]
+mx = [10, 11, 9]
+print_wave(generate_elliot_waves(20), 'zx.png')
+# print_wave(z, 'zx.png')
+
 
 # def generate_elliot_wave

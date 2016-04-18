@@ -101,7 +101,7 @@ def macd(ts, width1=12, width2=26):
     # print(ts_ema_short)
     ts_ema_long = copy.copy(exp_moving_average(ts, width2))
     # print(ts_ema_long)
-    macd_ans = [a - b for a, b in zip(ts_ema_short, ts_ema_long)]
+    macd_ans = ts_ema_short - ts_ema_long
     return macd_ans
 
 
