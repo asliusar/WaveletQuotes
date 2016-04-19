@@ -38,9 +38,26 @@ def showResult(date, scales, power, time_scale, window, file_name):
     # fig.waitforbuttonpress()
 
 
+def split_timeline(line):
+    result = []
+    t = -np.sign(line[0])
+    last_index = 0
+    for i, x in enumerate(line):
+        if x*t >= 0:
+            t = -t
+            result.append(line[last_index:i])
+            last_index = i
+    result.append(line[last_index:len(line)])
+
+    return result
+
 def showPlot(date, data, file_name):
     fig, ax = plt.subplots()
     ax.plot(date, data)
     # fig.plot([1, 2, 3], [1, 1, 1])
     fig.savefig(file_name)
     plt.close(fig)
+
+# x = [1,4, 0, 3, -1,0,-5,x -2, 4, 5]
+#
+# print(split_timeline(x))
