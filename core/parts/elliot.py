@@ -106,11 +106,13 @@ def generate_elliot_waves(scale=4):
     print(w1, w2)
     result = list(w1) + list(w2)[1:]
     print(result)
-    return result
+    result_m = np.subtract(np.max(result), result)
+    return result, result_m
 
 z = [ 0.,  3.,  2.,  6.,  5.,  8.]
 mx = [10, 11, 9]
-print_wave(generate_elliot_waves(50), 'zx.png')
+print_wave(generate_elliot_waves(50)[0], 'zx.png')
+print_wave(generate_elliot_waves(50)[1], 'zx_m.png')
 # print_wave(z, 'zx.png')
 
 
