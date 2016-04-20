@@ -111,8 +111,15 @@ def generate_elliot_waves(scale=4):
 
 z = [ 0.,  3.,  2.,  6.,  5.,  8.]
 mx = [10, 11, 9]
-print_wave(generate_elliot_waves(50)[0], 'zx.png')
-print_wave(generate_elliot_waves(50)[1], 'zx_m.png')
+arr = generate_elliot_waves(50)
+for i in range(1,10):
+    arr = generate_elliot_waves(50)
+    print_wave(arr[0], 'ElliotTest/Rising/zx'+str(i)+'.png')
+    print_fft(arr[0],'ElliotTest/Rising/z_fft_'+str(i)+'.png')
+    print_wavelet(arr[0],'coif4','low','ElliotTest/Rising/z_wvt_'+str(i)+'.png')
+    print_wave(arr[1], 'ElliotTest/Falling/zx'+str(i)+'.png')
+    print_fft(arr[1],'ElliotTest/Falling/z_fft_'+str(i)+'.png')
+    print_wavelet(arr[1],'coif4','low','ElliotTest/Falling/z_wvt_'+str(i)+'.png')
 # print_wave(z, 'zx.png')
 
 
