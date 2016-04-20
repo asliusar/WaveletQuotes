@@ -61,13 +61,25 @@ def showPlot(date, data, file_name):
     # fig.plot([1, 2, 3], [1, 1, 1])
     fig.savefig(file_name)
     plt.close(fig)
-#
-# x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
-# print(split_timeline(x, np.arange(len(x))))
-# splt_x, splt_date = split_timeline(x, np.arange(len(x)))
-# fig, ax = plt.subplots()
-# ax.plot(np.arange(len(x)), x)
-# for i, tx in enumerate(splt_x):
-#     ax.plot(splt_date[i], tx)
-# fig.savefig('test.png')
-# plt.close(fig)
+
+def showPlotMix(date, data, file_name='test.png'):
+    fig, ax = plt.subplots()
+    ax.plot(np.arange(len(data[0])), data[0])
+    for i, tx in enumerate(data[1:]):
+        ax.plot(date[i+1], tx)
+    fig.savefig(file_name)
+    plt.close(fig)
+
+
+
+x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
+ax = list()
+at = list()
+ax.append(x)
+at.append(np.arange(len(x)))
+splt_x, splt_date = split_timeline(x, np.arange(len(x)))
+
+ax += list(splt_x)
+at += list(splt_date)
+
+showPlotMix(at, ax)
