@@ -1,18 +1,7 @@
-from wavelets import WaveletAnalysis
-import numpy as np
-import os
-import wavelets
-from wavelets.wavelets import all_wavelets
-import urllib.request, urllib.error, urllib.parse
-import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
-from matplotlib.dates import YearLocator, MonthLocator, DateFormatter, drange
-from datetime import datetime
-import math
-from numpy import cumsum, log, polyfit, sqrt, std, subtract
-import copy
-from numpy.random import randn
-
+import numpy as np
+from matplotlib.dates import YearLocator, DateFormatter
+from core.parts.preprocessing import *
 
 def detrend(data, degree=10):
     detrended = data
@@ -41,14 +30,18 @@ def showResult(date, scales, power, time_scale, window, file_name):
 def split_timeline(line, date):
     result = []
     result_date = []
-    t = -np.sign(line[0])
+    print('split_timeline')
     last_index = 0
-    for i, x in enumerate(line):
-        if x*t >= 0:
+    while line[last_index] == 0:
+        last_index += 1
+    t = -np.sign(line[last_index])
+    for i in range(last_index, len(line)):
+        print(line[i])
+        if line[i]*t >= 0:
             result.append(line[last_index:i+1])
             result_date.append(date[last_index:i+1])
             last_index = i
-        if x*t > 0:
+        if line[i]*t > 0:
             t = -t
     result.append(line[last_index:len(line)])
     result_date.append(date[last_index:len(line)])
@@ -63,23 +56,16 @@ def showPlot(date, data, file_name):
     plt.close(fig)
 
 def showPlotMix(date, data, file_name='test.png'):
-    fig, ax = plt.subplots()
-    ax.plot(np.arange(len(data[0])), data[0])
+    fig, (ax1, ax2) = plt.subplots(nrows = 2, sharex = True)
+    print('showPlotMix')
+    print(len(data))
+    print(len(date))
+    ax1.plot(date[0], data[0])
     for i, tx in enumerate(data[1:]):
-        ax.plot(date[i+1], tx)
+        ax2.plot(date[i+1], tx)
     fig.savefig(file_name)
     plt.close(fig)
 
 
 
-x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
-ax = list()
-at = list()
-ax.append(x)
-at.append(np.arange(len(x)))
-splt_x, splt_date = split_timeline(x, np.arange(len(x)))
 
-ax += list(splt_x)
-at += list(splt_date)
-
-showPlotMix(at, ax)

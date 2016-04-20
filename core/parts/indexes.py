@@ -150,3 +150,23 @@ def ExpMovingAverage(values, window):
     a = np.convolve(values, weights, mode='full')[:len(values)]
     a[:window] = a[window]
     return a
+
+
+date, x, _, _, _, _ = prepareData('uahrub=x', '20y')
+# x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
+
+tx = macd(x, 20, 26)
+ax = list()
+at = list()
+ax.append(x)
+at.append(date)
+
+splt_x, splt_date = split_timeline(tx, date)
+
+# print(splt_x)
+
+
+ax += list(splt_x)
+at += list(splt_date)
+
+showPlotMix(at, ax)
