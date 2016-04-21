@@ -6,4 +6,4 @@ server_side/static/results/*
 *.pyc
 __pycache__
 __pycache__/*
-wavelets/__pycache__
+wavelets/__pycache__/*
