@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib.dates import YearLocator, DateFormatter
 from core.parts.preprocessing import *
 
+
 def detrend(data, degree=10):
     detrended = data
     for i in range(1, len(data)):
@@ -36,17 +37,18 @@ def split_timeline(line, date):
         last_index += 1
     t = -np.sign(line[last_index])
     for i in range(last_index, len(line)):
-        print(line[i])
-        if line[i]*t >= 0:
-            result.append(line[last_index:i+1])
-            result_date.append(date[last_index:i+1])
+        # print(line[i])
+        if line[i] * t >= 0:
+            result.append(line[last_index:i + 1])
+            result_date.append(date[last_index:i + 1])
             last_index = i
-        if line[i]*t > 0:
+        if line[i] * t > 0:
             t = -t
     result.append(line[last_index:len(line)])
     result_date.append(date[last_index:len(line)])
 
     return result, result_date
+
 
 def showPlot(date, data, file_name):
     fig, ax = plt.subplots()
@@ -55,17 +57,15 @@ def showPlot(date, data, file_name):
     fig.savefig(file_name)
     plt.close(fig)
 
-def showPlotMix(date, data, file_name='test.png'):
-    fig, (ax1, ax2) = plt.subplots(nrows = 2, sharex = True)
+
+def showPlotMix(data, file_name='test.png'):
+    fig, arr = plt.subplots(nrows=len(data), sharex=True)
     print('showPlotMix')
-    print(len(data))
-    print(len(date))
-    ax1.plot(date[0], data[0])
-    for i, tx in enumerate(data[1:]):
-        ax2.plot(date[i+1], tx)
+    for i, d in enumerate(data):
+        print(len(d[0]))
+        for j, td in enumerate(d[0]):
+            print(len(td))
+            print(len(d[1][j]))
+            arr[i].plot(d[1][j], td)
     fig.savefig(file_name)
     plt.close(fig)
-
-
-
-

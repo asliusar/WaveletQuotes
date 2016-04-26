@@ -3,7 +3,7 @@ from core.tools import *
 
 import numpy as np
 from numpy import log, polyfit, sqrt, std, subtract
-
+import pywt
 
 
 
@@ -152,21 +152,64 @@ def ExpMovingAverage(values, window):
     return a
 
 
-date, x, _, _, _, _ = prepareData('uahrub=x', '20y')
+def get_wavelet(x, wavelet_name='db1'):
+    w = pywt.Wavelet(wavelet_name)
+    scale = 3
+    cA, cD = pywt.dwt(x, wavelet=w, mode='per')
+    result = np.array([cA[0]])
+    for i in range(1, len(cA)):
+        temp = np.linspace(cA[i-1], cA[i], scale)
+        result = np.append(result, temp[1:])
+        # result = result + temp[1:]
+    if len(x) != len(result):
+        result = np.append(result, [0])
+    return result
+
+
+date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
 # x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
 
 tx = macd(x, 20, 26)
 ax = list()
 at = list()
-ax.append(x)
-at.append(date)
 
 splt_x, splt_date = split_timeline(tx, date)
-
-# print(splt_x)
-
 
 ax += list(splt_x)
 at += list(splt_date)
 
-showPlotMix(at, ax)
+wx = list()
+wt = list()
+wt += list(splt_date)
+
+wavelet_sum = []
+for t in splt_x:
+    temp = get_wavelet(t, 'coif4')
+    wavelet_sum.append(temp)
+wx += list(wavelet_sum)
+
+
+fx = list()
+ft = list()
+ft += list(splt_date)
+
+fft_sum = []
+for t in splt_x:
+    temp = np.fft.fft(t)
+    fft_sum .append(temp)
+fx += list(fft_sum)
+
+
+
+# fft_x = []
+# for x in splt_x:
+#     A = np.fft.fft(x)
+#     frrAbs = np.abs(A)
+#     temp = frrAbs
+
+# print(splt_x)
+
+
+
+# showPlotMix([[[x], [date]]], 'w_x.png')
+showPlotMix([[[x], [date]], [ax, at], [wx, wt], [fx, ft]], 'w_x.png')
