@@ -1,10 +1,15 @@
 import copy
 from core.tools import *
+import core.parts.csv_retriever as hist_data
+import core.parts.elliot as elliot
 
 import numpy as np
 from numpy import log, polyfit, sqrt, std, subtract
 import pywt
+import datetime
 
+
+from scipy.signal import blackman
 
 
 def hurst(ts):
@@ -84,12 +89,12 @@ def moving_average(ts, moving_average_width):
 
 # exponential moving average: ts - time series vector, moving_average_width - width
 def exp_moving_average(ts, moving_average_width):
-    print(len(ts))
     if len(ts) < 2 * moving_average_width:
         raise ValueError("data is too short")
     c = 2.0 / (moving_average_width + 1)
-    ts_ans = copy.copy(ts)
+    ts_ans = copy.deepcopy(ts)
     for i in range(1, len(ts)):
+        # print(ts[0], ts_ans[0])
         ts_ans[i] = c * ts[i] + (1 - c) * ts_ans[i - 1]
     return ts_ans
 
@@ -97,16 +102,15 @@ def exp_moving_average(ts, moving_average_width):
 # Moving Average Convergence Divergence - MACD: ts - time series vector, width1 - short EMA, width2 - long EMA
 # default values are recommended for day-charts
 def macd(ts, width1=12, width2=26):
-    ts_ema_short = copy.copy(exp_moving_average(ts, width1))
-    # print(ts_ema_short)
-    ts_ema_long = copy.copy(exp_moving_average(ts, width2))
-    # print(ts_ema_long)
+    ts_ema_short = copy.deepcopy(exp_moving_average(ts, width1))
+
+    ts_ema_long = copy.deepcopy(exp_moving_average(ts, width2))
+
     macd_ans = ts_ema_short - ts_ema_long
     return macd_ans
 
 
 def calculateMACD(date, x, width1, width2, folder_name):
-    print(123)
     print(folder_name)
     showPlot(date, macd(x, width1=width1, width2=width2), folder_name)
 
@@ -166,10 +170,18 @@ def get_wavelet(x, wavelet_name='db1'):
     return result
 
 
-date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
+# date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
+date, x = hist_data.get_historical_gdp()
+print(date)
+# date, x = hist_data.get_historical_quotes(start_date = datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
+date, x = elliot.generate_elliot_waves_wrapper(50)
+# date, x = hist_data.get_historical_quotes()
+# print(hist_data.get_historical_gdp())
 # x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
-
-tx = macd(x, 20, 26)
+# x = np.random.rand(277)
+print(date)
+x = exp_moving_average(x, 5)
+tx = macd(x, 12, 26)
 ax = list()
 at = list()
 
@@ -184,7 +196,7 @@ wt += list(splt_date)
 
 wavelet_sum = []
 for t in splt_x:
-    temp = get_wavelet(t, 'coif4')
+    temp = get_wavelet(t, 'dmey')
     wavelet_sum.append(temp)
 wx += list(wavelet_sum)
 
@@ -193,10 +205,11 @@ fx = list()
 ft = list()
 ft += list(splt_date)
 
+# w = blackman(int(len(t)/2))
 fft_sum = []
 for t in splt_x:
     temp = np.fft.fft(t)
-    fft_sum .append(temp)
+    fft_sum.append(temp)
 fx += list(fft_sum)
 
 

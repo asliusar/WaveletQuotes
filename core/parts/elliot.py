@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import pywt
+import datetime
 
 elliot_waves = []
 wavelets = pywt.families()
@@ -78,12 +79,12 @@ def generate_elliot_waves(scale=4):
     w2 = np.zeros(4)
 
     w1[1] = int(random.randint(3, scale))
-    print(w1[1])
+    # print(w1[1])
     w1[2] = int(random.randint(1, w1[1]-1))
     valid = True
     while valid:
         temp = int(random.randint(1, 3)) * int(random.randint(1, scale))
-        print(w1[1], w1[2], temp)
+        # print(w1[1], w1[2], temp)
         if w1[1] >= w1[2] + temp:
             continue
         w1[3] = int(random.randint(w1[1], w1[2] + temp))
@@ -92,7 +93,7 @@ def generate_elliot_waves(scale=4):
     w1[4] = int(random.randint(w1[1], w1[3]))
     w1[5] = w1[4] + w1[1]
 
-    print(w1)
+    # print(w1)
     w2[0] = w1[5]
     valid = True
     while valid:
@@ -103,23 +104,42 @@ def generate_elliot_waves(scale=4):
             valid = False
         except Exception:
             _ = 1
-    print(w1, w2)
+    # print(w1, w2)
     result = list(w1) + list(w2)[1:]
-    print(result)
+    # print(result)
+    proliferated_result = [] # multiply number of points by step_number
+    step_number = 20
+    for i in range(1,len(result)):
+        for j in range(0, step_number):
+            proliferated_result.append(result[i-1]+(float(j)*(result[i]-result[i-1]))/step_number)
+    result = proliferated_result
+    # print(result)
     result_m = np.subtract(np.max(result), result)
     return result, result_m
 
-z = [ 0.,  3.,  2.,  6.,  5.,  8.]
-mx = [10, 11, 9]
-arr = generate_elliot_waves(50)
-for i in range(1,10):
-    arr = generate_elliot_waves(50)
-    print_wave(arr[0], 'ElliotTest/Rising/zx'+str(i)+'.png')
-    print_fft(arr[0],'ElliotTest/Rising/z_fft_'+str(i)+'.png')
-    print_wavelet(arr[0],'coif4','low','ElliotTest/Rising/z_wvt_'+str(i)+'.png')
-    print_wave(arr[1], 'ElliotTest/Falling/zx'+str(i)+'.png')
-    print_fft(arr[1],'ElliotTest/Falling/z_fft_'+str(i)+'.png')
-    print_wavelet(arr[1],'coif4','low','ElliotTest/Falling/z_wvt_'+str(i)+'.png')
+def generate_elliot_waves_wrapper(scale=4):
+    value, _ = generate_elliot_waves(scale)
+    date = np.empty(len(value), dtype=datetime.datetime)
+    for i in range(0,len(value)):
+        date[i]=datetime.datetime(i+1,1,1)
+    date = np.array(date)
+    # print("work", len(date), len(value))
+    print(date)
+    date = np.array(date)
+    value = np.array(value)
+    return date, value
+
+# z = [ 0.,  3.,  2.,  6.,  5.,  8.]
+# mx = [10, 11, 9]
+# arr = generate_elliot_waves(50)
+# for i in range(1,10):
+#     arr = generate_elliot_waves(50)
+#     print_wave(arr[0], 'ElliotTest/Rising/zx'+str(i)+'.png')
+#     print_fft(arr[0],'ElliotTest/Rising/z_fft_'+str(i)+'.png')
+#     print_wavelet(arr[0],'coif4','low','ElliotTest/Rising/z_wvt_'+str(i)+'.png')
+#     print_wave(arr[1], 'ElliotTest/Falling/zx'+str(i)+'.png')
+#     print_fft(arr[1],'ElliotTest/Falling/z_fft_'+str(i)+'.png')
+#     print_wavelet(arr[1],'coif4','low','ElliotTest/Falling/z_wvt_'+str(i)+'.png')
 # print_wave(z, 'zx.png')
 
 
