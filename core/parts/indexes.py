@@ -224,5 +224,18 @@ fx += list(fft_sum)
 
 
 
-# showPlotMix([[[x], [date]]], 'w_x.png')
-showPlotMix([[[x], [date]], [ax, at], [wx, wt], [fx, ft]], 'w_x.png')
+showPlot(date, x, 'w_x.png')
+
+# macd
+print('macd', at)
+shopPlotMixSeparate(ax, at, 'w_macd.png')
+
+# wavelet
+print('wt')
+shopPlotMixSeparate(wx, wt, 'w_wt.png')
+
+print('fft')
+shopPlotMixSeparate(fx, ft, 'w_fft.png')
+
+
+# shopPlotMixSeparate([[[x], [date]], [ax, at], [wx, wt], [fx, ft]], 'w_x.png')
