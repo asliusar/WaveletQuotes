@@ -212,4 +212,4 @@ fx += list(fft_sum)
 
 
 # showPlotMix([[[x], [date]]], 'w_x.png')
-showPlotMix([[[x], [date]], [ax, at], [wx, wt], [fx, ft]], 'w_x.png')
+shopPlotMixSeparate([[[x], [date]], [ax, at], [wx, wt], [fx, ft]], 'w_x.png')
