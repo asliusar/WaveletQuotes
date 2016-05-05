@@ -171,15 +171,15 @@ def get_wavelet(x, wavelet_name='db1'):
 
 
 # date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
-date, x = hist_data.get_historical_gdp()
-print(date)
+# date, x = hist_data.get_historical_gdp()
+# print(date)
 # date, x = hist_data.get_historical_quotes(start_date = datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
-date, x = elliot.generate_elliot_waves_wrapper(50)
-# date, x = hist_data.get_historical_quotes()
+# date, x = elliot.generate_elliot_waves_wrapper(50)
+date, x = hist_data.get_historical_quotes()
 # print(hist_data.get_historical_gdp())
 # x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
 # x = np.random.rand(277)
-print(date)
+# print(date)
 x = exp_moving_average(x, 5)
 tx = macd(x, 12, 26)
 ax = list()
