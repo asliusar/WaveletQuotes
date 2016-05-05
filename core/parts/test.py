@@ -5,7 +5,7 @@ import scipy.io.wavfile as wavfile
 
 
 # x = [3, 7, 1, 1, -2, 5, 4,1,1,1,1,1]
-date, x, _, _, _, _ = prepareData('uahrub=x', '20y')
+date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
 # Discrete Wavelet Transform
 # cA, cD = pywt.dwt(x, 'db2')
 # x2 = pywt.idwt(cA, cD, 'db2')
@@ -38,11 +38,11 @@ import numpy as np
 
 fig, (ax1, ax2, ax3) = plt.subplots(nrows=3, sharex=True)
 ax1.plot(np.arange(len(x)), x)
-# ax2.plot(np.arange(len(x)), np.abs(np.fft.fft(x)))
-# ax3.plot(np.arange(len(x)), np.abs(np.fft.fft(np.abs(np.fft.fft(x)))))
-# fig.savefig('test2.png')
-ax2.plot(np.arange(len(x)), get_wavelet(x, 'coif4'))
-ax3.plot(np.arange(len(x)), get_wavelet(get_wavelet(x), 'coif4'))
-fig.savefig('test3.png')
+ax2.plot(np.arange(len(x)-10), np.abs(np.fft.fft(x))[10:])
+ax3.plot(np.arange(len(x)), np.abs(np.fft.fft(np.abs(np.fft.fft(x)))))
+fig.savefig('test2.png')
+# ax2.plot(np.arange(len(x)), get_wavelet(x, 'coif4'))
+# ax3.plot(np.arange(len(x)), get_wavelet(get_wavelet(x), 'coif4'))
+# fig.savefig('test3.png')
 plt.close(fig)
 

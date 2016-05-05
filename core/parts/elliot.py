@@ -109,18 +109,18 @@ def generate_elliot_waves(scale=4):
     result_m = np.subtract(np.max(result), result)
     return result, result_m
 
-z = [ 0.,  3.,  2.,  6.,  5.,  8.]
-mx = [10, 11, 9]
-arr = generate_elliot_waves(50)
-for i in range(1,10):
-    arr = generate_elliot_waves(50)
-    print_wave(arr[0], 'ElliotTest/Rising/zx'+str(i)+'.png')
-    print_fft(arr[0],'ElliotTest/Rising/z_fft_'+str(i)+'.png')
-    print_wavelet(arr[0],'coif4','low','ElliotTest/Rising/z_wvt_'+str(i)+'.png')
-    print_wave(arr[1], 'ElliotTest/Falling/zx'+str(i)+'.png')
-    print_fft(arr[1],'ElliotTest/Falling/z_fft_'+str(i)+'.png')
-    print_wavelet(arr[1],'coif4','low','ElliotTest/Falling/z_wvt_'+str(i)+'.png')
-# print_wave(z, 'zx.png')
+# z = [ 0.,  3.,  2.,  6.,  5.,  8.]
+# mx = [10, 11, 9]
+# arr = generate_elliot_waves(50)
+# for i in range(1,10):
+#     arr = generate_elliot_waves(50)
+#     print_wave(arr[0], 'ElliotTest/Rising/zx'+str(i)+'.png')
+#     print_fft(arr[0],'ElliotTest/Rising/z_fft_'+str(i)+'.png')
+#     print_wavelet(arr[0],'coif4','low','ElliotTest/Rising/z_wvt_'+str(i)+'.png')
+#     print_wave(arr[1], 'ElliotTest/Falling/zx'+str(i)+'.png')
+#     print_fft(arr[1],'ElliotTest/Falling/z_fft_'+str(i)+'.png')
+#     print_wavelet(arr[1],'coif4','low','ElliotTest/Falling/z_wvt_'+str(i)+'.png')
+# # print_wave(z, 'zx.png')
 
 
 # def generate_elliot_wave

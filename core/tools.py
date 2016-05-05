@@ -70,8 +70,12 @@ def showPlotMix(data, file_name='test.png'):
     fig.savefig(file_name)
     plt.close(fig)
 
-def shopPlotMixSeparate(data, file_name='test.png'):
+def shopPlotMixSeparate(data, date, file_name='test.png'):
     print('shopPlotMixSeparate')
-    for i, d in enumerate(data):
-        for j, td in enumerate(d[0]):
-            showPlot(td, d[1][j], str(i+j)+file_name)
+    fig, arr = plt.subplots()
+    print(date)
+    for j, td in enumerate(date):
+        arr.plot(td, data[j])
+
+    fig.savefig(file_name)
+    plt.close(fig)
