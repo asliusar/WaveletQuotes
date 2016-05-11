@@ -28,11 +28,13 @@ def showResult(date, scales, power, time_scale, window, file_name):
     # fig.waitforbuttonpress()
 
 
-def split_timeline(line, date):
+def split_timeline(line, date, division_line=0):
     result = []
     result_date = []
     print('split_timeline')
     last_index = 0
+    for i in range(last_index, len(line)):
+        line[i] -= division_line
     while line[last_index] == 0:
         last_index += 1
     t = -np.sign(line[last_index])
@@ -46,7 +48,8 @@ def split_timeline(line, date):
             t = -t
     result.append(line[last_index:len(line)])
     result_date.append(date[last_index:len(line)])
-
+    for i in range(last_index, len(result)):
+            result[i] += division_line
     return result, result_date
 
 

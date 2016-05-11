@@ -241,11 +241,11 @@ def hurst_research():
     date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
 
     x = exp_moving_average(x, 5)
-    tx = macd(x, 12, 26)
+    tx = hurst(x)
     ax = list()
     at = list()
 
-    splt_x, splt_date = split_timeline(tx, date)
+    splt_x, splt_date = split_timeline(tx, date, division_line=0.5)
 
     ax += list(splt_x)
     at += list(splt_date)
@@ -277,12 +277,14 @@ def hurst_research():
     showPlot(date, x, 'w_x.png')
 
     # macd
-    print('macd', at)
-    shopPlotMixSeparate(ax, at, 'w_macd.png')
+    print('hurst', at)
+    shopPlotMixSeparate(ax, at, 'w_hurst.png')
 
     # wavelet
     print('wt')
-    shopPlotMixSeparate(wx, wt, 'w_wt.png')
+    shopPlotMixSeparate(wx, wt, 'w_hurst_wt.png')
 
     print('fft')
-    shopPlotMixSeparate(fx, ft, 'w_fft.png')
+    shopPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
+
+hurst_research()
