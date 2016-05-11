@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.dates import YearLocator, DateFormatter
+
 from core.parts.preprocessing import *
 
 
@@ -56,11 +57,14 @@ def split_timeline(line, date, division_line=0):
 def showPlot(date, data, file_name):
     import matplotlib.ticker as mticker
     import matplotlib.dates as mdates
-
+    import datetime
     fig, ax = plt.subplots()
     ax.xaxis.set_major_locator(mticker.MaxNLocator(5))
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
-
+    print(date)
+    # print(data)
+    # date = [datetime.datetime(1, 1, 1, 0, 0), datetime.datetime(1, 1, 2, 0, 0), datetime.datetime(1, 1, 3, 0, 0), datetime.datetime(1, 1, 4, 0, 0)]
+    # data = [1, 2, 3, 4]
     ax.plot(date, data)
     # fig.plot([1, 2, 3], [1, 1, 1])
     fig.savefig(file_name)

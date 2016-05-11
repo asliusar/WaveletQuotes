@@ -7,8 +7,6 @@ import numpy as np
 from numpy import log, polyfit, sqrt, std, subtract
 import pywt
 import datetime
-
-
 from scipy.signal import blackman
 
 
@@ -35,9 +33,9 @@ def hurst(ts):
 
 
 def calculateHurst(date, x, folder_name):
-
     hurst_res = hurst(x)
     showPlot(date[-len(hurst_res):], hurst_res, folder_name)
+
 
 def lyapunov(series):
     from math import log
@@ -78,6 +76,7 @@ def lyapunov(series):
 def calculateLyapunov(date, x, folder_name):
     showPlot(date, lyapunov(x), folder_name)
 
+
 # simple moving average: ts - time series vector, moving_average_width - width
 def moving_average(ts, moving_average_width):
     for i in range(moving_average_width - 1, len(ts)):
@@ -113,6 +112,7 @@ def macd(ts, width1=12, width2=26):
 def calculateMACD(date, x, width1, width2, folder_name):
     print(folder_name)
     showPlot(date, macd(x, width1=width1, width2=width2), folder_name)
+
 
 def rsiFunc(prices, n=14):
     deltas = np.diff(prices)
@@ -162,19 +162,24 @@ def get_wavelet(x, wavelet_name='db1'):
     cA, cD = pywt.dwt(x, wavelet=w, mode='per')
     result = np.array([cA[0]])
     for i in range(1, len(cA)):
-        temp = np.linspace(cA[i-1], cA[i], scale)
+        temp = np.linspace(cA[i - 1], cA[i], scale)
         result = np.append(result, temp[1:])
         # result = result + temp[1:]
     if len(x) != len(result):
         result = np.append(result, [0])
     return result
 
+
 def macd_research():
     # date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
     # date, x = hist_data.get_historical_gdp()
     # print(date)
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
-    # date, x = elliot.generate_elliot_waves_wrapper(50)
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2), end_date=datetime.datetime(2004, 6, 2))
+    date, x = elliot.generate_elliot_waves_wrapper(50)
+    print("11111111")
+    print(type(date))
+    # date = np.array(date, dtype=datetime.datetime)
+    # print(x)
     # date, x = hist_data.get_historical_quotes()
     # print(hist_data.get_historical_gdp())
     # x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
@@ -184,61 +189,43 @@ def macd_research():
     tx = macd(x, 12, 26)
     ax = list()
     at = list()
-
     splt_x, splt_date = split_timeline(tx, date)
-
     ax += list(splt_x)
     at += list(splt_date)
-
     wx = list()
     wt = list()
     wt += list(splt_date)
 
     wavelet_sum = []
     for t in splt_x:
-        temp = get_wavelet(t, 'dmey')
+        temp = get_wavelet(t, 'haar')
         wavelet_sum.append(temp)
     wx += list(wavelet_sum)
-
 
     fx = list()
     ft = list()
     ft += list(splt_date)
 
-    # w = blackman(int(len(t)/2))
     fft_sum = []
     for t in splt_x:
         temp = np.fft.fft(t)
         fft_sum.append(temp)
     fx += list(fft_sum)
-
-
-
-    # fft_x = []
-    # for x in splt_x:
-    #     A = np.fft.fft(x)
-    #     frrAbs = np.abs(A)
-    #     temp = frrAbs
-
-    # print(splt_x)
-
-
-
-    showPlot(date, x, 'w_x.png')
-
+    showPlot(date, x, 'perfect_w_x.png')
     # macd
-    print('macd', at)
-    shopPlotMixSeparate(ax, at, 'w_macd.png')
-
+    print('macd')
+    shopPlotMixSeparate(ax, at, 'perfect_w_macd.png')
     # wavelet
     print('wt')
-    shopPlotMixSeparate(wx, wt, 'w_wt.png')
+    shopPlotMixSeparate(wx, wt, 'perfect_w_wt.png')
 
     print('fft')
-    shopPlotMixSeparate(fx, ft, 'w_fft.png')
+    shopPlotMixSeparate(fx, ft, 'perfect_w_fft.png')
+
 
 def hurst_research():
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
+                                              end_date=datetime.datetime(2004, 6, 2))
 
     x = exp_moving_average(x, 5)
     tx = hurst(x)
@@ -260,7 +247,6 @@ def hurst_research():
         wavelet_sum.append(temp)
     wx += list(wavelet_sum)
 
-
     fx = list()
     ft = list()
     ft += list(splt_date)
@@ -270,9 +256,6 @@ def hurst_research():
         temp = np.fft.fft(t)
         fft_sum.append(temp)
     fx += list(fft_sum)
-
-
-
 
     showPlot(date, x, 'w_x.png')
 
@@ -287,4 +270,6 @@ def hurst_research():
     print('fft')
     shopPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
 
-hurst_research()
+
+# hurst_research()
+macd_research()
