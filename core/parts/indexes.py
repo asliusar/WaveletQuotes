@@ -169,73 +169,120 @@ def get_wavelet(x, wavelet_name='db1'):
         result = np.append(result, [0])
     return result
 
+def macd_research():
+    # date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
+    # date, x = hist_data.get_historical_gdp()
+    # print(date)
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
+    # date, x = elliot.generate_elliot_waves_wrapper(50)
+    # date, x = hist_data.get_historical_quotes()
+    # print(hist_data.get_historical_gdp())
+    # x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
+    # x = np.random.rand(277)
+    # print(date)
+    x = exp_moving_average(x, 5)
+    tx = macd(x, 12, 26)
+    ax = list()
+    at = list()
 
-# date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
-# date, x = hist_data.get_historical_gdp()
-# print(date)
-date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
-# date, x = elliot.generate_elliot_waves_wrapper(50)
-# date, x = hist_data.get_historical_quotes()
-# print(hist_data.get_historical_gdp())
-# x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
-# x = np.random.rand(277)
-# print(date)
-x = exp_moving_average(x, 5)
-tx = macd(x, 12, 26)
-ax = list()
-at = list()
+    splt_x, splt_date = split_timeline(tx, date)
 
-splt_x, splt_date = split_timeline(tx, date)
+    ax += list(splt_x)
+    at += list(splt_date)
 
-ax += list(splt_x)
-at += list(splt_date)
+    wx = list()
+    wt = list()
+    wt += list(splt_date)
 
-wx = list()
-wt = list()
-wt += list(splt_date)
-
-wavelet_sum = []
-for t in splt_x:
-    temp = get_wavelet(t, 'dmey')
-    wavelet_sum.append(temp)
-wx += list(wavelet_sum)
-
-
-fx = list()
-ft = list()
-ft += list(splt_date)
-
-# w = blackman(int(len(t)/2))
-fft_sum = []
-for t in splt_x:
-    temp = np.fft.fft(t)
-    fft_sum.append(temp)
-fx += list(fft_sum)
+    wavelet_sum = []
+    for t in splt_x:
+        temp = get_wavelet(t, 'dmey')
+        wavelet_sum.append(temp)
+    wx += list(wavelet_sum)
 
 
+    fx = list()
+    ft = list()
+    ft += list(splt_date)
 
-# fft_x = []
-# for x in splt_x:
-#     A = np.fft.fft(x)
-#     frrAbs = np.abs(A)
-#     temp = frrAbs
-
-# print(splt_x)
+    # w = blackman(int(len(t)/2))
+    fft_sum = []
+    for t in splt_x:
+        temp = np.fft.fft(t)
+        fft_sum.append(temp)
+    fx += list(fft_sum)
 
 
 
-showPlot(date, x, 'w_x.png')
+    # fft_x = []
+    # for x in splt_x:
+    #     A = np.fft.fft(x)
+    #     frrAbs = np.abs(A)
+    #     temp = frrAbs
 
-# macd
-print('macd', at)
-shopPlotMixSeparate(ax, at, 'w_macd.png')
-
-# wavelet
-print('wt')
-shopPlotMixSeparate(wx, wt, 'w_wt.png')
-
-print('fft')
-shopPlotMixSeparate(fx, ft, 'w_fft.png')
+    # print(splt_x)
 
 
-# shopPlotMixSeparate([[[x], [date]], [ax, at], [wx, wt], [fx, ft]], 'w_x.png')
+
+    showPlot(date, x, 'w_x.png')
+
+    # macd
+    print('macd', at)
+    shopPlotMixSeparate(ax, at, 'w_macd.png')
+
+    # wavelet
+    print('wt')
+    shopPlotMixSeparate(wx, wt, 'w_wt.png')
+
+    print('fft')
+    shopPlotMixSeparate(fx, ft, 'w_fft.png')
+
+def hurst_research():
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),end_date = datetime.datetime(2004, 6, 2))
+
+    x = exp_moving_average(x, 5)
+    tx = macd(x, 12, 26)
+    ax = list()
+    at = list()
+
+    splt_x, splt_date = split_timeline(tx, date)
+
+    ax += list(splt_x)
+    at += list(splt_date)
+
+    wx = list()
+    wt = list()
+    wt += list(splt_date)
+
+    wavelet_sum = []
+    for t in splt_x:
+        temp = get_wavelet(t, 'dmey')
+        wavelet_sum.append(temp)
+    wx += list(wavelet_sum)
+
+
+    fx = list()
+    ft = list()
+    ft += list(splt_date)
+
+    fft_sum = []
+    for t in splt_x:
+        temp = np.fft.fft(t)
+        fft_sum.append(temp)
+    fx += list(fft_sum)
+
+
+
+
+    showPlot(date, x, 'w_x.png')
+
+    # macd
+    print('macd', at)
+    shopPlotMixSeparate(ax, at, 'w_macd.png')
+
+    # wavelet
+    print('wt')
+    shopPlotMixSeparate(wx, wt, 'w_wt.png')
+
+    print('fft')
+    shopPlotMixSeparate(fx, ft, 'w_fft.png')
