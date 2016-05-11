@@ -51,7 +51,13 @@ def split_timeline(line, date):
 
 
 def showPlot(date, data, file_name):
+    import matplotlib.ticker as mticker
+    import matplotlib.dates as mdates
+
     fig, ax = plt.subplots()
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(5))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
     ax.plot(date, data)
     # fig.plot([1, 2, 3], [1, 1, 1])
     fig.savefig(file_name)
@@ -72,8 +78,14 @@ def showPlotMix(data, file_name='test.png'):
 
 def shopPlotMixSeparate(data, date, file_name='test.png'):
     print('shopPlotMixSeparate')
+    import matplotlib.ticker as mticker
+    import matplotlib.dates as mdates
+
     fig, arr = plt.subplots()
-    print(date)
+    ax1 = arr
+    ax1.xaxis.set_major_locator(mticker.MaxNLocator(5))
+    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
     for j, td in enumerate(date):
         arr.plot(td, data[j])
 
