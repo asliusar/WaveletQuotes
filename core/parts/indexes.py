@@ -271,5 +271,5 @@ def hurst_research():
     shopPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
 
 
-# hurst_research()
-macd_research()
+hurst_research()
+# macd_research()
