@@ -50,7 +50,7 @@ def split_timeline(line, date, division_line=0):
     result.append(line[last_index:len(line)])
     result_date.append(date[last_index:len(line)])
     for i in range(last_index, len(result)):
-            result[i] += division_line
+        result[i] += division_line
     return result, result_date
 
 
@@ -83,7 +83,8 @@ def showPlotMix(data, file_name='test.png'):
     fig.savefig(file_name)
     plt.close(fig)
 
-def shopPlotMixSeparate(data, date, file_name='test.png'):
+
+def showPlotMixSeparate(data, date, file_name='test.png'):
     print('shopPlotMixSeparate')
     import matplotlib.ticker as mticker
     import matplotlib.dates as mdates
@@ -96,5 +97,16 @@ def shopPlotMixSeparate(data, date, file_name='test.png'):
     for j, td in enumerate(date):
         arr.plot(td, data[j])
 
+    fig.savefig(file_name)
+    plt.close(fig)
+
+
+def showPlotCompare(data, date, file_name):
+    print("showPlotCompare")
+    print(len(data))
+    fig, arr = plt.subplots(nrows=len(data), sharex=True)
+    print('showPlotMix')
+    for i, d in enumerate(data):
+        arr[i].plot(date, d)
     fig.savefig(file_name)
     plt.close(fig)

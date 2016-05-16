@@ -1,9 +1,4 @@
-from wavelets import WaveletAnalysis
-import os
-from wavelets.wavelets import all_wavelets
-import math
-from core.parts.preprocessing import *
-from core.tools import *
+from core.parts.indexes import *
 
 common_folder = 'static/results/'
 input_plot_name = 'input_plot'
