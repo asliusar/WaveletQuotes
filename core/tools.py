@@ -103,10 +103,14 @@ def showPlotMixSeparate(data, date, file_name='test.png'):
 
 def showPlotCompare(data, date, file_name):
     print("showPlotCompare")
-    print(len(data))
+    print(len(date))
+    import matplotlib.ticker as mticker
+    import matplotlib.dates as mdates
+
     fig, arr = plt.subplots(nrows=len(data), sharex=True)
-    print('showPlotMix')
     for i, d in enumerate(data):
+        arr[i].xaxis.set_major_locator(mticker.MaxNLocator(7))
+        arr[i].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
         arr[i].plot(date, d)
     fig.savefig(file_name)
     plt.close(fig)
