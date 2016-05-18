@@ -4,9 +4,10 @@ def macd_research():
     # date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
     # date, x = hist_data.get_historical_gdp()
     # print(date)
-    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2), end_date=datetime.datetime(2004, 6, 2))
-    date, x = elliot.generate_elliot_waves_wrapper(50)
-    print("11111111")
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(1993, 9, 2), end_date=datetime.datetime(2014, 6, 2))
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2011, 9, 2), end_date=datetime.datetime(2012, 6, 2))
+    # date, x = elliot.generate_elliot_waves_wrapper(50)
+    prefix = "no_elliott"
     print(type(date))
     # date = np.array(date, dtype=datetime.datetime)
     # print(x)
@@ -41,16 +42,16 @@ def macd_research():
         temp = np.fft.fft(t)
         fft_sum.append(temp)
     fx += list(fft_sum)
-    showPlot(date, x, 'perfect_w_x.png')
+    showPlot(date, x, prefix+'_w_x.png')
     # macd
     print('macd')
-    showPlotMixSeparate(ax, at, 'perfect_w_macd.png')
+    showPlotMixSeparate(ax, at, prefix+'_w_macd.png')
     # wavelet
     print('wt')
-    showPlotMixSeparate(wx, wt, 'perfect_w_wt.png')
+    showPlotMixSeparate(wx, wt, prefix+'_w_wt.png')
 
     print('fft')
-    showPlotMixSeparate(fx, ft, 'perfect_w_fft.png')
+    showPlotMixSeparate(fx, ft, prefix+'perfect_w_fft.png')
 
 
 def hurst_research():
