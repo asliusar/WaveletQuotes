@@ -13,7 +13,7 @@ def get_historical_gdp():
     return date, value
 
 def get_historical_quotes(start_date=datetime.datetime(1990,1,2),end_date=datetime.datetime(2016,1,1)):
-    df = pd.read_csv(r'../../data/usdgbp1990.csv')
+    df = pd.read_csv('/home/joby/PycharmProjects/Wavelets/data/usdgbp1990.csv')
     date = df['DATE'].values
     value = df['VALUE'].values
     print(type(date))
@@ -29,4 +29,4 @@ def get_historical_quotes(start_date=datetime.datetime(1990,1,2),end_date=dateti
     # print(len(date),value)
     return date, value
 
-date, x = get_historical_quotes(start_date=datetime.datetime(2003, 1, 2), end_date=datetime.datetime(2006, 1, 2))
+# date, x = get_historical_quotes(start_date=datetime.datetime(2003, 1, 2), end_date=datetime.datetime(2006, 1, 2))

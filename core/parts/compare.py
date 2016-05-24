@@ -39,20 +39,19 @@ def compare_fft():
     at = []
     l = len(x)
     t = 10
-    x = exp_moving_average(x, 5)
-    ax.append(x[t:])
-    at.append(date[t:])
+    x = exp_moving_average(x, 10)
+    ax.append(x[t:l-t])
+    at.append(date[t:l-t])
+
+    ax.append(fft(x)[t:l-t])
+    at.append(date[t:l-t])
 
     # print(l, len(np.fft.ifft(np.fft.fft(x)[5:l-5])[5:l-5]))
     print(len(x))
-    print(len(ifft(np.log(np.abs(fft(x)[5:l-5])))[5:l-5]))
-    ax.append(ifft(np.log(np.abs(fft(x)[:l/2][5:])))[t/2:])
-    at.append(date[::2][5:])
-
-
-    ax.append(fft(x)[:l/2][5:])
-    at.append(date[::2][5:])
-
+    # print(len(ifft(np.log(np.abs(fft(x)[5:l-5])))[5:l-5]))
+    # ax.append((ifft(np.log(np.abs(fft(x))))[t:l-t])[:l/2 - t])
+    # at.append((date[t:l-t])[::2])
+    print("---")
     showPlotCompareSeparate(ax, at, 'comparefft.jpg')
 
 compare_fft()

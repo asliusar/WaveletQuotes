@@ -20,11 +20,7 @@ def mainLoop(stock, wrange, date, x):
     try:
         import matplotlib
         from scipy import signal
-        # print(len(x))
-        # print(x-signal.detrend(x))
-        # x = signal.detrend(x)
-        # degree = 10
-        # x = detrend(x, degree)
+
         mcd = macd(x, 10, 20)
         # x = macd(x)
         showPlot(date, mcd, macd_name)

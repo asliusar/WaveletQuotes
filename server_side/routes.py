@@ -55,8 +55,15 @@ def show_wavelets():
     wavelet_image_name = []
 
     print("1 - " + wavelet_name)
-    date, x, _, _, _, _ = prepareData(stock, wrange)
+    # date, x, _, _, _, _ = prepareData(stock, wrange)
+    # 2003 9 2 - 2004 6 2
 
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
+                                                  end_date=datetime.datetime(2004, 6, 2))
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 4, 2),
+    #                                               end_date=datetime.datetime(2004, 10, 2))
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2011, 9, 2),
+    #                                       end_date=datetime.datetime(2012, 6, 2))
     for i in range(moving_avg_width - 1, len(x)):
         for j in range(i - moving_avg_width + 1, i):
             x[i] += x[j]

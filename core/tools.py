@@ -16,11 +16,13 @@ def detrend(data, degree=10):
 
 def showResult(date, scales, power, time_scale, window, file_name):
     # y_ticks = np.arange(0, 15, 2)
+    import matplotlib.ticker as mticker
+    import matplotlib.dates as mdates
     fig, ax = plt.subplots()
     ax.xaxis.set_major_locator(YearLocator(time_scale))
     # ax.set_yticks(y_ticks)
-    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-    ax.fmt_xdata = DateFormatter('%Y-%m-%d %H:%M:%S')
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(5))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
 
     ax.contourf(date, scales, power, 100)
     # ax.set_yscale('log')
