@@ -16,7 +16,7 @@ def get_historical_quotes(start_date=datetime.datetime(1990,1,2),end_date=dateti
     df = pd.read_csv('/home/joby/PycharmProjects/Wavelets/data/usdgbp1990.csv')
     date = df['DATE'].values
     value = df['VALUE'].values
-    print(type(date))
+    # print(type(date))
     new_date = []
     for element in date:
         new_date.append(datetime.datetime.strptime(element, '%Y-%m-%d'))
