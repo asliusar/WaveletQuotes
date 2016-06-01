@@ -101,6 +101,50 @@ def hurst_research():
     print('fft')
     showPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
 
+def reserch(date, x, type='macd', wavelet='db1'):
+
+    tx = []
+    x = exp_moving_average(x, 5)
+
+    if type == 'hurst':
+        tx = hurst(x)
+    elif type == 'macd':
+        tx = macd(x, 12, 26)
+
+    ax = list()
+    at = list()
+
+    splt_x, splt_date = split_timeline(tx, date, division_line=0.5)
+
+    ax += list(splt_x)
+    at += list(splt_date)
+
+    wx = list()
+    wt = list()
+    wt += list(splt_date)
+
+    wavelet_sum = []
+    for t in splt_x:
+        temp = get_wavelet(t, wavelet)
+        wavelet_sum.append(temp)
+    wx += list(wavelet_sum)
+
+    # fx = list()
+    # ft = list()
+    # ft += list(splt_date)
+    #
+    # fft_sum = []
+    # for t in splt_x:
+    #     temp = np.fft.fft(t)
+    #     fft_sum.append(temp)
+    # fx += list(fft_sum)
+
+    showPlot(date, x, 'w_x.png')
+
+    # showPlotMixSeparate(ax, at, 'w_hurst.png')
+    # showPlotMixSeparate(wx, wt, 'w_hurst_wt.png')
+    # showPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
+    return ax, at, wx, wt
 
 # hurst_research()
 macd_research()

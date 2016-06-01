@@ -1,5 +1,5 @@
 from core.parts.indexes import *
-
+from core.parts.research import reserch
 
 def compare_hurst_macd():
     date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
@@ -22,12 +22,17 @@ def compare_wavelets():
                                                   end_date=datetime.datetime(2004, 6, 2))
 
     ax = []
+    labels = []
     l = len(x)
     ax.append(x[:l-10])
-    ax.append(get_wavelet(x, 'db1')[:l-10])
+    labels.append("Часовий ряд")
+    ax.append(get_wavelet(x, 'db2')[:l-10])
+    labels.append("Вейвлет Добеши")
     ax.append(get_wavelet(x, 'haar')[:l-10])
-    ax.append(get_wavelet(x, 'coif1')[:l-10])
-    showPlotCompare(ax, date[:l-10], 'comparewt.jpg')
+    labels.append("Вейвлет Хаара")
+    ax.append(get_wavelet(x, 'coif2')[:l-10])
+    labels.append("Вейвлет Койфлет")
+    showPlotLabelsCompare(ax, date[:l-10], labels, 'comparewt.jpg')
 
 
 def compare_fft():
@@ -38,7 +43,7 @@ def compare_fft():
     ax = []
     at = []
     l = len(x)
-    t = 10
+    t = 25
     x = exp_moving_average(x, 10)
     ax.append(x[t:l-t])
     at.append(date[t:l-t])
@@ -54,5 +59,31 @@ def compare_fft():
     print("---")
     showPlotCompareSeparate(ax, at, 'comparefft.jpg')
 
-compare_fft()
+def compare_split_wavelets():
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
+                                                  end_date=datetime.datetime(2004, 6, 2))
+    sum_x = []
+    sum_t = []
+    labels = []
+    ax, at, wx, wt = reserch(date, x, 'hurst', 'db2')
+    sum_x.append(ax)
+    sum_t.append(at)
+    labels.append("Часовий ряд")
+    sum_x.append(wx)
+    sum_t.append(wt)
+    labels.append("Вейвлет Добеши")
+    ax, at, wx, wt = reserch(date, x, 'hurst', 'haar')
+    sum_x.append(wx)
+    sum_t.append(wt)
+    labels.append("Вейвлет Хаара")
+    ax, at, wx, wt = reserch(date, x, 'hurst', 'coif2')
+    sum_x.append(wx)
+    sum_t.append(wt)
+    labels.append("Вейвлет Койфлет")
+    showPlotMixSeparateCompare(sum_x, sum_t, labels, 'compare_sep_wt.jpg')
+    # showPlotLabelsCompare(ax, date[:l-10], labels, 'comparewt.jpg')
+
+
+# compare_fft()
 # compare_wavelets()
+compare_split_wavelets()

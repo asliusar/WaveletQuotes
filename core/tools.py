@@ -113,7 +113,44 @@ def showPlotCompare(data, date, file_name):
     for i, d in enumerate(data):
         arr[i].xaxis.set_major_locator(mticker.MaxNLocator(7))
         arr[i].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+        # fig.suptitle('test title', fontsize=20)
+        # arr[i].set_title('ax1 title')
         arr[i].plot(date, d)
+    fig.savefig(file_name)
+    plt.close(fig)
+
+def showPlotLabelsCompare(data, date, labels, file_name):
+    print("showPlotCompare")
+    print(len(date))
+    import matplotlib.ticker as mticker
+    import matplotlib.dates as mdates
+
+    fig, arr = plt.subplots(nrows=len(data), sharex=True)
+    for i, d in enumerate(data):
+        arr[i].xaxis.set_major_locator(mticker.MaxNLocator(7))
+        arr[i].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+        # fig.suptitle('test title', fontsize=20)
+        arr[i].set_title(labels[i])
+        arr[i].plot(date, d)
+    fig.savefig(file_name)
+    plt.close(fig)
+
+
+def showPlotMixSeparateCompare(data, date, labels, file_name='test.png'):
+    print('shopPlotMixSeparate')
+    import matplotlib.ticker as mticker
+    import matplotlib.dates as mdates
+
+    fig, arr = plt.subplots(nrows=len(data), sharex=True)
+    for i, d in enumerate(data):
+        arr[i].xaxis.set_major_locator(mticker.MaxNLocator(7))
+        arr[i].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+        # fig.suptitle('test title', fontsize=20)
+        arr[i].set_title(labels[i])
+
+        for j, td in enumerate(date[i]):
+            arr[i].plot(td, d[j])
+
     fig.savefig(file_name)
     plt.close(fig)
 
