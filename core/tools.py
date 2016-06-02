@@ -26,6 +26,7 @@ def showResult(date, scales, power, time_scale, window, file_name):
 
     ax.contourf(date, scales, power, 100)
     # ax.set_yscale('log')
+    print("Wavelet saved to", file_name)
     fig.savefig(file_name)
     # fig.show()
     # fig.waitforbuttonpress()

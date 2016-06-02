@@ -15,7 +15,7 @@ hurst_plot_name = 'hurst_plot'
 lyapunov_plot_name = 'lyapunov_plot'
 macd_name = 'macd_plot'
 
-
+#
 def mainLoop(stock, wrange, date, x):
     try:
         import matplotlib
@@ -28,9 +28,7 @@ def mainLoop(stock, wrange, date, x):
         folder_name = stock + '_' + wrange
         if not os.path.exists(common_folder + folder_name):
             os.makedirs(common_folder + folder_name)
-        print("Main thread test")
         hurst_res = hurst(x)
-        # wtf?
         # showPlot(date[-len(hurst_res):], hurst_res, hurst_name)
 
         for wavelet in all_wavelets:

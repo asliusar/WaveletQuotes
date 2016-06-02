@@ -1,11 +1,18 @@
 from core.parts.indexes import *
+from waveletMaker import *
+from wavelets.wavelets import __all__
+
+class Image:
+    def __init__(self, name, img):
+        self.name = name
+        self.img = img
 
 def macd_research():
     # date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
     # date, x = hist_data.get_historical_gdp()
     # print(date)
     # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(1993, 9, 2), end_date=datetime.datetime(2014, 6, 2))
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2011, 9, 2), end_date=datetime.datetime(2012, 6, 2))
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
     # date, x = elliot.generate_elliot_waves_wrapper(50)
     prefix = "no_elliott"
     print(type(date))
@@ -53,6 +60,7 @@ def macd_research():
     print('fft')
     showPlotMixSeparate(fx, ft, prefix+'perfect_w_fft.png')
 
+    mainLoop("x", "2y", date, x)
 
 def hurst_research():
     date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
@@ -100,6 +108,8 @@ def hurst_research():
 
     print('fft')
     showPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
+
+
 
 def reserch(date, x, type='macd', wavelet='db1'):
 

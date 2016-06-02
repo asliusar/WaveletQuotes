@@ -48,7 +48,7 @@ def show_wavelets():
     # print(request.form)
     wavelet_name = request.form["wavelet_name"]
     stock = request.form["ticker"] + "=x"
-    wrange = request.form["period"]
+    wrange = request.form["period"] #
     moving_avg_width = request.form["ma_param"]
     moving_avg_width = int(moving_avg_width)
     folder_name = stock + '_' + wrange
