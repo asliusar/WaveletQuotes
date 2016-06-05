@@ -1,6 +1,5 @@
-from core.parts.indexes import *
 from waveletMaker import *
-from wavelets.wavelets import __all__
+
 
 class Image:
     def __init__(self, name, img):
@@ -157,4 +156,4 @@ def reserch(date, x, type='macd', wavelet='db1'):
     return ax, at, wx, wt
 
 # hurst_research()
-macd_research()
+# macd_research()

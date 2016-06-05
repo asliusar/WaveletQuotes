@@ -1,5 +1,6 @@
 from core.parts.indexes import *
 from core.parts.research import reserch
+from core.parts.fourier.tools import compute_cepstrum
 
 def compare_hurst_macd():
     date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
@@ -36,20 +37,31 @@ def compare_wavelets():
 
 
 def compare_fft():
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
-                                                  end_date=datetime.datetime(2004, 6, 2))
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2000, 2, 2),
+                                                  end_date=datetime.datetime(2001, 2, 2),
+                                              csv_path='../../data/usdgbp1990.csv')
+
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
+    #                                               end_date=datetime.datetime(2004, 6, 2),
+    #                                           csv_path='../../data/usdgbp1990.csv')
 
     from scipy.fftpack import fft, ifft
     ax = []
     at = []
     l = len(x)
-    t = 25
+    t = 50
     x = exp_moving_average(x, 10)
     ax.append(x[t:l-t])
     at.append(date[t:l-t])
 
-    ax.append(fft(x)[t:l-t])
-    at.append(date[t:l-t])
+    # ax.append(ifft(fft(x))[t:l-t])
+    # at.append(date[t:l-t])
+
+    # ax.append(fft(x)[t:l-t])
+    # at.append(date[t:l-t])
+
+    ax.append((fft(x)[t:l-t])[:l/2 - t])
+    at.append((date[t:l-t])[::2])
 
     # print(l, len(np.fft.ifft(np.fft.fft(x)[5:l-5])[5:l-5]))
     print(len(x))
@@ -57,11 +69,12 @@ def compare_fft():
     # ax.append((ifft(np.log(np.abs(fft(x))))[t:l-t])[:l/2 - t])
     # at.append((date[t:l-t])[::2])
     print("---")
-    showPlotCompareSeparate(ax, at, 'comparefft.jpg')
+    showPlotCompareSeparate(ax, at, 'comparecep.jpg')
 
 def compare_split_wavelets():
     date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
-                                                  end_date=datetime.datetime(2004, 6, 2))
+                                                  end_date=datetime.datetime(2004, 6, 2),
+                                                csv_path='../../data/usdgbp1990.csv')
     sum_x = []
     sum_t = []
     labels = []

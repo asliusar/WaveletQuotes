@@ -1,15 +1,14 @@
 from __future__ import division
 
-from nose.tools import *
-import numpy.testing as npt
-
-import numpy as np
-import scipy.signal
-from scipy.io import wavfile
 import matplotlib.pyplot as plt
+import numpy as np
+import numpy.testing as npt
+import scipy.signal
+from nose.tools import *
+from scipy.io import wavfile
 
-import wavelets
-from wavelets import WaveletAnalysis
+from core.parts import wavelets
+from core.parts.wavelets import WaveletAnalysis
 
 __all__ = ['test_N', 'compare_cwt', 'compare_morlet', 'test_Cd',
            'test_var_time', 'test_var_freq', 'test_reconstruction_time',

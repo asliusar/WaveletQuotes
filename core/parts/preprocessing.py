@@ -1,8 +1,5 @@
-from wavelets import WaveletAnalysis
 import numpy as np
 import os
-import wavelets
-from wavelets.wavelets import all_wavelets
 import urllib.request, urllib.error, urllib.parse
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt

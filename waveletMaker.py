@@ -1,13 +1,7 @@
-from wavelets import WaveletAnalysis
-import numpy as np
-import os
-import wavelets
-from wavelets.wavelets import all_wavelets
+from core.parts.wavelets.transform import WaveletAnalysis
 
-from core.tools import *
-from core.parts.preprocessing import *
-from core.parts.wavelet import *
 from core.parts.indexes import *
+from core.parts.wavelets.wavelets import all_wavelets
 
 common_folder = 'static/results/'
 input_plot_name = 'input_plot'

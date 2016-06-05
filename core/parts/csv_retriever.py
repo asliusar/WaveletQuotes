@@ -1,6 +1,8 @@
 import pandas as pd
 import time
 import datetime
+import os
+
 
 def get_historical_gdp():
     df = pd.read_csv(r'../../data/GDP.csv')
@@ -12,8 +14,10 @@ def get_historical_gdp():
     value = df['VALUE']
     return date, value
 
-def get_historical_quotes(start_date=datetime.datetime(1990,1,2),end_date=datetime.datetime(2016,1,1)):
-    df = pd.read_csv('../data/usdgbp1990.csv')
+
+def get_historical_quotes(start_date=datetime.datetime(1990, 1, 2),
+                          end_date=datetime.datetime(2016, 1, 1), csv_path='../data/usdgbp1990.csv'):
+    df = pd.read_csv(csv_path)
     date = df['DATE'].values
     value = df['VALUE'].values
     # print(type(date))
@@ -29,4 +33,4 @@ def get_historical_quotes(start_date=datetime.datetime(1990,1,2),end_date=dateti
     # print(len(date),value)
     return date, value
 
-# date, x = get_historical_quotes(start_date=datetime.datetime(1995, 1, 2), end_date=datetime.datetime(2009, 1, 2))
+    # date, x = get_historical_quotes(start_date=datetime.datetime(1995, 1, 2), end_date=datetime.datetime(2009, 1, 2))
