@@ -5,15 +5,6 @@ from matplotlib.dates import YearLocator, DateFormatter
 from core.parts.preprocessing import *
 
 
-def detrend(data, degree=10):
-    detrended = data
-    for i in range(1, len(data)):
-        chunk = data[max(1, i - degree):min(i + degree, len(data))]
-        chunk = sum(chunk) / len(chunk)
-        detrended[i] = data[i] - chunk
-    return detrended
-
-
 def showResult(date, scales, power, time_scale, window, file_name):
     # y_ticks = np.arange(0, 15, 2)
     import matplotlib.ticker as mticker
@@ -119,6 +110,7 @@ def showPlotCompare(data, date, file_name):
         arr[i].plot(date, d)
     fig.savefig(file_name)
     plt.close(fig)
+
 
 def showPlotLabelsCompare(data, date, labels, file_name):
     print("showPlotCompare")

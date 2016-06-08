@@ -110,7 +110,7 @@ def hurst_research():
 
 
 
-def reserch(date, x, type='macd', wavelet='db1'):
+def wavelet_reserch(date, x, type='macd', wavelet='db1'):
 
     tx = []
     x = exp_moving_average(x, 5)
@@ -123,7 +123,11 @@ def reserch(date, x, type='macd', wavelet='db1'):
     ax = list()
     at = list()
 
-    splt_x, splt_date = split_timeline(tx, date, division_line=0.5)
+    if type == 'hurst':
+        division_line = 0
+    else:
+        division_line = .5
+    splt_x, splt_date = split_timeline(tx, date, division_line=division_line)
 
     ax += list(splt_x)
     at += list(splt_date)

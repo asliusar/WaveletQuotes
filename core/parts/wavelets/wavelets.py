@@ -7,8 +7,8 @@ import scipy.optimize
 import scipy.special
 from scipy.misc import factorial
 
-__all__ = ['Morlet', 'Paul', 'DOG', 'Ricker', 'Marr', 'Mexican_hat']
-
+# __all__ = ['Morlet', 'Paul', 'DOG', 'Ricker']
+__all__ = ['DOG', 'Morlet', 'Paul', 'Ricker', 'Ricker']
 
 class Morlet(object):
     def __init__(self, w0=6):
@@ -207,7 +207,7 @@ class Paul(object):
 
 
 class DOG(object):
-    def __init__(self, m=2):
+    def __init__(self, m=1):
         """Initialise a Derivative of Gaussian wavelet of order m."""
         if m == 2:
             # value of C_d from TC98
@@ -334,3 +334,5 @@ class Ricker(DOG):
 # aliases for DOG2
 Marr = Ricker
 Mexican_hat = Ricker
+
+all_wavelets = [Morlet, DOG, Paul, Ricker, Ricker]

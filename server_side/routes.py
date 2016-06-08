@@ -5,7 +5,7 @@ from flask import render_template
 from flask import request
 
 from core.parts.indexes import *
-from core.parts.wavelet import calculateWavelet
+from core.parts.wavelet import calculate_cwt
 from core.parts.wavelets.wavelets import __all__
 from waveletMaker import *
 
@@ -82,7 +82,8 @@ def show_wavelets():
     if wavelet_name != 'All':
         print("1 - " + wavelet_name)
         folder_name = stock + '_' + wrange
-        calculateWavelet(wrange, date, x, folder_name, wavelet_name)
+        time_scale = int(wrange[:-1])
+        calculate_cwt(math.ceil(time_scale / 4.), date, x, folder_name, wavelet_name)
         wavelet_image_name.append(
                 Image(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
     else:

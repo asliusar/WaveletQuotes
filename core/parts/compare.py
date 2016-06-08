@@ -1,5 +1,5 @@
 from core.parts.indexes import *
-from core.parts.research import reserch
+from core.parts.research import wavelet_reserch
 from core.parts.fourier.tools import compute_cepstrum
 from core.parts.wavelet import compute_dwt
 
@@ -87,18 +87,18 @@ def compare_split_wavelets(date, x, split_method='hurst', file_name='compare_sep
     sum_x = []
     sum_t = []
     labels = []
-    ax, at, wx, wt = reserch(date, x, split_method, 'db2')
+    ax, at, wx, wt = wavelet_reserch(date, x, split_method, 'db2')
     sum_x.append(ax)
     sum_t.append(at)
     labels.append("Часовий ряд")
     sum_x.append(wx)
     sum_t.append(wt)
     labels.append("Вейвлет Добеши")
-    ax, at, wx, wt = reserch(date, x, 'hurst', 'haar')
+    ax, at, wx, wt = wavelet_reserch(date, x, 'hurst', 'haar')
     sum_x.append(wx)
     sum_t.append(wt)
     labels.append("Вейвлет Хаара")
-    ax, at, wx, wt = reserch(date, x, 'hurst', 'coif2')
+    ax, at, wx, wt = wavelet_reserch(date, x, 'hurst', 'coif2')
     sum_x.append(wx)
     sum_t.append(wt)
     labels.append("Вейвлет Койфлет")
