@@ -1,5 +1,5 @@
 from waveletMaker import *
-
+from core.parts.wavelet import compute_dwt
 
 class Image:
     def __init__(self, name, img):
@@ -134,7 +134,7 @@ def reserch(date, x, type='macd', wavelet='db1'):
 
     wavelet_sum = []
     for t in splt_x:
-        temp = get_wavelet(t, wavelet)
+        temp = compute_dwt(t, wavelet)
         wavelet_sum.append(temp)
     wx += list(wavelet_sum)
 

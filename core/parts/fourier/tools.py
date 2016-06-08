@@ -7,18 +7,16 @@ def compute_fft(x):
     return np.fft.fft(x)
 
 
-def compute_split_fft(arr_x, arr_t):
+def compute_split_fft(arr_x):
     # print('compute_split_fft')
     fx = list()
-    ft = list()
-    ft += list(arr_t)
 
     fft_sum = []
     for t in arr_x:
         temp = compute_fft(t)
         fft_sum.append(temp)
     fx += list(fft_sum)
-    return fx, ft
+    return fx
 
 
 def compute_cepstrum(x):

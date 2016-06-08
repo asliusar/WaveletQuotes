@@ -156,16 +156,5 @@ def ExpMovingAverage(values, window):
     return a
 
 
-def get_wavelet(x, wavelet_name='db1'):
-    w = pywt.Wavelet(wavelet_name)
-    scale = 3
-    cA, cD = pywt.dwt(x, wavelet=w, mode='per')
-    result = np.array([cA[0]])
-    for i in range(1, len(cA)):
-        temp = np.linspace(cA[i - 1], cA[i], scale)
-        result = np.append(result, temp[1:])
-        # result = result + temp[1:]
-    if len(x) != len(result):
-        result = np.append(result, [0])
-    return result
+
 

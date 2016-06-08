@@ -1,10 +1,12 @@
 from core.parts.indexes import *
-
+from core.parts.wavelets.transform import WaveletAnalysis
+from core.parts.wavelets.wavelets import all_wavelets
 common_folder = 'static/results/'
 input_plot_name = 'input_plot'
 hurst_plot_name = 'hurst_plot'
 lyapunov_plot_name = 'lyapunov_plot'
 macd_name = 'macd_plot'
+
 
 def calculateWavelet(wrange, date, x, folder_name, wavelet_name):
     time_scale = int(wrange[:-1])
@@ -29,3 +31,17 @@ def calculateWavelet(wrange, date, x, folder_name, wavelet_name):
                common_folder + folder_name + '/' + wavelet.__name__ + '.png')
     # except Exception as e:
     #     print('mainLoop', str(e))
+
+
+def compute_dwt(x, wavelet_name='db1'):
+    w = pywt.Wavelet(wavelet_name)
+    scale = 3
+    cA, cD = pywt.dwt(x, wavelet=w, mode='per')
+    result = np.array([cA[0]])
+    for i in range(1, len(cA)):
+        temp = np.linspace(cA[i - 1], cA[i], scale)
+        result = np.append(result, temp[1:])
+        # result = result + temp[1:]
+    if len(x) != len(result):
+        result = np.append(result, [0])
+    return result
