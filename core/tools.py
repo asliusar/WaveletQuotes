@@ -65,17 +65,17 @@ def showPlot(date, data, file_name):
     plt.close(fig)
 
 
-def showPlotMix(data, file_name='test.png'):
-    fig, arr = plt.subplots(nrows=len(data), sharex=True)
-    print('showPlotMix')
-    for i, d in enumerate(data):
-        # print(len(d[0]))
-        for j, td in enumerate(d[0]):
-            # print(len(td))
-            print(len(d[1][j]))
-            arr[i].plot(d[1][j], td)
-    fig.savefig(file_name)
-    plt.close(fig)
+# def showPlotMix(data, file_name='test.png'):
+#     fig, arr = plt.subplots(nrows=len(data), sharex=True)
+#     print('showPlotMix')
+#     for i, d in enumerate(data):
+#         # print(len(d[0]))
+#         for j, td in enumerate(d[0]):
+#             # print(len(td))
+#             print(len(d[1][j]))
+#             arr[i].plot(d[1][j], td)
+#     fig.savefig(file_name)
+#     plt.close(fig)
 
 
 def showPlotMixSeparate(data, date, file_name='test.png'):
