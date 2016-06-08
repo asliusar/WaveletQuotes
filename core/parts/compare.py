@@ -71,6 +71,34 @@ def compare_fft():
     print("---")
     showPlotCompareSeparate(ax, at, 'comparecep.jpg')
 
+
+def compare_cepstrum():
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2000, 2, 2),
+    #                                               end_date=datetime.datetime(2001, 2, 2),
+    #                                           csv_path='../../data/usdgbp1990.csv')
+
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
+                                                  end_date=datetime.datetime(2004, 6, 2),
+                                              csv_path='../../data/usdgbp1990.csv')
+
+    from scipy.fftpack import fft, ifft
+    ax = []
+    at = []
+    l = len(x)
+    t = 50
+    x = exp_moving_average(x, 10)
+    ax.append(x[t:l-t])
+    at.append(date[t:l-t])
+
+    # print(l, len(np.fft.ifft(np.fft.fft(x)[5:l-5])[5:l-5]))
+    print(len(x))
+    # print(len(ifft(np.log(np.abs(fft(x)[5:l-5])))[5:l-5]))
+    ax.append((ifft(np.log(np.abs(fft(x))))[t:l-t])[:l/2 - t])
+    at.append((date[t:l-t])[::2])
+    print("---")
+    showPlotCompareSeparate(ax, at, 'comparecep.jpg')
+
+
 def compare_split_wavelets():
     date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
                                                   end_date=datetime.datetime(2004, 6, 2),
@@ -96,7 +124,7 @@ def compare_split_wavelets():
     showPlotMixSeparateCompare(sum_x, sum_t, labels, 'compare_sep_wt.jpg')
     # showPlotLabelsCompare(ax, date[:l-10], labels, 'comparewt.jpg')
 
-
+compare_cepstrum()
 # compare_fft()
 # compare_wavelets()
-compare_split_wavelets()
+# compare_split_wavelets()

@@ -56,8 +56,8 @@ def show_wavelets():
     # date, x, _, _, _, _ = prepareData(stock, wrange)
     # 2003 9 2 - 2004 6 2
 
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2000, 2, 2),
-                                              end_date=datetime.datetime(2001, 2, 2))
+    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(1999, 2, 2),
+                                              end_date=datetime.datetime(2003, 2, 2))
     # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
     #                                             end_date=datetime.datetime(2004, 6, 2))
     # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 4, 2),
@@ -90,13 +90,14 @@ def show_wavelets():
         for name in __all__:
             wavelet_image_name.append(Image(name, common_folder + folder_name + '/' + name + '.png'))
 
-    hurst_plot = common_folder + folder_name + '/' + hurst_plot_name + '.png'
-    wavelet_image_name.append(Image('hurst_plot', hurst_plot))
-    calculateHurst(date, x, hurst_plot)
+    print(123321)
+    # hurst_plot = common_folder + folder_name + '/' + hurst_plot_name + '.png'
+    # wavelet_image_name.append(Image('hurst_plot', hurst_plot))
+    # calculateHurst(date, x, hurst_plot)
 
-    lyapunov_plot = common_folder + folder_name + '/' + lyapunov_plot_name + '.png'
-    wavelet_image_name.append(Image('lyapunov_plot', lyapunov_plot))
-    calculateLyapunov(date, x, lyapunov_plot)
+    # lyapunov_plot = common_folder + folder_name + '/' + lyapunov_plot_name + '.png'
+    # wavelet_image_name.append(Image('lyapunov_plot', lyapunov_plot))
+    # calculateLyapunov(date, x, lyapunov_plot)
 
 
     wavelet_list_retrieved = ["All"] + __all__
