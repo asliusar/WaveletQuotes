@@ -1,3 +1,7 @@
+import os
+
+import math
+
 from core.parts.wavelets.transform import WaveletAnalysis
 
 from core.parts.indexes import *

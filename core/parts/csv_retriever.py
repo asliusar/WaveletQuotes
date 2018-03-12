@@ -16,7 +16,7 @@ def get_historical_gdp():
 
 
 def get_historical_quotes(start_date=datetime.datetime(1990, 1, 2),
-                          end_date=datetime.datetime(2016, 1, 1), csv_path='../data/usdgbp1990.csv'):
+                          end_date=datetime.datetime(2016, 1, 1), csv_path='../../data/usdgbp1990.csv'):
     df = pd.read_csv(csv_path)
     date = df['DATE'].values
     value = df['VALUE'].values

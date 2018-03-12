@@ -59,6 +59,7 @@ def showPlot(date, data, file_name):
     # print(data)
     # date = [datetime.datetime(1, 1, 1, 0, 0), datetime.datetime(1, 1, 2, 0, 0), datetime.datetime(1, 1, 3, 0, 0), datetime.datetime(1, 1, 4, 0, 0)]
     # data = [1, 2, 3, 4]
+    ax.xaxis_date()
     ax.plot(date, data)
     # fig.plot([1, 2, 3], [1, 1, 1])
     fig.savefig(file_name)

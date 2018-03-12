@@ -1,3 +1,4 @@
+from core.parts.test import get_wavelet
 from waveletMaker import *
 from core.parts.wavelet import compute_dwt
 
@@ -7,11 +8,11 @@ class Image:
         self.img = img
 
 def macd_research():
-    # date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
+    date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
     # date, x = hist_data.get_historical_gdp()
     # print(date)
     # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(1993, 9, 2), end_date=datetime.datetime(2014, 6, 2))
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
     # date, x = elliot.generate_elliot_waves_wrapper(50)
     prefix = "no_elliott"
     print(type(date))
@@ -160,4 +161,4 @@ def wavelet_reserch(date, x, type='macd', wavelet='db1'):
     return ax, at, wx, wt
 
 # hurst_research()
-# macd_research()
+macd_research()
