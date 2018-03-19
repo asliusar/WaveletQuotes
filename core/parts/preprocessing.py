@@ -6,7 +6,7 @@ from datetime import datetime
 import numpy as np
 
 
-def loadStock(stock, wrange, type='TIME_SERIES_DAILY'):
+def loadStock(stock, type='TIME_SERIES_DAILY'):
     '''
         Use this to dynamically pull a stock:
     '''
@@ -38,6 +38,8 @@ def loadStock(stock, wrange, type='TIME_SERIES_DAILY'):
         print(str(e), 'failed to pull pricing data')
     return stockFile
 
+#
+# def readFormCache():
 
 def prepareData(stock, wrange):
     stockFile = loadStock(stock, wrange)

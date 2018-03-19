@@ -4,10 +4,9 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from core.parts.indexes import *
 from core.parts.wavelet import calculate_cwt
 from core.parts.wavelets.wavelets import __all__
-from waveletMaker import *
+from research.waveletMaker import *
 
 app = Flask(__name__)
 elliot_folder_name = 'elliot/'

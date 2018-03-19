@@ -1,5 +1,5 @@
 from core.parts.test import get_wavelet
-from waveletMaker import *
+from research.waveletMaker import *
 from core.parts.wavelet import compute_dwt
 
 class Image:
