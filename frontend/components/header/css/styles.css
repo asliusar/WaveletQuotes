@@ -1,0 +1,30 @@
+.container {
+    position: fixed;
+    width: 1202px;
+    z-index: 100;
+    top: 0;
+    padding-top: 15px;
+    background-color: #ffffff;
+}
+
+.dropdown_menu_container {
+    color: #ffffff;
+}
+
+.login_button {
+    color: #ffffff;
+}
+
+.header_content h1 {
+    cursor: pointer;
+}
+
+.drawer_menu_open {
+    top: initial !important;
+    left: initial !important;
+    transition: none !important;
+}
+
+.drawer_menu_close {
+    transition: none !important;
+}

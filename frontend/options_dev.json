@@ -1,0 +1,4 @@
+{
+    "config": "./webpack.dev.js",
+    "port": "8080"
+}
