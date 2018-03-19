@@ -7,3 +7,4 @@ server_side/static/results/*
 __pycache__
 __pycache__/*
 wavelets/__pycache__/*
+frontend/node_modules/*
