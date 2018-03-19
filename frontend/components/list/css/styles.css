@@ -1,0 +1,38 @@
+.container {
+    width: 900px;
+    float: right;
+    overflow: auto;
+}
+
+.panel_image {
+    /*width: 720px;*/
+    /*height: 480px;*/
+}
+
+.image_wrapper {
+    padding: 10px;
+    height: 375px;
+}
+
+.show_container {
+    overflow: auto;
+    margin: 15px;
+    width: 270px;
+    float: left;
+}
+
+.show_header {
+    height: 60px;
+}
+
+.add_button {
+    /*margin-right: 20px;*/
+}
+
+.add_button_content {
+    width: 270px;
+    height: 507px;
+    vertical-align: middle;
+    display:table-cell;
+    text-align: center;
+}
