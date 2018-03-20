@@ -58,7 +58,7 @@ class Header extends React.Component {
             <div className={styles.container}>
                 <AppBar
                     className={styles.header_content}
-                    title="TV Shows"
+                    title="Wavelet DSS"
                     onTitleTouchTap={Header.handleMenuItemClickedEvent}
                     onLeftIconButtonTouchTap={this.handleToggleDrawer}
                 />

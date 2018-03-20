@@ -1,4 +1,4 @@
-import {fetchPopularShows, fetchShowsByName, fetchShowsByGenre} from "../../api/list";
+import {fetchPopularShows, fetchShowsByName, fetchShowsByGenre, loadList} from "../../api/list";
 
 export function showListRequested() {
     return {
@@ -33,7 +33,7 @@ export function fetchShowsByFilter(filter, page) {
     debugger;
     return (dispatch) => {
         dispatch(showListRequested());
-        return fetchShowsMediator(filter, page)
+        return loadList()
             .then(response => {
                 if (response.page == 1) {
                     window.scrollTo(0, 0);
@@ -45,15 +45,4 @@ export function fetchShowsByFilter(filter, page) {
                 showListFailure(error)
             });
     };
-
-    function fetchShowsMediator(filter, page) {
-        page = page == undefined ? 1: page;
-        if (filter.genreId != null && filter.genreId != '') {
-            return fetchShowsByGenre(filter.genreId, page);
-        } else if (filter.name != null && filter.name != '') {
-            return fetchShowsByName(filter.name, page);
-        } else {
-            return fetchPopularShows(page);
-        }
-    }
 }

@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import {showList} from './showList';
+import {filter} from "./filter";
 
 const rootReducer = combineReducers({
-    showList
+    filter
 });
 
 export default rootReducer;
