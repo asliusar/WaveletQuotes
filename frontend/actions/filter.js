@@ -1,3 +1,4 @@
+import {fetchStockData} from "../api/analisys";
 export function changeStartDate(startDate) {
     return {
         type: 'CHANGE_START_DATE',
@@ -24,4 +25,37 @@ export function changeFrequency(frequency) {
         type: 'CHANGE_FREQUENCY',
         frequency
     }
+}
+
+// todo develop it
+export function loadStockDataFailure() {
+    return {}
+}
+
+export function loadStockDataSuccess(stockData) {
+    console.log(4);
+    return {
+        type: 'LOAD_STOCK_DATA_SUCCESS',
+        stockData
+    }
+}
+export function loadList() {
+    return new Promise((resolve, reject) => {
+        resolve(JSON.stringify(
+            {}
+        ))
+    })
+}
+export function loadStockData() {
+
+    return (dispatch) => {
+        console.log(1);
+        return fetchStockData()
+            .then(stockData => {
+                console.log(2);
+                dispatch(loadStockDataSuccess(stockData))
+            }).catch(error => {
+                loadStockDataFailure(error)
+            });
+    };
 }

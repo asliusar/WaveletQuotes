@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
-import {CurrencyPlot} from "../../components/analisys/currencyPlot";
-import {Indicators} from "indicators";
-import {Controls} from "controls";
-import {Details} from "details";
+import {CandleStickChartPanToLoadMore} from "../../components/analisys/stockChart";
+import {Controls} from "./controls";
+import {Details} from "./details";
 import styles from "./css/styles.css";
+import {loadStockData} from "../../actions/filter";
 
 const propTypes = {
     dispatch: React.PropTypes.func.isRequired,
@@ -15,12 +15,12 @@ const propTypes = {
 export class AnalysisContainer extends React.Component {
 
     render() {
+        console.log(this.props);
         return (
             <div className={styles.container}>
-                <CurrencyPlot {...this.props.analysis}/>
-                <Indicators/>
-                <Controls/>
-                <Details/>
+                <CandleStickChartPanToLoadMore {...this.props.analysis}/>
+                <Controls {...this.props}/>
+                <Details {...this.props}/>
             </div>
         );
     }

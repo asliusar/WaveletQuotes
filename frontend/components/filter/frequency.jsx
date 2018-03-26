@@ -16,13 +16,11 @@ export class FrequencyPicker extends React.Component {
     @autobind
     handleFrequencyChangeEvent(event, val) {
         const {dispatch} = this.props;
-        debugger;
         let frequency = this.props.filter.availableFrequency[val];
         dispatch(changeFrequency(frequency));
     };
 
     render() {
-        debugger;
         console.log(this.props.filter.availableFrequency);
         return (
             <div className={styles.container}>

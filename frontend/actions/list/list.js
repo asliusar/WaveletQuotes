@@ -30,7 +30,6 @@ export function showListFailure() {
 }
 
 export function fetchShowsByFilter(filter, page) {
-    debugger;
     return (dispatch) => {
         dispatch(showListRequested());
         return loadList()

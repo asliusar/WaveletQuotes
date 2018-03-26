@@ -6,7 +6,7 @@ var path = require('path');
 // var modules = require('postcss-modules');
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'inline-source-map',
     entry: [
         'webpack/hot/dev-server',
         'webpack-hot-middleware/client?__webpack_hmr',
