@@ -197,7 +197,11 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                         orient="right"
                         displayFormat={format(".2f")}/>
 
-                    <CandlestickSeries />
+                    <AreaSeries
+                        yAccessor={d => d.close}
+                        stroke="#ff7f0e"
+                        fill="#ff7f0e"
+                    />
                     <LineSeries yAccessor={ema26.accessor()} stroke={ema26.stroke()}/>
                     <LineSeries yAccessor={ema12.accessor()} stroke={ema12.stroke()}/>
 

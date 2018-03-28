@@ -23,7 +23,7 @@ def loadStock(stock, type='TIME_SERIES_DAILY'):
             sourceCode = urllib.request.urlopen(urlToVisit).read().decode()
             splitSource = sourceCode.split('\n')
 
-            # remove header
+            # remove headerhttps://www.alphavantage.co/query?function=20y&symbol=eurusd=x&outputsize=full&apikey=EAMPC2LUJ6VV0KEN&datatype=csv
             del splitSource[0]
             del splitSource[-1]
 
@@ -42,7 +42,7 @@ def loadStock(stock, type='TIME_SERIES_DAILY'):
 # def readFormCache():
 
 def prepareData(stock, wrange):
-    stockFile = loadStock(stock, wrange)
+    stockFile = loadStock(stock)
     try:
         types = {
             'names': ('timestamp', 'open', 'high', 'low', 'close', 'volume'),

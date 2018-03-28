@@ -1,5 +1,5 @@
 from core.parts.test import get_wavelet
-from research.waveletMaker import *
+from wavelet_research.waveletMaker import *
 from core.parts.wavelet import compute_dwt
 
 class Image:
@@ -7,12 +7,12 @@ class Image:
         self.name = name
         self.img = img
 
+
 def macd_research():
     date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
     # date, x = hist_data.get_historical_gdp()
     # print(date)
-    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(1993, 9, 2), end_date=datetime.datetime(2014, 6, 2))
-    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
+  # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
     # date, x = elliot.generate_elliot_waves_wrapper(50)
     prefix = "no_elliott"
     print(type(date))
@@ -49,18 +49,19 @@ def macd_research():
         temp = np.fft.fft(t)
         fft_sum.append(temp)
     fx += list(fft_sum)
-    showPlot(date, x, prefix+'_w_x.png')
+    showPlot(date, x, prefix + '_w_x.png')
     # macd
     print('macd')
-    showPlotMixSeparate(ax, at, prefix+'_w_macd.png')
+    showPlotMixSeparate(ax, at, prefix + '_w_macd.png')
     # wavelet
     print('wt')
-    showPlotMixSeparate(wx, wt, prefix+'_w_wt.png')
+    showPlotMixSeparate(wx, wt, prefix + '_w_wt.png')
 
     print('fft')
-    showPlotMixSeparate(fx, ft, prefix+'perfect_w_fft.png')
+    showPlotMixSeparate(fx, ft, prefix + 'perfect_w_fft.png')
 
     mainLoop("x", "2y", date, x)
+
 
 def hurst_research():
     date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
@@ -110,9 +111,7 @@ def hurst_research():
     showPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
 
 
-
 def wavelet_reserch(date, x, type='macd', wavelet='db1'):
-
     tx = []
     x = exp_moving_average(x, 5)
 
@@ -159,6 +158,7 @@ def wavelet_reserch(date, x, type='macd', wavelet='db1'):
     # showPlotMixSeparate(wx, wt, 'w_hurst_wt.png')
     # showPlotMixSeparate(fx, ft, 'w_hurst_fft.png')
     return ax, at, wx, wt
+
 
 # hurst_research()
 macd_research()

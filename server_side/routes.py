@@ -6,7 +6,7 @@ from flask import request
 
 from core.parts.wavelet import calculate_cwt
 from core.parts.wavelets.wavelets import __all__
-from research.waveletMaker import *
+from wavelet_research.waveletMaker import *
 
 app = Flask(__name__)
 elliot_folder_name = 'elliot/'
@@ -33,7 +33,7 @@ def analyser_page(name=None):
     return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
 
 
-@app.route('/elliot')
+@app.route('/elliott')
 def elliot_page(name=None):
     return render_template('elliot.html',
                            elliot_list=[Image(name, common_folder + elliot_folder_name + name + '.jpg') for name in
@@ -113,11 +113,7 @@ def requestResponse():
     return response
 
 
-@app.route('/getpersonbyid', methods=['POST'])
-def getPersonById():
-    personId = int(request.form['personId'])
-    return str(personId)
-
+def
 
 if __name__ == '__main__':
     app.run(debug=True)

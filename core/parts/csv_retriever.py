@@ -20,7 +20,13 @@ def get_historical_quotes(start_date=datetime.datetime(1990, 1, 2),
     df = pd.read_csv(csv_path)
     date = df['DATE'].values
     value = df['VALUE'].values
-    # print(type(date))
+
+    return trim(date, value, start_date, end_date)
+
+    # date, x = get_historical_quotes(start_date=datetime.datetime(1995, 1, 2), end_date=datetime.datetime(2009, 1, 2))
+
+
+def trim(date, value, start_date, end_date):
     new_date = []
     for element in date:
         new_date.append(datetime.datetime.strptime(element, '%Y-%m-%d'))
@@ -30,7 +36,5 @@ def get_historical_quotes(start_date=datetime.datetime(1990, 1, 2),
     end_cut = date.index(end_date)
     date = date[start_cut:end_cut]
     value = value[start_cut:end_cut]
-    # print(len(date),value)
-    return date, value
 
-    # date, x = get_historical_quotes(start_date=datetime.datetime(1995, 1, 2), end_date=datetime.datetime(2009, 1, 2))
+    return date, value
