@@ -21,9 +21,8 @@ export class FrequencyPicker extends React.Component {
     };
 
     render() {
-        console.log(this.props.filter.availableFrequency);
         return (
-            <div className={styles.container}>
+            <span className={styles.container}>
                 <SelectField
                     floatingLabelText="Frequency"
                     value={this.props.filter.frequency}
@@ -33,7 +32,7 @@ export class FrequencyPicker extends React.Component {
                         <MenuItem key={freq} value={freq} primaryText={freq}/>
                     )}
                 </SelectField>
-            </div>
+            </span>
         );
     }
 }

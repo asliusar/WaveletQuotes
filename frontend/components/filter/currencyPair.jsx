@@ -20,14 +20,16 @@ export class CurrencyPairPicker extends React.Component {
 
 
     render() {
+        const classes = [styles.container, styles.input_field].join(" ");
+
         return (
-            <div className={styles.container}>
+            <span className={classes}>
                 <AutoComplete
                     hintText="Currency pair"
                     dataSource={this.props.filter.commonCurrencies}
                     onUpdateInput={this.handleCurrencyPairChangeEvent}
                 />
-            </div>
+            </span>
         );
     }
 }

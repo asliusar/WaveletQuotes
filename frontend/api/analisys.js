@@ -19,11 +19,9 @@ const parseDate = timeParse("%Y-%m-%d");
 export function fetchStockData() {
     return fetch("https://rrag.github.io/react-stockcharts/data/MSFT.tsv")
         .then(response => {
-            console.log(response);
             return response.text()
         })
         .then(data => {
-            console.log(11);
             return tsvParse(data, parseData(parseDate))
         });
 }

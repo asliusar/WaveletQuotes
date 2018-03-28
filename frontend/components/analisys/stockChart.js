@@ -180,7 +180,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
         const {data, ema26, ema12, macdCalculator, smaVolume50, xScale, xAccessor, displayXAccessor} = this.state;
 
         return (
-            <ChartCanvas ratio={ratio} width={width} height={600}
+            <ChartCanvas ratio={ratio} width={width} height={750}
                          margin={{left: 70, right: 70, top: 20, bottom: 30}} type={type}
                          seriesName="MSFT"
                          data={data}
@@ -229,7 +229,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                 </Chart>
                 <Chart id={2} height={150}
                        yExtents={[d => d.volume, smaVolume50.accessor()]}
-                       origin={(w, h) => [0, h - 300]}>
+                       origin={(w, h) => [0, h - 450]}>
                     <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".2s")}/>
 
                     <MouseCoordinateY
@@ -242,6 +242,30 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                                 fill={smaVolume50.fill()}/>
                 </Chart>
                 <Chart id={3} height={150}
+                       yExtents={macdCalculator.accessor()}
+                       origin={(w, h) => [0, h - 300]} padding={{top: 10, bottom: 10}}>
+                    <XAxis axisAt="bottom" orient="bottom"/>
+                    <YAxis axisAt="right" orient="right" ticks={2}/>
+
+                    <MouseCoordinateX
+                        at="bottom"
+                        orient="bottom"
+                        displayFormat={timeFormat("%Y-%m-%d")}/>
+                    <MouseCoordinateY
+                        at="right"
+                        orient="right"
+                        displayFormat={format(".2f")}/>
+
+                    <MACDSeries yAccessor={d => d.macd}
+                                {...macdAppearance} />
+                    <MACDTooltip
+                        origin={[-38, 15]}
+                        yAccessor={d => d.macd}
+                        options={macdCalculator.options()}
+                        appearance={macdAppearance}
+                    />
+                </Chart>
+                <Chart id={4} height={150}
                        yExtents={macdCalculator.accessor()}
                        origin={(w, h) => [0, h - 150]} padding={{top: 10, bottom: 10}}>
                     <XAxis axisAt="bottom" orient="bottom"/>

@@ -15,7 +15,6 @@ const propTypes = {
 export class AnalysisContainer extends React.Component {
 
     render() {
-        console.log(this.props);
         return (
             <div className={styles.container}>
                 <CandleStickChartPanToLoadMore {...this.props.analysis}/>

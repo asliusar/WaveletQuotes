@@ -15,7 +15,6 @@ const propTypes = {
 export class Flow extends React.Component {
 
     componentWillMount() {
-        console.log(3);
         const {dispatch} = this.props;
         dispatch(loadStockData());
     }

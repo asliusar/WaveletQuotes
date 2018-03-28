@@ -26,19 +26,23 @@ export class RangeDatePicker extends React.Component {
 
 
     render() {
+        const classes = [styles.container, styles.input_field, styles.date_field].join(" ");
+
         return (
-            <div className={styles.container}>
+            <span>
                 <DatePicker
+                    className={classes}
                     onChange={this.handleStartDateChangeEvent}
                     hintText="Start date"
                     mode="landscape"
                     autoOk={true}/>
                 <DatePicker
+                    className={classes}
                     onChange={this.handleEndDateChangeEvent}
                     hintText="End date"
                     mode="landscape"
                     autoOk={true}/>
-            </div>
+            </span>
         );
     }
 }
