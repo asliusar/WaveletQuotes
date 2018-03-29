@@ -1,6 +1,5 @@
 from pylab import *
 import pywt
-from core.tools import prepareData
 import scipy.io.wavfile as wavfile
 
 

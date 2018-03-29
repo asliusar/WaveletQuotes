@@ -1,6 +1,11 @@
+from datetime import datetime
+
+from core.parts.preprocessing.csv_retriever import get_historical_quotes
+from core.parts.preprocessing.preprocessing import prepareData
 from core.parts.processing.test import get_wavelet
-from wavelet_research.waveletMaker import *
 from core.parts.processing.wavelet import compute_dwt
+from wavelet_research.waveletMaker import *
+
 
 class Image:
     def __init__(self, name, img):
@@ -9,10 +14,10 @@ class Image:
 
 
 def macd_research():
-    date, x, _, _, _, _ = prepareData('eurusd=x', '20y')
+    date, x, _, _, _, _ = prepareData('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
     # date, x = hist_data.get_historical_gdp()
     # print(date)
-  # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
+    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
     # date, x = elliot.generate_elliot_waves_wrapper(50)
     prefix = "no_elliott"
     print(type(date))
@@ -64,8 +69,8 @@ def macd_research():
 
 
 def hurst_research():
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
-                                              end_date=datetime.datetime(2004, 6, 2))
+    date, x = get_historical_quotes(start_date=datetime(2003, 9, 2),
+                                    end_date=datetime(2004, 6, 2))
 
     x = exp_moving_average(x, 5)
     tx = hurst(x)
