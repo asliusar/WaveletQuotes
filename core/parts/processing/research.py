@@ -1,6 +1,6 @@
-from core.parts.test import get_wavelet
+from core.parts.processing.test import get_wavelet
 from wavelet_research.waveletMaker import *
-from core.parts.wavelet import compute_dwt
+from core.parts.processing.wavelet import compute_dwt
 
 class Image:
     def __init__(self, name, img):

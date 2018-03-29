@@ -1,7 +1,6 @@
-from core.parts.indexes import *
-from core.parts.research import wavelet_reserch
-from core.parts.fourier.tools import compute_cepstrum
-from core.parts.wavelet import compute_dwt
+from core.parts.processing.indexes import *
+from core.parts.processing.research import wavelet_reserch
+from core.parts.processing.wavelet import compute_dwt
 
 
 def compare_hurst_macd():
@@ -39,7 +38,7 @@ def compare_dwt(date, x, file_name='comparewt.jpg'):
 
 def compare_fft(date, x, file_name='comparefft.jpg'):
 
-    from scipy.fftpack import fft, ifft
+    from scipy.fftpack import fft
     ax = []
     l = len(x)
     t = 50

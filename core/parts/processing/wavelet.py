@@ -1,4 +1,4 @@
-from core.parts.indexes import *
+from core.parts.processing.indexes import *
 from core.parts.wavelets.transform import WaveletAnalysis
 from core.parts.wavelets.wavelets import all_wavelets
 common_folder = 'static/results/'

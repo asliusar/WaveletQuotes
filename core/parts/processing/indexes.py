@@ -1,13 +1,8 @@
 import copy
 from core.tools import *
-import core.parts.csv_retriever as hist_data
-import core.parts.elliot as elliot
 
 import numpy as np
 from numpy import log, polyfit, sqrt, std, subtract
-import pywt
-import datetime
-from scipy.signal import blackman
 
 
 def hurst(ts):

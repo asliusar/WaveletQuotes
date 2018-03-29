@@ -4,7 +4,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-from core.parts.wavelet import calculate_cwt
+from core.parts.processing.wavelet import calculate_cwt
 from core.parts.wavelets.wavelets import __all__
 from wavelet_research.waveletMaker import *
 
