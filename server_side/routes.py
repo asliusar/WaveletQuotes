@@ -1,9 +1,12 @@
 import json
+from datetime import datetime
 
 from flask import Flask
 from flask import render_template
 from flask import request
 
+from core.parts.preprocessing.csv_retriever import get_historical_quotes
+from core.parts.processing.elliot import elliot_waves
 from core.parts.processing.wavelet import calculate_cwt
 from core.parts.wavelets.wavelets import __all__
 from wavelet_research.waveletMaker import *
@@ -27,17 +30,17 @@ def hello_page(name=None):
     # return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
 
 
-@app.route('/analyser')
-def analyser_page(name=None):
-    wavelet_list_retrieved = ["All"] + __all__
-    return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
+# @app.route('/analyser')
+# def analyser_page(name=None):
+#     wavelet_list_retrieved = ["All"] + __all__
+#     return render_template('plot_page.html', name=name, wavelet_list=wavelet_list_retrieved)
 
 
 @app.route('/elliott')
 def elliot_page(name=None):
     return render_template('elliot.html',
                            elliot_list=[Image(name, common_folder + elliot_folder_name + name + '.jpg') for name in
-                                        elliot.elliot_waves])
+                                        elliot_waves])
 
 
 @app.route('/wavelets', methods=['POST'])
@@ -45,7 +48,7 @@ def show_wavelets():
     # print(request.form)
     wavelet_name = request.form["wavelet_name"]
     stock = request.form["ticker"] + "=x"
-    wrange = request.form["period"] #
+    wrange = request.form["period"]  #
     moving_avg_width = request.form["ma_param"]
     moving_avg_width = int(moving_avg_width)
     folder_name = stock + '_' + wrange
@@ -55,14 +58,8 @@ def show_wavelets():
     # date, x, _, _, _, _ = prepareData(stock, wrange)
     # 2003 9 2 - 2004 6 2
 
-    date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(1999, 2, 2),
-                                              end_date=datetime.datetime(2003, 2, 2))
-    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 9, 2),
-    #                                             end_date=datetime.datetime(2004, 6, 2))
-    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2003, 4, 2),
-    #                                               end_date=datetime.datetime(2004, 10, 2))
-    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2011, 9, 2),
-    #                                       end_date=datetime.datetime(2012, 6, 2))
+    date, x = get_historical_quotes(start_date=datetime(1999, 2, 2),
+                                    end_date=datetime(2003, 2, 2))
     for i in range(moving_avg_width - 1, len(x)):
         for j in range(i - moving_avg_width + 1, i):
             x[i] += x[j]
@@ -84,7 +81,7 @@ def show_wavelets():
         time_scale = int(wrange[:-1])
         calculate_cwt(math.ceil(time_scale / 4.), date, x, folder_name, wavelet_name)
         wavelet_image_name.append(
-                Image(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
+            Image(wavelet_name, common_folder + folder_name + '/' + wavelet_name + '.png'))
     else:
         mainLoop(stock, wrange, date, x)
         for name in __all__:
@@ -112,8 +109,6 @@ def requestResponse():
     print(response)
     return response
 
-
-def
 
 if __name__ == '__main__':
     app.run(debug=True)
