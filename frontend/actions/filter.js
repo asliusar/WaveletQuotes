@@ -45,10 +45,9 @@ export function loadList() {
         ))
     })
 }
-export function loadStockData() {
-
+export function loadStockData(currency, frequency, startDate, endDate) {
     return (dispatch) => {
-        return fetchStockData()
+        return fetchStockData(currency, frequency, startDate, endDate)
             .then(stockData => {
                 dispatch(loadStockDataSuccess(stockData))
             }).catch(error => {

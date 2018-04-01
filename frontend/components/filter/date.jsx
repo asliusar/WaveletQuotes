@@ -1,5 +1,5 @@
 import React from "react";
-import autobind from 'autobind-decorator'
+import autobind from "autobind-decorator";
 import DatePicker from "material-ui/DatePicker";
 import styles from "./css/styles.css";
 import {changeStartDate, changeEndDate} from "../../actions/filter";
@@ -35,12 +35,14 @@ export class RangeDatePicker extends React.Component {
                     onChange={this.handleStartDateChangeEvent}
                     hintText="Start date"
                     mode="landscape"
+                    defaultDate={this.props.filter.startDate}
                     autoOk={true}/>
                 <DatePicker
                     className={classes}
                     onChange={this.handleEndDateChangeEvent}
                     hintText="End date"
                     mode="landscape"
+                    defaultDate={this.props.filter.endDate}
                     autoOk={true}/>
             </span>
         );

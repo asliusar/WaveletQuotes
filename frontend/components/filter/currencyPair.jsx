@@ -14,8 +14,9 @@ export class CurrencyPairPicker extends React.Component {
 
     @autobind
     handleCurrencyPairChangeEvent(event, pair) {
+        console.log(event, pair);
         const {dispatch} = this.props;
-        dispatch(changeCurrencyPair(pair));
+        dispatch(changeCurrencyPair(event));
     };
 
 

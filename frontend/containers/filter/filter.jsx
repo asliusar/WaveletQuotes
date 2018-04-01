@@ -4,6 +4,7 @@ import styles from "./css/styles.css";
 import {RangeDatePicker} from "../../components/filter/date";
 import {CurrencyPairPicker} from "../../components/filter/currencyPair";
 import {FrequencyPicker} from "../../components/filter/frequency";
+import {LoadButton} from "../../components/filter/loadButton";
 
 
 const propTypes = {
@@ -20,6 +21,7 @@ export class FilterContainer extends React.Component {
                 <CurrencyPairPicker {...this.props} />
                 <RangeDatePicker {...this.props} />
                 <FrequencyPicker {...this.props} />
+                <LoadButton {...this.props} />
             </div>
         );
     }

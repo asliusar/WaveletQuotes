@@ -85,6 +85,7 @@ def trim(date, prices, start_date, end_date):
 
 def prepareData(stock, frequency, startDate, endDate):
     stockFile = loadStock(stock, frequency)
+    stockFile.reverse()  # depends on API
     types = {
         'names': ('timestamp', 'open', 'high', 'low', 'close', 'volume'),
         'formats': ('S10', 'f', 'f', 'f', 'f', 'i')

@@ -15,11 +15,5 @@ def analyse(currency, frequency, startDate, endDate):
 
     return result
 
-
-def myconverter(o):
-    if isinstance(o, datetime):
-        return o.__str__()
-
-
-res = analyse('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
-print(json.dumps(res, cls=DateTimeEncoder))
+# res = analyse('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
+# print(json.dumps(res, cls=DateTimeEncoder))

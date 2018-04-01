@@ -11,3 +11,11 @@ class DateTimeEncoder(json.JSONEncoder):
         elif isinstance(o, np.ndarray):
             return o.tolist()
         return json.JSONEncoder.default(self, o)
+
+
+formatDate = '%Y-%m-%d'
+
+
+def format_date(date):
+    startDate = date.split("T")[0]
+    return datetime.strptime(startDate, formatDate)

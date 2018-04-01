@@ -4,7 +4,6 @@ import {CandleStickChartPanToLoadMore} from "../../components/analisys/stockChar
 import {Controls} from "./controls";
 import {Details} from "./details";
 import styles from "./css/styles.css";
-import {loadStockData} from "../../actions/filter";
 
 const propTypes = {
     dispatch: React.PropTypes.func.isRequired,

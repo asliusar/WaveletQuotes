@@ -8,11 +8,11 @@ export function filter(state = new Filter(), action) {
             });
         case 'CHANGE_END_DATE':
             return Object.assign({}, state, {
-                startDate: action.endDate,
+                endDate: action.endDate,
             });
         case 'CHANGE_CURRENCY_PAIR':
             return Object.assign({}, state, {
-                currencyPair: action.currencyPair,
+                currencyPair: action.pair,
             });
         case 'CHANGE_FREQUENCY':
             return Object.assign({}, state, {

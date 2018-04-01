@@ -13,12 +13,6 @@ const propTypes = {
 
 
 export class Flow extends React.Component {
-
-    componentWillMount() {
-        const {dispatch} = this.props;
-        dispatch(loadStockData());
-    }
-
     render() {
         return (
             <div className={styles.container}>

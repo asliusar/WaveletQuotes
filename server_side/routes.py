@@ -5,10 +5,12 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+from core.parts.analysis.analyser import analyse
 from core.parts.preprocessing.csv_retriever import get_historical_quotes
 from core.parts.processing.elliot import elliot_waves
 from core.parts.processing.wavelet import calculate_cwt
 from core.parts.wavelets.wavelets import __all__
+from server_side.utils import format_date
 from wavelet_research.waveletMaker import *
 
 app = Flask(__name__)
@@ -108,6 +110,17 @@ def requestResponse():
     response = json.dumps(request.form)
     print(response)
     return response
+
+
+@app.route('/analyse', methods=['POST'])
+def analysis():
+    parsed_json = json.loads(request.data.decode("utf-8"))
+
+    startDate = format_date(parsed_json["startDate"])
+    endDate = format_date(parsed_json["endDate"])
+
+    return analyse(parsed_json["currency"], parsed_json["frequency"],
+                   startDate, endDate)
 
 
 if __name__ == '__main__':

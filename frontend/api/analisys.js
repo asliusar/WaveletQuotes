@@ -16,8 +16,22 @@ function parseData(parse) {
 
 const parseDate = timeParse("%Y-%m-%d");
 
-export function fetchStockData() {
-    return fetch("https://rrag.github.io/react-stockcharts/data/MSFT.tsv")
+export function fetchStockData(currency, frequency, startDate, endDate) {
+    return fetch("http://localhost:5000/analyse",
+        {
+            mode: 'no-cors',
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "currency": currency,
+                "frequency": frequency,
+                "startDate": startDate,
+                "endDate": endDate
+            })
+        })
         .then(response => {
             return response.text()
         })

@@ -11,3 +11,8 @@
 .date_field {
     display: inline-block;
 }
+
+.load_button {
+    bottom: 18px;
+    position: relative;
+}
