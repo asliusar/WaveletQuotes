@@ -10,7 +10,7 @@ from core.parts.preprocessing.csv_retriever import get_historical_quotes
 from core.parts.processing.elliot import elliot_waves
 from core.parts.processing.wavelet import calculate_cwt
 from core.parts.wavelets.wavelets import __all__
-from server_side.utils import format_date
+from server_side.utils import format_date, DateTimeEncoder
 from wavelet_research.waveletMaker import *
 
 app = Flask(__name__)
@@ -119,9 +119,9 @@ def analysis():
     startDate = format_date(parsed_json["startDate"])
     endDate = format_date(parsed_json["endDate"])
 
-    return analyse(parsed_json["currency"], parsed_json["frequency"],
-                   startDate, endDate)
+    result = analyse(parsed_json["currency"], parsed_json["frequency"], startDate, endDate)
 
+    return json.dumps(result, cls=DateTimeEncoder)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,16 +2,16 @@ import json
 from datetime import datetime
 
 from core.parts.preprocessing.preprocessing import prepareData
-from core.parts.processing.indexes import hurst
+from core.parts.processing.indexes import hurst, prepareHurstIndex
 from server_side.utils import DateTimeEncoder
 
 
 def analyse(currency, frequency, startDate, endDate):
-    timeSeries = prepareData(currency, frequency, startDate, endDate)
-    hurstIndex = hurst(timeSeries[1])  # hurst index of close
-    # waveletIndex = calculateWaveletIndex()
+    data = prepareData(currency, frequency, startDate, endDate)
+    hurstIndex = prepareHurstIndex(data["timestamp"], data["open"])  # hurst index of close
+    # waveletIndex = prepareWaveletIndex()
 
-    result = {"timeSeries": timeSeries, "hurstIndex": [timeSeries[0], hurstIndex.tolist()]}
+    result = {"timeSeries": data, "hurstIndex": hurstIndex}
 
     return result
 

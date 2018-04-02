@@ -1,8 +1,9 @@
 import copy
-from core.tools import *
 
 import numpy as np
 from numpy import log, polyfit, sqrt, std, subtract
+
+from core.tools import *
 
 
 def hurst(ts):
@@ -25,6 +26,11 @@ def hurst(ts):
         # print(poly[0]*2.0)
         hurst_ts = np.append(hurst_ts, poly[0] * 2.0)
     return hurst_ts
+
+
+def prepareHurstIndex(timestamp, value):
+    columns = ["timestamp", "value"]
+    return dict(zip(columns, [timestamp, hurst(value)]))
 
 
 def calculateHurst(date, x, folder_name):
@@ -149,7 +155,3 @@ def ExpMovingAverage(values, window):
     a = np.convolve(values, weights, mode='full')[:len(values)]
     a[:window] = a[window]
     return a
-
-
-
-

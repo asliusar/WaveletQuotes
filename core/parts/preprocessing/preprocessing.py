@@ -71,16 +71,30 @@ def loadFormCache(path):
     return lines
 
 
-def trim(date, prices, start_date, end_date):
-    end_cut = date.index(start_date)
-    start_cut = date.index(end_date)
+# start - direction = -1
+# end   - direction = 1
+def findValidDateIndex(startDate, dateRange, direction):
+    result = -1
+    while result < 0:
+        try:
+            result = dateRange.index(startDate)
+        except ValueError:
+            startDate = startDate.replace(day=(startDate.day + direction))
+            result = -1
+
+    return result
+
+
+def trim(dates, prices, start_date, end_date):
+    start_cut = findValidDateIndex(start_date, dates, 1)
+    end_cut = findValidDateIndex(end_date, dates, -1)
 
     updated_values = []
-    date = date[start_cut:end_cut]
+    dates = dates[start_cut:end_cut]
     for value in prices:
         updated_values.append(value[start_cut:end_cut])
 
-    return (date, *updated_values)
+    return (dates, *updated_values)
 
 
 def prepareData(stock, frequency, startDate, endDate):
@@ -94,4 +108,6 @@ def prepareData(stock, frequency, startDate, endDate):
         np.loadtxt(stockFile, delimiter=',', unpack=True, dtype=types)
     timestamp = [datetime.strptime(str(x.decode('ascii')), '%Y-%m-%d') for x in timestamp]
 
-    return trim(timestamp, [close, high, low, open, volume], startDate, endDate)
+    trimmedData = trim(timestamp, [close, high, low, open, volume], startDate, endDate)
+
+    return dict(zip(types["names"], trimmedData))
