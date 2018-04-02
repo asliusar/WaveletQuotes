@@ -1,9 +1,11 @@
 import json
 from datetime import datetime
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask import render_template
 from flask import request
+from flask import Response
+from flask_cors import CORS, cross_origin
 
 from core.parts.analysis.analyser import analyse
 from core.parts.preprocessing.csv_retriever import get_historical_quotes
@@ -14,6 +16,9 @@ from server_side.utils import format_date, DateTimeEncoder
 from wavelet_research.waveletMaker import *
 
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 elliot_folder_name = 'elliot/'
 
 
@@ -113,6 +118,7 @@ def requestResponse():
 
 
 @app.route('/analyse', methods=['POST'])
+@cross_origin()
 def analysis():
     parsed_json = json.loads(request.data.decode("utf-8"))
 
@@ -121,7 +127,8 @@ def analysis():
 
     result = analyse(parsed_json["currency"], parsed_json["frequency"], startDate, endDate)
 
-    return json.dumps(result, cls=DateTimeEncoder)
+    return jsonify(json.dumps(result, cls=DateTimeEncoder))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
