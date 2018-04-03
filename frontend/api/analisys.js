@@ -1,4 +1,3 @@
-import {tsvParse} from "d3-dsv";
 import {timeParse} from "d3-time-format";
 
 function parseData(parse) {
@@ -15,14 +14,31 @@ function parseData(parse) {
 }
 
 function generateElementsArray(data) {
-    for in
+    let array = [];
+    let length = data["timestamp"].length;
+
+    for (let i = 0; i < length; i++) {
+        let elem = {};
+        for (let column in data) {
+            if (column == "timestamp") {
+                elem["date"] = new Date(data[column][i]);
+            } else {
+                elem[column] = data[column][i];
+            }
+        }
+        array.push(elem);
+    }
+
+    return array;
 }
 
 function mergeDataIntoObjects(json) {
     let data = JSON.parse(json);
 
-    let stockData = generateElementsArray(data.timeSeries);
-    let hurstIndex = generateElementsArray(data.hurstIndex);
+    data.timeSeries = generateElementsArray(data.timeSeries);
+    data.hurstIndex = generateElementsArray(data.hurstIndex);
+
+    return data;
 }
 
 const parseDate = timeParse("%Y-%m-%d");
@@ -57,7 +73,7 @@ export function fetchStockData(currency, frequency, startDate, endDate) {
             return response.json();
         })
         .then(data => {
-            return tsvParse(data, parseData(parseDate));
+            return mergeDataIntoObjects(data);
         }).catch(e => {
             console.log(e)
         });

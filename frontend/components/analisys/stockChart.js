@@ -51,7 +51,7 @@ const propTypes = {
 export class CandleStickChartPanToLoadMore extends React.Component {
     constructor(props) {
         super(props);
-        const {data: inputData} = props;
+        let inputData = props.data.timeSeries;
 
         const ema26 = ema()
             .id(0)
@@ -130,7 +130,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
         if (Math.ceil(start) === end) return;
         // console.log("rows to download", rowsToDownload, start, end)
         const {data: prevData, ema26, ema12, macdCalculator, smaVolume50} = this.state;
-        const {data: inputData} = this.props;
+        let inputData = this.props.data.timeSeries;
 
 
         if (inputData.length === prevData.length) return;
