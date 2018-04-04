@@ -15,19 +15,8 @@ class Image:
 
 def macd_research():
     date, x, _, _, _, _ = prepareData('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
-    # date, x = hist_data.get_historical_gdp()
-    # print(date)
-    # date, x = hist_data.get_historical_quotes(start_date=datetime.datetime(2001, 8, 2), end_date=datetime.datetime(2002, 5, 2))
-    # date, x = elliot.generate_elliot_waves_wrapper(50)
     prefix = "no_elliott"
     print(type(date))
-    # date = np.array(date, dtype=datetime.datetime)
-    # print(x)
-    # date, x = hist_data.get_historical_quotes()
-    # print(hist_data.get_historical_gdp())
-    # x = [1,4, 0, 3, -1, 0, -5, -2, 4, 5]
-    # x = np.random.rand(277)
-    # print(date)
     x = exp_moving_average(x, 5)
     tx = macd(x, 12, 26)
     ax = list()

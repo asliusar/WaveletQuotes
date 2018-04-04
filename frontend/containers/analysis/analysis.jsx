@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {CandleStickChartPanToLoadMore} from "../../components/analisys/stockChart";
-import {Controls} from "./controls";
+import {Controls} from "../../components/analisys/controls";
 import {Details} from "./details";
 import styles from "./css/styles.css";
 

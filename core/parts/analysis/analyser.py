@@ -10,6 +10,7 @@ def analyse(currency, frequency, startDate, endDate):
     data = prepareData(currency, frequency, startDate, endDate)
     hurstIndex = prepareHurstIndex(data["timestamp"], data["open"])  # hurst index of close
     # waveletIndex = prepareWaveletIndex()
+    waveletDetails = prepareWaveletDetails(data["timestamp"], data["open"])
 
     result = {"timeSeries": data, "hurstIndex": hurstIndex}
 
