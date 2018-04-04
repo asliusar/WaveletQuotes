@@ -1,20 +1,16 @@
-import json
-from datetime import datetime
-
 from core.parts.preprocessing.preprocessing import prepareData
-from core.parts.processing.indexes import hurst, prepareHurstIndex
-from server_side.utils import DateTimeEncoder
+from core.parts.processing.indexes import prepareHurstIndex
+from core.tools import collectPlots
+from wavelet_research.waveletMaker import countWaveletTransform
 
 
 def analyse(currency, frequency, startDate, endDate):
     data = prepareData(currency, frequency, startDate, endDate)
     hurstIndex = prepareHurstIndex(data["timestamp"], data["open"])  # hurst index of close
-    # waveletIndex = prepareWaveletIndex()
-    waveletDetails = prepareWaveletDetails(data["timestamp"], data["open"])
 
-    result = {"timeSeries": data, "hurstIndex": hurstIndex}
+    transforms = countWaveletTransform(data["date"], data["open"])
+    waveletDetails = collectPlots(transforms)
+
+    result = {"timeSeries": data, "hurstIndex": hurstIndex, "waveletDetails": waveletDetails}
 
     return result
-
-# res = analyse('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
-# print(json.dumps(res, cls=DateTimeEncoder))

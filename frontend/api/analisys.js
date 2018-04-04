@@ -20,11 +20,11 @@ function generateElementsArray(data) {
     for (let i = 0; i < length; i++) {
         let elem = {};
         for (let column in data) {
-            if (column == "timestamp") {
-                elem["date"] = new Date(data[column][i]);
-            } else {
-                elem[column] = data[column][i];
+            let val = data[column][i];
+            if (column == "date") {
+                val = new Date(val);
             }
+            elem[column] = val;
         }
         array.push(elem);
     }
