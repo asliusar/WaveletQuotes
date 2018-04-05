@@ -29,7 +29,7 @@ def hurst(ts):
 
 
 def prepareHurstIndex(timestamp, value):
-    columns = ["timestamp", "value"]
+    columns = ["date", "value"]
     return dict(zip(columns, [timestamp, hurst(value)]))
 
 

@@ -1,14 +1,14 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.dates import YearLocator, DateFormatter
+from io import BytesIO
 
-from core.parts.preprocessing import *
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
+import numpy as np
+from matplotlib.dates import YearLocator
 
 
 def showResult(date, scales, power, time_scale, window, file_name):
     # y_ticks = np.arange(0, 15, 2)
-    import matplotlib.ticker as mticker
-    import matplotlib.dates as mdates
     fig, ax = plt.subplots()
     ax.xaxis.set_major_locator(YearLocator(time_scale))
     # ax.set_yticks(y_ticks)
@@ -21,6 +21,33 @@ def showResult(date, scales, power, time_scale, window, file_name):
     fig.savefig(file_name)
     # fig.show()
     # fig.waitforbuttonpress()
+
+
+def collectPlots(wavelets: dict):
+    images = []
+    for wavelet in wavelets:
+        images.append(generatePlotBase64(*(wavelets[wavelet])))
+
+    return dict(zip(wavelets.keys(), images))
+
+
+def generatePlotBase64(date, scales, power):
+    fig, ax = plt.subplots()
+    ax.xaxis.set_major_locator(YearLocator(5))
+    # ax.set_yticks(y_ticks)
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(5))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
+    ax.contourf(date, scales, power, 100)
+
+    figfile = BytesIO()
+    fig.savefig(figfile, format='png')
+    figfile.seek(0)  # rewind to beginning of file
+    import base64
+    # figdata_png = base64.b64encode(figfile.read())
+    figdata_png = base64.b64encode(figfile.getvalue())
+    figdata_png = figdata_png.decode('utf8')
+    return figdata_png
 
 
 def split_timeline(line, date, division_line=0):
@@ -51,7 +78,6 @@ def split_timeline(line, date, division_line=0):
 def showPlot(date, data, file_name):
     import matplotlib.ticker as mticker
     import matplotlib.dates as mdates
-    import datetime
     fig, ax = plt.subplots()
     ax.xaxis.set_major_locator(mticker.MaxNLocator(5))
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))

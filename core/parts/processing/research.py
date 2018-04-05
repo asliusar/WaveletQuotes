@@ -13,6 +13,13 @@ class Image:
         self.img = img
 
 
+def simple_wavelet_research():
+    data = prepareData('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
+    transforms = countWaveletTransform(data["date"], data["open"])
+    plotData = collectPlots(transforms)
+    return plotData
+
+
 def macd_research():
     date, x, _, _, _, _ = prepareData('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
     prefix = "no_elliott"
@@ -155,4 +162,6 @@ def wavelet_reserch(date, x, type='macd', wavelet='db1'):
 
 
 # hurst_research()
-macd_research()
+# macd_research()
+
+simple_wavelet_research()

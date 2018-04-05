@@ -15,16 +15,16 @@ function parseData(parse) {
 
 function generateElementsArray(data) {
     let array = [];
-    let length = data["timestamp"].length;
+    let length = data["date"].length;
 
     for (let i = 0; i < length; i++) {
         let elem = {};
         for (let column in data) {
-            if (column == "timestamp") {
-                elem["date"] = new Date(data[column][i]);
-            } else {
-                elem[column] = data[column][i];
+            let val = data[column][i];
+            if (column == "date") {
+                val = new Date(val);
             }
+            elem[column] = val;
         }
         array.push(elem);
     }

@@ -110,4 +110,6 @@ def prepareData(stock, frequency, startDate, endDate):
 
     trimmedData = trim(timestamp, [close, high, low, open, volume], startDate, endDate)
 
-    return dict(zip(types["names"], trimmedData))
+    columns = ['date', 'open', 'high', 'low', 'close', 'volume']
+
+    return dict(zip(columns, trimmedData))
