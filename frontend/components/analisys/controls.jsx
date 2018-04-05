@@ -3,6 +3,7 @@ import autobind from "autobind-decorator";
 import {connect} from "react-redux";
 import styles from "./css/styles.css";
 import RaisedButton from "material-ui/RaisedButton";
+import {toggleDetails} from "../../actions/analysis";
 
 const propTypes = {
     dispatch: React.PropTypes.func.isRequired,
@@ -17,7 +18,7 @@ export class Controls extends React.Component {
     handleWaveletAnalysisButtonClicked() {
         const {dispatch, analysis} = this.props;
         if (analysis.data.waveletDetails) {
-            dispatch(showWaveletAnalysis(analysis.data.waveletDetails));
+            dispatch(toggleDetails());
         }
     };
 

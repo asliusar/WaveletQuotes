@@ -1,2 +1,13 @@
 .container {
 }
+
+.card {
+    margin: 1%;
+    width: 48%;
+    display: inline-block;
+}
+
+.header_title {
+    font-size: 30px;
+    font-weight: bold;
+}

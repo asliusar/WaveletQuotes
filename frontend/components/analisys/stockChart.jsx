@@ -29,7 +29,7 @@ import {fitWidth} from "react-stockcharts/lib/helper";
 function getMaxUndefined(calculators) {
     return calculators.map(each => each.undefinedLength()).reduce((a, b) => Math.max(a, b));
 }
-const LENGTH_TO_SHOW = 180;
+const LENGTH_TO_SHOW = 5000;
 
 const macdAppearance = {
     stroke: {
