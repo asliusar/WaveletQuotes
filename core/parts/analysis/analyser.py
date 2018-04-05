@@ -6,7 +6,7 @@ from wavelet_research.waveletMaker import countWaveletTransform
 
 def analyse(currency, frequency, startDate, endDate):
     data = prepareData(currency, frequency, startDate, endDate)
-    hurstIndex = prepareHurstIndex(data["timestamp"], data["open"])  # hurst index of close
+    hurstIndex = prepareHurstIndex(data["date"], data["open"])  # hurst index of close
 
     transforms = countWaveletTransform(data["date"], data["open"])
     waveletDetails = collectPlots(transforms)

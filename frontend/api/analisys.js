@@ -15,7 +15,7 @@ function parseData(parse) {
 
 function generateElementsArray(data) {
     let array = [];
-    let length = data["timestamp"].length;
+    let length = data["date"].length;
 
     for (let i = 0; i < length; i++) {
         let elem = {};
