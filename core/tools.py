@@ -26,18 +26,18 @@ def showResult(date, scales, power, time_scale, window, file_name):
 def collectPlots(wavelets: dict):
     images = []
     for wavelet in wavelets:
-        images.append(generatePlotBase64(*(wavelets[wavelet])))
+        images.append(generatePlotBase64(*(wavelets[wavelet]), wavelet))
 
     return dict(zip(wavelets.keys(), images))
 
 
-def generatePlotBase64(date, scales, power):
+def generatePlotBase64(date, scales, power, wavelet):
     fig, ax = plt.subplots()
     ax.xaxis.set_major_locator(YearLocator(5))
     # ax.set_yticks(y_ticks)
     ax.xaxis.set_major_locator(mticker.MaxNLocator(5))
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
-
+    ax.set(title=wavelet)
     ax.contourf(date, scales, power, 100)
 
     figfile = BytesIO()

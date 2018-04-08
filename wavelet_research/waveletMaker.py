@@ -1,5 +1,4 @@
 import math
-import os
 
 from core.parts.processing.indexes import *
 from core.parts.wavelets.transform import WaveletAnalysis
@@ -26,7 +25,7 @@ def countWaveletTransform(date, x):
         for wavelet in all_wavelets:
             wa = WaveletAnalysis(data=x, wavelet=wavelet())
             power = wa.wavelet_power
-            scales = wa.scales
+            scales = wa.compute_optimal_scales()
 
             wavelets.append(wavelet.__name__)
             data.append([date, scales, power])
@@ -37,6 +36,23 @@ def countWaveletTransform(date, x):
     except Exception as e:
         import traceback
         traceback.print_exc()
+
+
+def flatWaveletTransform(wavelets: dict):
+    flattenWavelets = []
+
+    for wavelet in wavelets:
+        date, _, power = wavelets[wavelet]
+        flattenWavelets.append([date, flatMatrix(power)])
+    return dict(zip(wavelets.keys(), flattenWavelets))
+
+
+def flatMatrix(matrix):
+    vector = np.zeros(len(matrix[0]))
+    for row in matrix:
+        for key, value in enumerate(row):
+            vector[key] += value
+    return vector
 
 
 # hurst_res = hurst(x)

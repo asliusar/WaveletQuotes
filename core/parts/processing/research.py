@@ -15,7 +15,17 @@ class Image:
 
 def simple_wavelet_research():
     data = prepareData('eurusd=x', "TIME_SERIES_DAILY", datetime(2006, 8, 2), datetime(2007, 8, 2))
+
+    # fig, ax = plt.subplots()
+    # ax.plot(data["date"], data["open"])
+    # ax.set(title="raw data")
+    # ax.grid()
+    # figfile = BytesIO()
+    # fig.savefig(figfile, format='png')
+    # figfile.seek(0)
+
     transforms = countWaveletTransform(data["date"], data["open"])
+    temp = flatWaveletTransform(transforms)
     plotData = collectPlots(transforms)
     return plotData
 
