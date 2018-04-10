@@ -126,7 +126,7 @@ def analysis():
 
     result = analyse(parsed_json["currency"], parsed_json["frequency"], startDate, endDate)
 
-    return jsonify(json.dumps(result, cls=DateTimeEncoder))
+    return jsonify(result)
 
 
 if __name__ == '__main__':

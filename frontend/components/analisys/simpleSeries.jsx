@@ -2,36 +2,37 @@ import React, {Component} from "react";
 import autobind from 'autobind-decorator';
 import PropTypes from "prop-types";
 import LineSeries from "react-stockcharts/lib/series/LineSeries";
+import {connect} from "react-redux";
+import StraightLine from "react-stockcharts/lib/series/StraightLine";
 
-class SimpleSeries extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+export class SimpleSeries extends Component {
     @autobind
     yAccessor(d) {
         const {accessor} = this.props;
-        return accessor(d) && accessor(d).macd;
+        return accessor(d);
     }
 
     render() {
+        debugger;
         return (
-            <g className={className}>
+            <g>
                 <LineSeries
                     yAccessor={this.yAccessor}
                     stroke="#FF0000"
                     fill="none"/>
-                {/*<StraightLine*/}
-                    {/*stroke={zeroLineStroke}*/}
-                    {/*opacity={zeroLineOpacity}*/}
-                    {/*yValue={0}/>*/}
+                <StraightLine
+                    yValue={0.5}/>
             </g>
         );
     }
 }
 
 SimpleSeries.propTypes = {
-    yAccessor: PropTypes.func.isRequired,
+    accessor: PropTypes.func.isRequired,
 };
 
-export default SimpleSeries;
+function mapStateToProps(state) {
+    return state
+}
+
+export default connect(mapStateToProps)(SimpleSeries);

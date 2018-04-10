@@ -1,34 +1,20 @@
 import {timeParse} from "d3-time-format";
 
-function generateElementsArray(data) {
-    let array = [];
-    let length = data["date"].length;
-
-    for (let i = 0; i < length; i++) {
-        let elem = {};
-        for (let column in data) {
-            let val = data[column][i];
-            if (column == "date") {
-                val = new Date(val);
-            }
-            elem[column] = val;
-        }
-        array.push(elem);
+function modifyTime(data) {
+    for (let elem of data) {
+        elem.date = new Date(elem.date)
     }
-
-    return array;
-}
-
-function mergeDataIntoObjects(json) {
-    let data = JSON.parse(json);
-
-    data.timeSeries = generateElementsArray(data.timeSeries);
-    data.hurstIndex = generateElementsArray(data.hurstIndex);
 
     return data;
 }
 
-const parseDate = timeParse("%Y-%m-%d");
+function preprocessing(json) {
+    let data = JSON.parse(json);
+
+    data.timeSeries = modifyTime(data.timeSeries);
+
+    return data;
+}
 
 export function checkHttpStatus(response) {
     if ((response.status >= 200 && response.status < 300) || response.status == 404) {
@@ -60,7 +46,7 @@ export function fetchStockData(currency, frequency, startDate, endDate) {
             return response.json();
         })
         .then(data => {
-            return mergeDataIntoObjects(data);
+            return preprocessing(data);
         }).catch(e => {
             console.log(e)
         });

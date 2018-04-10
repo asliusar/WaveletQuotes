@@ -1,9 +1,12 @@
+from flask import jsonify
+
 from core.parts.preprocessing.preprocessing import prepareData
 from core.parts.processing.indexes import prepareHurstIndex
 from core.tools import collectPlots
 from wavelet_research.waveletMaker import countWaveletTransform, flatWaveletTransform
 
 import pandas as pd
+import json
 
 
 def analyse(currency, frequency, startDate, endDate):
@@ -15,14 +18,14 @@ def analyse(currency, frequency, startDate, endDate):
 
     transforms = countWaveletTransform(data["date"], data["open"])
     flattenTransforms = flatWaveletTransform(transforms)
-    dataFrame.append(pd.DataFrame(flattenTransforms))
+    # dataFrame.append(pd.DataFrame(flattenTransforms))
 
     waveletDetails = collectPlots(transforms)
 
-    resData = dataFrame.to_dict()
-    resData = dict(zip(resDat))
+    tsDf = pd.concat([dataFrame, pd.DataFrame(flattenTransforms)], axis=1)
 
-    result = {"timeSeries": {**dataFrame.to_dict(), **flattenTransforms},
+    waveletDetails = collectPlots(transforms)
+    result = {"timeSeries": json.loads(tsDf.to_json(orient="records", date_format="iso")),
               "waveletDetails": waveletDetails}
 
-    return result
+    return json.dumps(result)

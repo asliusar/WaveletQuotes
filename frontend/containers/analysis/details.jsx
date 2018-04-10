@@ -18,7 +18,7 @@ export class Details extends React.Component {
         const waveletDetails = Object.entries(analysis.data.waveletDetails).map(([wavelet,image])=>{
             return (
             <Card className={styles.card}>
-                <CardHeader title={wavelet} tyle={styles.header_title} titleStyle={styles.header_title}/>
+                <CardHeader title={wavelet} tyle={styles.header_title}/>
                 <CardMedia>
                     <img src={IMAGE_HEADER + image} />
                 </CardMedia>

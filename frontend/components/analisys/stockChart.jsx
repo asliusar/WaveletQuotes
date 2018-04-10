@@ -16,6 +16,8 @@ import {discontinuousTimeScaleProviderBuilder} from "react-stockcharts/lib/scale
 import {OHLCTooltip, MovingAverageTooltip, MACDTooltip} from "react-stockcharts/lib/tooltip";
 import {ema, sma, macd} from "react-stockcharts/lib/indicator";
 import {fitWidth} from "react-stockcharts/lib/helper";
+import {SimpleSeries} from "./simpleSeries";
+
 
 function getMaxUndefined(calculators) {
     return calculators.map(each => each.undefinedLength()).reduce((a, b) => Math.max(a, b));
@@ -33,7 +35,7 @@ const macdAppearance = {
 };
 
 const propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.object.isRequired,
     width: PropTypes.number.isRequired,
     ratio: PropTypes.number.isRequired,
     type: PropTypes.oneOf(["svg", "hybrid"]).isRequired,
@@ -59,9 +61,6 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                 d.ema12 = c;
             })
             .accessor(d => d.ema12);
-
-        const hurstAccessor = (d) => d.hurst;
-        const rickerWaveletAccessor = (d) => d.wavelet.ricker;
 
         const macdCalculator = macd()
             .options({
@@ -90,6 +89,10 @@ export class CandleStickChartPanToLoadMore extends React.Component {
             macdCalculator,
             smaVolume50
         ]);
+
+        const hurstAccessor = (d) => d.hurst;
+        const rickerWaveletAccessor = (d) => d.RICKER;
+
         /* SERVER - START */
         const dataToCalculate = inputData.slice(-LENGTH_TO_SHOW - maxWindowSize);
 
@@ -115,7 +118,9 @@ export class CandleStickChartPanToLoadMore extends React.Component {
             linearData,
             data: linearData,
             xScale,
-            xAccessor, displayXAccessor
+            xAccessor, displayXAccessor,
+            hurstAccessor,
+            rickerWaveletAccessor
         };
         this.handleDownloadMore = this.handleDownloadMore.bind(this);
     }
@@ -264,7 +269,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                     />
                 </Chart>
                 <Chart id={4} height={150}
-                       yExtents={macdCalculator.accessor()}
+                       yExtents={this.state.hurstAccessor}
                        origin={(w, h) => [0, h - 150]} padding={{top: 10, bottom: 10}}>
                     <XAxis axisAt="bottom" orient="bottom"/>
                     <YAxis axisAt="right" orient="right" ticks={2}/>
@@ -278,14 +283,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                         orient="right"
                         displayFormat={format(".2f")}/>
 
-                    <MACDSeries yAccessor={d => d.macd}
-                                {...macdAppearance} />
-                    <MACDTooltip
-                        origin={[-38, 15]}
-                        yAccessor={d => d.macd}
-                        options={macdCalculator.options()}
-                        appearance={macdAppearance}
-                    />
+                    <SimpleSeries accessor={d => d.hurst} />
                 </Chart>
                 <CrossHairCursor />
             </ChartCanvas>

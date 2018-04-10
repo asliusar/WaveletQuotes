@@ -1,11 +1,15 @@
 from datetime import datetime
 
 import pandas as pd
+import json
+
+from flask import jsonify
 
 from core.parts.preprocessing.csv_retriever import get_historical_quotes
 from core.parts.preprocessing.preprocessing import prepareData
 from core.parts.processing.test import get_wavelet
 from core.parts.processing.wavelet import compute_dwt
+from server_side.utils import DateTimeEncoder
 from wavelet_research.waveletMaker import *
 
 
@@ -32,9 +36,18 @@ def simple_wavelet_research():
     hurstIndex = prepareHurstIndex(data["date"], data["open"])  # hurst index of close
     dataFrame["hurst"] = pd.Series(hurstIndex["value"], index=dataFrame.index)
 
-    temp = flatWaveletTransform(transforms)
-    plotData = collectPlots(transforms)
-    return plotData
+    transforms = countWaveletTransform(data["date"], data["open"])
+    flattenTransforms = flatWaveletTransform(transforms)
+    # dataFrame.append(pd.DataFrame(flattenTransforms))
+
+    tsDf = pd.concat([dataFrame, pd.DataFrame(flattenTransforms)], axis=1)
+
+    waveletDetails = collectPlots(transforms)
+    result = {"timeSeries": json.loads(tsDf.to_json(orient="records", date_format="iso")),
+              "waveletDetails": waveletDetails}
+
+    jsonify(json.dumps(result))
+
 
 
 def macd_research():
