@@ -17,6 +17,7 @@ import {OHLCTooltip, MovingAverageTooltip, MACDTooltip} from "react-stockcharts/
 import {ema, sma, macd} from "react-stockcharts/lib/indicator";
 import {fitWidth} from "react-stockcharts/lib/helper";
 import {SimpleSeries} from "./simpleSeries";
+import StraightLine from "react-stockcharts/lib/series/StraightLine";
 
 
 function getMaxUndefined(calculators) {
@@ -24,15 +25,6 @@ function getMaxUndefined(calculators) {
 }
 const LENGTH_TO_SHOW = 5000;
 
-const macdAppearance = {
-    stroke: {
-        macd: "#FF0000",
-        signal: "#00F300",
-    },
-    fill: {
-        divergence: "#4682B4"
-    },
-};
 
 const propTypes = {
     data: PropTypes.object.isRequired,
@@ -91,7 +83,9 @@ export class CandleStickChartPanToLoadMore extends React.Component {
         ]);
 
         const hurstAccessor = (d) => d.hurst;
-        const rickerWaveletAccessor = (d) => d.RICKER;
+        const rickerWaveletAccessor = (d) => d.Ricker;
+        const paulWaveletAccessor = (d) => d.Paul;
+        const dogWaveletAccessor = (d) => d.DOG;
 
         /* SERVER - START */
         const dataToCalculate = inputData.slice(-LENGTH_TO_SHOW - maxWindowSize);
@@ -120,7 +114,9 @@ export class CandleStickChartPanToLoadMore extends React.Component {
             xScale,
             xAccessor, displayXAccessor,
             hurstAccessor,
-            rickerWaveletAccessor
+            rickerWaveletAccessor,
+            paulWaveletAccessor,
+            dogWaveletAccessor
         };
         this.handleDownloadMore = this.handleDownloadMore.bind(this);
     }
@@ -179,7 +175,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
         const {data, ema26, ema12, macdCalculator, smaVolume50, xScale, xAccessor, displayXAccessor} = this.state;
         debugger;
         return (
-            <ChartCanvas ratio={ratio} width={width} height={750}
+            <ChartCanvas ratio={ratio} width={width} height={1200}
                          margin={{left: 70, right: 70, top: 20, bottom: 30}} type={type}
                          seriesName="MSFT"
                          data={data}
@@ -191,6 +187,10 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                     <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0}/>
                     <YAxis axisAt="right" orient="right" ticks={5}/>
 
+                    <MouseCoordinateX
+                        at="bottom"
+                        orient="bottom"
+                        displayFormat={timeFormat("%Y-%m-%d")}/>
                     <MouseCoordinateY
                         at="right"
                         orient="right"
@@ -231,46 +231,8 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                     />
                 </Chart>
                 <Chart id={2} height={150}
-                       yExtents={[d => d.volume, smaVolume50.accessor()]}
-                       origin={(w, h) => [0, h - 450]}>
-                    <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".2s")}/>
-
-                    <MouseCoordinateY
-                        at="left"
-                        orient="left"
-                        displayFormat={format(".4s")}/>
-
-                    <BarSeries yAccessor={d => d.volume} fill={d => d.close > d.open ? "#6BA583" : "#FF0000"}/>
-                    <AreaSeries yAccessor={smaVolume50.accessor()} stroke={smaVolume50.stroke()}
-                                fill={smaVolume50.fill()}/>
-                </Chart>
-                <Chart id={3} height={150}
-                       yExtents={macdCalculator.accessor()}
-                       origin={(w, h) => [0, h - 300]} padding={{top: 10, bottom: 10}}>
-                    <XAxis axisAt="bottom" orient="bottom"/>
-                    <YAxis axisAt="right" orient="right" ticks={2}/>
-
-                    <MouseCoordinateX
-                        at="bottom"
-                        orient="bottom"
-                        displayFormat={timeFormat("%Y-%m-%d")}/>
-                    <MouseCoordinateY
-                        at="right"
-                        orient="right"
-                        displayFormat={format(".2f")}/>
-
-                    <MACDSeries yAccessor={d => d.macd}
-                                {...macdAppearance} />
-                    <MACDTooltip
-                        origin={[-38, 15]}
-                        yAccessor={d => d.macd}
-                        options={macdCalculator.options()}
-                        appearance={macdAppearance}
-                    />
-                </Chart>
-                <Chart id={4} height={150}
                        yExtents={this.state.hurstAccessor}
-                       origin={(w, h) => [0, h - 150]} padding={{top: 10, bottom: 10}}>
+                       origin={(w, h) => [0, h - 800]} padding={{top: 10, bottom: 10}}>
                     <XAxis axisAt="bottom" orient="bottom"/>
                     <YAxis axisAt="right" orient="right" ticks={2}/>
 
@@ -283,7 +245,63 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                         orient="right"
                         displayFormat={format(".2f")}/>
 
-                    <SimpleSeries accessor={d => d.hurst} />
+                    <SimpleSeries accessor={this.state.hurstAccessor} />
+                    <StraightLine
+                        yValue={0.5}/>
+                </Chart>
+
+                {/*Wavelet Part*/}
+
+                <Chart id={4} height={150}
+                       yExtents={this.state.dogWaveletAccessor}
+                       origin={(w, h) => [0, h - 600]} padding={{top: 10, bottom: 10}}>
+                    <XAxis axisAt="bottom" orient="bottom"/>
+                    <YAxis axisAt="right" orient="right" ticks={2}/>
+
+                    <MouseCoordinateX
+                        at="bottom"
+                        orient="bottom"
+                        displayFormat={timeFormat("%Y-%m-%d")}/>
+                    <MouseCoordinateY
+                        at="right"
+                        orient="right"
+                        displayFormat={format(".2f")}/>
+
+                    <SimpleSeries accessor={this.state.dogWaveletAccessor} />
+                </Chart>
+                <Chart id={5} height={150}
+                       yExtents={this.state.rickerWaveletAccessor}
+                       origin={(w, h) => [0, h - 400]} padding={{top: 10, bottom: 10}}>
+                    <XAxis axisAt="bottom" orient="bottom"/>
+                    <YAxis axisAt="right" orient="right" ticks={2}/>
+
+                    <MouseCoordinateX
+                        at="bottom"
+                        orient="bottom"
+                        displayFormat={timeFormat("%Y-%m-%d")}/>
+                    <MouseCoordinateY
+                        at="right"
+                        orient="right"
+                        displayFormat={format(".2f")}/>
+
+                    <SimpleSeries accessor={this.state.rickerWaveletAccessor} />
+                </Chart>
+                <Chart id={6} height={150}
+                       yExtents={this.state.paulWaveletAccessor}
+                       origin={(w, h) => [0, h - 200]} padding={{top: 10, bottom: 10}}>
+                    <XAxis axisAt="bottom" orient="bottom"/>
+                    <YAxis axisAt="right" orient="right" ticks={2}/>
+
+                    <MouseCoordinateX
+                        at="bottom"
+                        orient="bottom"
+                        displayFormat={timeFormat("%Y-%m-%d")}/>
+                    <MouseCoordinateY
+                        at="right"
+                        orient="right"
+                        displayFormat={format(".2f")}/>
+
+                    <SimpleSeries accessor={this.state.paulWaveletAccessor} />
                 </Chart>
                 <CrossHairCursor />
             </ChartCanvas>
