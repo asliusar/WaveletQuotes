@@ -1,5 +1,7 @@
 from datetime import datetime
 
+import pandas as pd
+
 from core.parts.preprocessing.csv_retriever import get_historical_quotes
 from core.parts.preprocessing.preprocessing import prepareData
 from core.parts.processing.test import get_wavelet
@@ -25,6 +27,11 @@ def simple_wavelet_research():
     # figfile.seek(0)
 
     transforms = countWaveletTransform(data["date"], data["open"])
+    dataFrame = pd.DataFrame(data)
+
+    hurstIndex = prepareHurstIndex(data["date"], data["open"])  # hurst index of close
+    dataFrame["hurst"] = pd.Series(hurstIndex["value"], index=dataFrame.index)
+
     temp = flatWaveletTransform(transforms)
     plotData = collectPlots(transforms)
     return plotData

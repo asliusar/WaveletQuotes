@@ -1,26 +1,17 @@
 import {format} from "d3-format";
 import {timeFormat} from "d3-time-format";
-
 import React from "react";
 import PropTypes from "prop-types";
-
 import {ChartCanvas, Chart} from "react-stockcharts";
-import {
-    BarSeries,
-    AreaSeries,
-    CandlestickSeries,
-    LineSeries,
-    MACDSeries,
-} from "react-stockcharts/lib/series";
+import {BarSeries, AreaSeries, LineSeries, MACDSeries} from "react-stockcharts/lib/series";
 import {XAxis, YAxis} from "react-stockcharts/lib/axes";
 import {
     CrossHairCursor,
     EdgeIndicator,
     CurrentCoordinate,
     MouseCoordinateX,
-    MouseCoordinateY,
+    MouseCoordinateY
 } from "react-stockcharts/lib/coordinates";
-
 import {discontinuousTimeScaleProviderBuilder} from "react-stockcharts/lib/scale";
 import {OHLCTooltip, MovingAverageTooltip, MACDTooltip} from "react-stockcharts/lib/tooltip";
 import {ema, sma, macd} from "react-stockcharts/lib/indicator";
@@ -69,6 +60,9 @@ export class CandleStickChartPanToLoadMore extends React.Component {
             })
             .accessor(d => d.ema12);
 
+        const hurstAccessor = (d) => d.hurst;
+        const rickerWaveletAccessor = (d) => d.wavelet.ricker;
+
         const macdCalculator = macd()
             .options({
                 fast: 12,
@@ -101,7 +95,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
 
         const calculatedData = ema26(ema12(macdCalculator(smaVolume50(dataToCalculate))));
         const indexCalculator = discontinuousTimeScaleProviderBuilder().indexCalculator();
-
+        debugger;
         // console.log(inputData.length, dataToCalculate.length, maxWindowSize)
         const {index} = indexCalculator(calculatedData);
         /* SERVER - END */
@@ -178,7 +172,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
     render() {
         const {type, width, ratio} = this.props;
         const {data, ema26, ema12, macdCalculator, smaVolume50, xScale, xAccessor, displayXAccessor} = this.state;
-
+        debugger;
         return (
             <ChartCanvas ratio={ratio} width={width} height={750}
                          margin={{left: 70, right: 70, top: 20, bottom: 30}} type={type}

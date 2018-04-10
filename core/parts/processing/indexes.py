@@ -9,7 +9,7 @@ from core.tools import *
 def hurst(ts):
     # Create the range of lag values
     window_len = 30
-    hurst_ts = np.zeros((0,), dtype=np.int)
+    hurst_ts = np.zeros(30, dtype=np.int)
     for tail in range(window_len, len(ts)):
         lags = range(1, window_len // 2)
         # print(lags)

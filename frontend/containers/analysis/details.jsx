@@ -15,7 +15,6 @@ const IMAGE_HEADER = "data:image/png;base64, ";
 export class Details extends React.Component {
     render() {
         const {dispatch, analysis} = this.props;
-        debugger;
         const waveletDetails = Object.entries(analysis.data.waveletDetails).map(([wavelet,image])=>{
             return (
             <Card className={styles.card}>

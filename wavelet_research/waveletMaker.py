@@ -42,8 +42,8 @@ def flatWaveletTransform(wavelets: dict):
     flattenWavelets = []
 
     for wavelet in wavelets:
-        date, _, power = wavelets[wavelet]
-        flattenWavelets.append([date, flatMatrix(power)])
+        _, _, power = wavelets[wavelet]
+        flattenWavelets.append(flatMatrix(power))
     return dict(zip(wavelets.keys(), flattenWavelets))
 
 
@@ -52,6 +52,7 @@ def flatMatrix(matrix):
     for row in matrix:
         for key, value in enumerate(row):
             vector[key] += value
+    #todo normalize
     return vector
 
 
