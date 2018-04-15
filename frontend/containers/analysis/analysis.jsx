@@ -18,6 +18,7 @@ export class AnalysisContainer extends React.Component {
             <div className={styles.container}>
                 <CandleStickChartPanToLoadMore {...this.props.analysis}/>
                 <Controls {...this.props}/>
+                <Prediction {...this.props}/>
                 <Details {...this.props}/>
             </div>
         );

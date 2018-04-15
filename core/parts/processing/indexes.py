@@ -1,6 +1,6 @@
 import copy
 
-import numpy as np
+import nolds
 from numpy import log, polyfit, sqrt, std, subtract
 
 from core.tools import *
@@ -28,13 +28,28 @@ def hurst(ts):
     return hurst_ts
 
 
+# True = buy, False = sell
+def preparePrediction(data):
+    length = len(data)
+    cut_data = data[(-length // 4):]
+
+    max_elem = max(cut_data)
+    mean_last = np.mean(data[-3:])
+
+    proportion = mean_last / max_elem
+
+    print("Prediction {} ".format(proportion))
+
+    return proportion > 1
+
+
 def prepareHurstIndex(timestamp, value):
     columns = ["date", "value"]
     return dict(zip(columns, [timestamp, hurst(value)]))
 
 
 def calculateHurst(date, x, folder_name):
-    hurst_res = hurst(x)
+    hurst_res = newHurst(x)
     showPlot(date[-len(hurst_res):], hurst_res, folder_name)
 
 
@@ -155,3 +170,14 @@ def ExpMovingAverage(values, window):
     a = np.convolve(values, weights, mode='full')[:len(values)]
     a[:window] = a[window]
     return a
+
+
+def newHurst(ts):
+    # Create the range of lag values
+    window_len = 70
+    hurst_ts = np.zeros(window_len, dtype=np.int)
+    for tail in range(window_len, len(ts)):
+        cur_ts = ts[max(1, tail - window_len):tail]
+
+        hurst_ts = np.append(hurst_ts, nolds.dfa(cur_ts))
+    return hurst_ts

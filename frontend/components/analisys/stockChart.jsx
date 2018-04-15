@@ -232,7 +232,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                 </Chart>
                 <Chart id={2} height={150}
                        yExtents={this.state.hurstAccessor}
-                       origin={(w, h) => [0, h - 800]} padding={{top: 10, bottom: 10}}>
+                       origin={(w, h) => [0, h - 750]} padding={{top: 10, bottom: 10}}>
                     <XAxis axisAt="bottom" orient="bottom"/>
                     <YAxis axisAt="right" orient="right" ticks={2}/>
 
@@ -252,6 +252,8 @@ export class CandleStickChartPanToLoadMore extends React.Component {
 
                 {/*Wavelet Part*/}
 
+                <text x="20" y="600" font-family="sans-serif" font-size="20px" fill="black">DOG</text>
+
                 <Chart id={4} height={150}
                        yExtents={this.state.dogWaveletAccessor}
                        origin={(w, h) => [0, h - 600]} padding={{top: 10, bottom: 10}}>
@@ -269,6 +271,9 @@ export class CandleStickChartPanToLoadMore extends React.Component {
 
                     <SimpleSeries accessor={this.state.dogWaveletAccessor} />
                 </Chart>
+
+                <text x="20" y="750" font-family="sans-serif" font-size="20px" fill="black">Ricker</text>
+
                 <Chart id={5} height={150}
                        yExtents={this.state.rickerWaveletAccessor}
                        origin={(w, h) => [0, h - 400]} padding={{top: 10, bottom: 10}}>
@@ -286,6 +291,9 @@ export class CandleStickChartPanToLoadMore extends React.Component {
 
                     <SimpleSeries accessor={this.state.rickerWaveletAccessor} />
                 </Chart>
+
+                <text x="20" y="900" font-family="sans-serif" font-size="20px" fill="black">Paul</text>
+
                 <Chart id={6} height={150}
                        yExtents={this.state.paulWaveletAccessor}
                        origin={(w, h) => [0, h - 200]} padding={{top: 10, bottom: 10}}>

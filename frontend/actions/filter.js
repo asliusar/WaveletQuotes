@@ -27,6 +27,12 @@ export function changeFrequency(frequency) {
     }
 }
 
+export function resetStockData() {
+    return {
+        type: 'RESET_STOCK_DATA',
+    }
+}
+
 // todo develop it
 export function loadStockDataFailure() {
     return {}
@@ -47,6 +53,7 @@ export function loadList() {
 }
 export function loadStockData(currency, frequency, startDate, endDate) {
     return (dispatch) => {
+        resetStockData();
         return fetchStockData(currency, frequency, startDate, endDate)
             .then(stockData => {
                 dispatch(loadStockDataSuccess(stockData))

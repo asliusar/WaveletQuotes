@@ -3,7 +3,7 @@ import autobind from "autobind-decorator";
 import {connect} from "react-redux";
 import styles from "./css/styles.css";
 import RaisedButton from "material-ui/RaisedButton";
-import {toggleDetails} from "../../actions/analysis";
+import {toggleDetails, togglePrediction} from "../../actions/analysis";
 
 const propTypes = {
     dispatch: React.PropTypes.func.isRequired,
@@ -22,14 +22,24 @@ export class Controls extends React.Component {
         }
     };
 
+    @autobind
+    handlePredictionButtonClicked() {
+        const {dispatch, analysis} = this.props;
+        if (analysis.data.waveletDetails) {
+            dispatch(togglePrediction());
+        }
+    };
+
     render() {
         const classes = [styles.container, styles.control_button].join(" ");
 
         return (
             <div className={classes}>
+                <RaisedButton label="Prediction" primary={true}
+                              onClick={this.handlePredictionButtonClicked}/>
+
                 <RaisedButton label="Wavelet analysis" primary={true}
                               onClick={this.handleWaveletAnalysisButtonClicked}/>
-                {/*<RaisedButton label="Wavelet analysis" primary={true} onClick={this.handleLoadButtonClicked}/>*/}
             </div>
         );
     }
