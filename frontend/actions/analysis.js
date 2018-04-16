@@ -8,8 +8,8 @@ export function toggleDetails() {
     }
 }
 
-export function togglePrediction() {
+export function toggleRecommendations() {
     return {
-        type: 'TOGGLE_WAVELET_PREDICTION'
+        type: 'TOGGLE_RECOMMENDATIONS'
     }
 }

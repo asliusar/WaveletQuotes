@@ -14,9 +14,9 @@ export function analysis(state = new AnalysisData(), action) {
             return Object.assign({}, state, {
                 showDetails: !state.showDetails,
             });
-        case 'TOGGLE_WAVELET_PREDICTION':
+        case 'TOGGLE_RECOMMENDATIONS':
             return Object.assign({}, state, {
-                showPrediction: !state.showPrediction,
+                showRecommendations: !state.showRecommendations,
             });
         default:
             return state;

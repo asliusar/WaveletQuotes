@@ -21,10 +21,11 @@ def analyse(currency, frequency, startDate, endDate):
 
     tsDf = pd.concat([dataFrame, pd.DataFrame(flattenTransforms)], axis=1)
 
-    prediction = preparePrediction(flattenTransforms["Paul"])
+    recommendation = preparePrediction(flattenTransforms["Paul"])
     waveletDetails = collectPlots(transforms)
+
     result = {"timeSeries": json.loads(tsDf.to_json(orient="records", date_format="iso")),
               "waveletDetails": waveletDetails,
-              "prediction": str(prediction).lower()}
+              "prediction": str(recommendation).lower()}
 
     return json.dumps(result)

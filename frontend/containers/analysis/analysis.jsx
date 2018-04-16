@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {CandleStickChartPanToLoadMore} from "../../components/analisys/stockChart";
 import {Controls} from "../../components/analisys/controls";
 import {Details} from "./details";
+import {Recommendations} from "./recommendations";
 import styles from "./css/styles.css";
 
 const propTypes = {
@@ -18,7 +19,7 @@ export class AnalysisContainer extends React.Component {
             <div className={styles.container}>
                 <CandleStickChartPanToLoadMore {...this.props.analysis}/>
                 <Controls {...this.props}/>
-                <Prediction {...this.props}/>
+                <Recommendations {...this.props}/>
                 <Details {...this.props}/>
             </div>
         );
