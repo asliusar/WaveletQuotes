@@ -1,4 +1,5 @@
 import React from "react";
+import Divider from "material-ui/Divider";
 import {connect} from "react-redux";
 import styles from "./css/styles.css";
 
@@ -19,10 +20,12 @@ export class Recommendations extends React.Component {
             <div className={styles.container}>
                 {
                     analysis.showRecommendations &&
-                        <div>
-                            <span>Recommendations: </span>
-                            <span>{operation}</span>
-                        </div>
+                    <div>
+                        <Divider/>
+                        <span className={styles.recommendation_text}>Recommendations: </span>
+                        <span className={styles.recommendation_text}>{operation}</span>
+                        <Divider/>
+                    </div>
                 }
             </div>
         );
