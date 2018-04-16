@@ -34,13 +34,15 @@ def preparePrediction(data):
     cut_data = data[(-length // 4):]
 
     max_elem = max(cut_data)
-    mean_last = np.mean(data[-3:])
-
-    proportion = mean_last / max_elem
+    if max_elem == cut_data[-1]:
+        proportion = 1
+    else:
+        mean_last = np.mean(data[-3:])
+        proportion = mean_last / max_elem
 
     print("Prediction {} ".format(proportion))
 
-    return proportion > 1
+    return proportion >= 1
 
 
 def prepareHurstIndex(timestamp, value):

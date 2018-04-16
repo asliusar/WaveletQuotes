@@ -12,7 +12,19 @@
     font-weight: bold;
 }
 
-.recommendation_text {
+.recommendation_container {
+    margin-top: 10px;
+}
+
+.recommendation_text:first-child {
+    margin-left: 10px;
+}
+
+.recommendation_first_text {
+    margin-left: 10px;
+}
+
+.recommendation_text, .recommendation_first_text {
     color: rgb(0, 188, 212);
     font-size: 30px;
     font-weight: bold;

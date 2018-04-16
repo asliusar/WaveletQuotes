@@ -17,12 +17,12 @@ export class Recommendations extends React.Component {
         let operation = prediction ? "Buy" : "Sell";
 
         return (
-            <div className={styles.container}>
+            <div className={styles.recommendation_container}>
                 {
                     analysis.showRecommendations &&
                     <div>
                         <Divider/>
-                        <span className={styles.recommendation_text}>Recommendations: </span>
+                        <span className={styles.recommendation_first_text}>Recommendations: </span>
                         <span className={styles.recommendation_text}>{operation}</span>
                         <Divider/>
                     </div>
