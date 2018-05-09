@@ -86,6 +86,8 @@ export class CandleStickChartPanToLoadMore extends React.Component {
         const rickerWaveletAccessor = (d) => d.Ricker;
         const paulWaveletAccessor = (d) => d.Paul;
         const dogWaveletAccessor = (d) => d.DOG;
+        const morletWaveletAccessor = (d) => d.Morlet;
+
 
         /* SERVER - START */
         const dataToCalculate = inputData.slice(-LENGTH_TO_SHOW - maxWindowSize);
@@ -116,7 +118,8 @@ export class CandleStickChartPanToLoadMore extends React.Component {
             hurstAccessor,
             rickerWaveletAccessor,
             paulWaveletAccessor,
-            dogWaveletAccessor
+            dogWaveletAccessor,
+            morletWaveletAccessor
         };
         this.handleDownloadMore = this.handleDownloadMore.bind(this);
     }
@@ -232,11 +235,11 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                         />
                     </Chart>
 
-                    <text x="20" y="450" font-family="sans-serif" font-size="20px" fill="black">HURST</text>
+                    <text x="20" y="450" font-family="sans-serif" font-size="20px" fill="black">Fractal dimension</text>
 
                     <Chart id={2} height={150}
                            yExtents={this.state.hurstAccessor}
-                           origin={(w, h) => [0, h - 800]} padding={{top: 10, bottom: 10}}>
+                           origin={(w, h) => [0, h - 775]} padding={{top: 10, bottom: 10}}>
                         <XAxis axisAt="bottom" orient="bottom"/>
                         <YAxis axisAt="right" orient="right" ticks={2}/>
 
@@ -321,7 +324,7 @@ export class CandleStickChartPanToLoadMore extends React.Component {
             );
         else
             return (
-                <ChartCanvas ratio={ratio} width={width} height={500}
+                <ChartCanvas ratio={ratio} width={width} height={700}
                              margin={{left: 70, right: 70, top: 20, bottom: 30}} type={type}
                              seriesName="MSFT"
                              data={data}
@@ -375,6 +378,25 @@ export class CandleStickChartPanToLoadMore extends React.Component {
                                 },
                             ]}
                         />
+                    </Chart>
+                    <text x="20" y="450" font-family="sans-serif" font-size="20px" fill="black">Paul</text>
+
+                    <Chart id={6} height={150}
+                           yExtents={this.state.paulWaveletAccessor}
+                           origin={(w, h) => [0, h - 200]} padding={{top: 10, bottom: 10}}>
+                        <XAxis axisAt="bottom" orient="bottom"/>
+                        <YAxis axisAt="right" orient="right" ticks={2}/>
+
+                        <MouseCoordinateX
+                            at="bottom"
+                            orient="bottom"
+                            displayFormat={timeFormat("%Y-%m-%d")}/>
+                        <MouseCoordinateY
+                            at="right"
+                            orient="right"
+                            displayFormat={format(".2f")}/>
+
+                        <SimpleSeries accessor={this.state.paulWaveletAccessor}/>
                     </Chart>
                     <CrossHairCursor />
                 </ChartCanvas>

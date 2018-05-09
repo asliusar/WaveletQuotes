@@ -3,6 +3,7 @@ import copy
 import nolds
 from numpy import log, polyfit, sqrt, std, subtract
 
+from core.parts.processing.prediction import predictNextValue
 from core.tools import *
 
 
@@ -34,11 +35,11 @@ def preparePrediction(data):
     cut_data = data[(-length // 4):]
 
     max_elem = max(cut_data)
-    if max_elem == cut_data[-1]:
+    prediction = predictNextValue(cut_data)
+    if max_elem == prediction:
         proportion = 1
     else:
-        mean_last = np.mean(data[-3:])
-        proportion = mean_last / max_elem
+        proportion = prediction / max_elem
 
     print("Prediction {} ".format(proportion))
 
@@ -47,7 +48,7 @@ def preparePrediction(data):
 
 def prepareHurstIndex(timestamp, value):
     columns = ["date", "value"]
-    return dict(zip(columns, [timestamp, hurst(value)]))
+    return dict(zip(columns, [timestamp, newHurst(value)]))
 
 
 def calculateHurst(date, x, folder_name):
